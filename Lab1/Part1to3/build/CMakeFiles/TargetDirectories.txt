@@ -1,0 +1,2 @@
+/home/matthew/csc232_lab/Lab1/Part1to3/build/CMakeFiles/ros_publisher.dir
+/home/matthew/csc232_lab/Lab1/Part1to3/build/CMakeFiles/ros_subscriber.dir

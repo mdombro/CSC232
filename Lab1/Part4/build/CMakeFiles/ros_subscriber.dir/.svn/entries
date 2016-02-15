@@ -1,0 +1,98 @@
+10
+
+dir
+0
+svn+ssh://mdombros@cycle1.csug.rochester.edu/home/hoover/u2/mdombros/csc232_lab/Lab1/Part4/build/CMakeFiles/ros_subscriber.dir
+svn+ssh://mdombros@cycle1.csug.rochester.edu/home/hoover/u2/mdombros/csc232_lab
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ba93eda1-40f6-4d30-ae55-bd6a4a915fdc
+
+cmake_clean.cmake
+file
+
+
+
+add
+
+flags.make
+file
+
+
+
+add
+
+CXX.includecache
+file
+
+
+
+add
+
+C.includecache
+file
+
+
+
+add
+
+DependInfo.cmake
+file
+
+
+
+add
+
+depend.internal
+file
+
+
+
+add
+
+link.txt
+file
+
+
+
+add
+
+build.make
+file
+
+
+
+add
+
+depend.make
+file
+
+
+
+add
+
+progress.make
+file
+
+
+
+add
+

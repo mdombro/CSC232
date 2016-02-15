@@ -1,0 +1,2 @@
+/tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles/ros_publisher.dir
+/tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles/ros_subscriber.dir

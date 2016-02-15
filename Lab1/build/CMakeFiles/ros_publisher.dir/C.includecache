@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/tmp/guest-U65Q5I/csc232_lab/build/ros_publisher_cmdline.c
+config.h
+/tmp/guest-U65Q5I/csc232_lab/build/config.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+getopt.h
+-
+ros_publisher_cmdline.h
+/tmp/guest-U65Q5I/csc232_lab/build/ros_publisher_cmdline.h
+
+/tmp/guest-U65Q5I/csc232_lab/build/ros_publisher_cmdline.h
+config.h
+/tmp/guest-U65Q5I/csc232_lab/build/config.h
+stdio.h
+-
+
