@@ -1,2 +1,2 @@
-/home/matthew/csc232_lab/Lab2/build/CMakeFiles/naviSub.dir
-/home/matthew/csc232_lab/Lab2/build/CMakeFiles/odomPub.dir
+/home/matthew/CSC232/Lab2/build/CMakeFiles/naviSub.dir
+/home/matthew/CSC232/Lab2/build/CMakeFiles/odomPub.dir

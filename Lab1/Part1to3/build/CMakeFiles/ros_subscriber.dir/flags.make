@@ -3,11 +3,11 @@
 
 # compile C with /usr/bin/gcc
 # compile CXX with /usr/bin/c++
-C_FLAGS = -I/opt/ros/hydro/include -I/home/matthew/csc232_lab/Lab1/Part1to3/build   
+C_FLAGS = -I/opt/ros/hydro/include -I/home/matthew/CSC232/Lab1/Part1to3/build   
 
 C_DEFINES = 
 
-CXX_FLAGS = -I/opt/ros/hydro/include -I/home/matthew/csc232_lab/Lab1/Part1to3/build   
+CXX_FLAGS = -I/opt/ros/hydro/include -I/home/matthew/CSC232/Lab1/Part1to3/build   
 
 CXX_DEFINES = 
 

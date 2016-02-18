@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/tmp/guest-U65Q5I/csc232_lab/build/ros_publisher_cmdline.c
+/home/matthew/CSC232/Lab1/build/ros_publisher_cmdline.c
 config.h
-/tmp/guest-U65Q5I/csc232_lab/build/config.h
+/home/matthew/CSC232/Lab1/build/config.h
 stdio.h
 -
 stdlib.h
@@ -18,11 +18,11 @@ string.h
 getopt.h
 -
 ros_publisher_cmdline.h
-/tmp/guest-U65Q5I/csc232_lab/build/ros_publisher_cmdline.h
+/home/matthew/CSC232/Lab1/build/ros_publisher_cmdline.h
 
-/tmp/guest-U65Q5I/csc232_lab/build/ros_publisher_cmdline.h
+/home/matthew/CSC232/Lab1/build/ros_publisher_cmdline.h
 config.h
-/tmp/guest-U65Q5I/csc232_lab/build/config.h
+/home/matthew/CSC232/Lab1/build/config.h
 stdio.h
 -
 

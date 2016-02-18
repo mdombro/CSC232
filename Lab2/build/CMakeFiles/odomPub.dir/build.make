@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matthew/csc232_lab/Lab2
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matthew/csc232_lab/Lab2/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab2/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/odomPub.dir/depend.make
@@ -48,17 +48,17 @@ include CMakeFiles/odomPub.dir/flags.make
 
 CMakeFiles/odomPub.dir/odomPub.cpp.o: CMakeFiles/odomPub.dir/flags.make
 CMakeFiles/odomPub.dir/odomPub.cpp.o: ../odomPub.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/csc232_lab/Lab2/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab2/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/odomPub.dir/odomPub.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/odomPub.dir/odomPub.cpp.o -c /home/matthew/csc232_lab/Lab2/odomPub.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/odomPub.dir/odomPub.cpp.o -c /home/matthew/CSC232/Lab2/odomPub.cpp
 
 CMakeFiles/odomPub.dir/odomPub.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/odomPub.dir/odomPub.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/csc232_lab/Lab2/odomPub.cpp > CMakeFiles/odomPub.dir/odomPub.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab2/odomPub.cpp > CMakeFiles/odomPub.dir/odomPub.cpp.i
 
 CMakeFiles/odomPub.dir/odomPub.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/odomPub.dir/odomPub.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/csc232_lab/Lab2/odomPub.cpp -o CMakeFiles/odomPub.dir/odomPub.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab2/odomPub.cpp -o CMakeFiles/odomPub.dir/odomPub.cpp.s
 
 CMakeFiles/odomPub.dir/odomPub.cpp.o.requires:
 .PHONY : CMakeFiles/odomPub.dir/odomPub.cpp.o.requires
@@ -71,17 +71,17 @@ CMakeFiles/odomPub.dir/odomPub.cpp.o.provides.build: CMakeFiles/odomPub.dir/odom
 
 CMakeFiles/odomPub.dir/odomPub_cmdline.c.o: CMakeFiles/odomPub.dir/flags.make
 CMakeFiles/odomPub.dir/odomPub_cmdline.c.o: odomPub_cmdline.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/csc232_lab/Lab2/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab2/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/odomPub.dir/odomPub_cmdline.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/odomPub.dir/odomPub_cmdline.c.o   -c /home/matthew/csc232_lab/Lab2/build/odomPub_cmdline.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/odomPub.dir/odomPub_cmdline.c.o   -c /home/matthew/CSC232/Lab2/build/odomPub_cmdline.c
 
 CMakeFiles/odomPub.dir/odomPub_cmdline.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/odomPub.dir/odomPub_cmdline.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/csc232_lab/Lab2/build/odomPub_cmdline.c > CMakeFiles/odomPub.dir/odomPub_cmdline.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab2/build/odomPub_cmdline.c > CMakeFiles/odomPub.dir/odomPub_cmdline.c.i
 
 CMakeFiles/odomPub.dir/odomPub_cmdline.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/odomPub.dir/odomPub_cmdline.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/csc232_lab/Lab2/build/odomPub_cmdline.c -o CMakeFiles/odomPub.dir/odomPub_cmdline.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab2/build/odomPub_cmdline.c -o CMakeFiles/odomPub.dir/odomPub_cmdline.c.s
 
 CMakeFiles/odomPub.dir/odomPub_cmdline.c.o.requires:
 .PHONY : CMakeFiles/odomPub.dir/odomPub_cmdline.c.o.requires
@@ -358,6 +358,6 @@ CMakeFiles/odomPub.dir/clean:
 .PHONY : CMakeFiles/odomPub.dir/clean
 
 CMakeFiles/odomPub.dir/depend:
-	cd /home/matthew/csc232_lab/Lab2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/csc232_lab/Lab2 /home/matthew/csc232_lab/Lab2 /home/matthew/csc232_lab/Lab2/build /home/matthew/csc232_lab/Lab2/build /home/matthew/csc232_lab/Lab2/build/CMakeFiles/odomPub.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/matthew/CSC232/Lab2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab2 /home/matthew/CSC232/Lab2 /home/matthew/CSC232/Lab2/build /home/matthew/CSC232/Lab2/build /home/matthew/CSC232/Lab2/build/CMakeFiles/odomPub.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/odomPub.dir/depend
 

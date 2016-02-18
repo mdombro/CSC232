@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/csc232_lab/Lab1/Part1to3/ros_subscriber.cpp
+/home/matthew/CSC232/Lab1/Part1to3/ros_subscriber.cpp
 iostream
 -
 ros/ros.h
 -
 nav_msgs/Odometry.h
-/home/matthew/csc232_lab/Lab1/Part1to3/nav_msgs/Odometry.h
+/home/matthew/CSC232/Lab1/Part1to3/nav_msgs/Odometry.h
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h

@@ -35,14 +35,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/guest-U65Q5I/csc232_lab
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/guest-U65Q5I/csc232_lab/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab1/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,6 +76,16 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
+
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -100,9 +107,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab1/build/CMakeFiles /home/matthew/CSC232/Lab1/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab1/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,11 +149,6 @@ ros_publisher/fast:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
 .PHONY : ros_publisher/fast
 
-# Manual pre-install relink rule for target.
-ros_publisher/preinstall:
-	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/preinstall
-.PHONY : ros_publisher/preinstall
-
 #=============================================================================
 # Target rules for targets named ros_subscriber
 
@@ -159,11 +161,6 @@ ros_subscriber: cmake_check_build_system
 ros_subscriber/fast:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
 .PHONY : ros_subscriber/fast
-
-# Manual pre-install relink rule for target.
-ros_subscriber/preinstall:
-	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/preinstall
-.PHONY : ros_subscriber/preinstall
 
 ros_publisher.o: ros_publisher.cpp.o
 .PHONY : ros_publisher.o
@@ -270,6 +267,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... ros_publisher"

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/csc232_lab/Lab2/odomPub.cpp
+/home/matthew/CSC232/Lab2/odomPub.cpp
 iostream
 -
 ros/ros.h
@@ -14,11 +14,11 @@ ros/ros.h
 math.h
 -
 nav_msgs/Odometry.h
-/home/matthew/csc232_lab/Lab2/nav_msgs/Odometry.h
+/home/matthew/CSC232/Lab2/nav_msgs/Odometry.h
 geometry_msgs/Twist.h
-/home/matthew/csc232_lab/Lab2/geometry_msgs/Twist.h
+/home/matthew/CSC232/Lab2/geometry_msgs/Twist.h
 odomPub_cmdline.h
-/home/matthew/csc232_lab/Lab2/odomPub_cmdline.h
+/home/matthew/CSC232/Lab2/odomPub_cmdline.h
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h

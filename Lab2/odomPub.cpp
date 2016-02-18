@@ -98,15 +98,14 @@ void sampleMotionModel(float command[], float commandReal[], float pose[], float
     // assuming pose is [x y theta]
     float velRatio = commandReal[0]/commandReal[1];
     cout << commandReal[1] << endl;
+    pose[2] = pose[2] + (commandReal[1]*timeInc)+gammaHat*timeInc;
     if (commandReal[1] > 0.00000000000000000000001) {
         pose[0] = pose[0] - velRatio*sin(pose[2]) + (velRatio)*sin(pose[2]+commandReal[1]*timeInc);
         pose[1] = pose[1] + velRatio*cos(pose[2]) - (velRatio)*cos(pose[2]+commandReal[1]*timeInc);
-        pose[2] = pose[2] + (commandReal[1]*timeInc)+gammaHat*timeInc;
     }
     else {
         // Applying L'Hopitals rule to the velocity equations as omega becomes close to 0
         pose[0] = pose[0] + commandReal[0]*(timeInc*cos(pose[2]+commandReal[1]*timeInc));
         pose[1] = pose[1] + commandReal[0]*(timeInc*sin(pose[2]+commandReal[1]*timeInc));
-        pose[2] = pose[2] + (commandReal[1]*timeInc)+gammaHat*timeInc;
     }
 }

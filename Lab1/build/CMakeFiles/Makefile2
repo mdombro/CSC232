@@ -43,14 +43,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/guest-U65Q5I/csc232_lab
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/guest-U65Q5I/csc232_lab/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab1/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/ros_publisher.dir
@@ -59,7 +56,7 @@ CMAKE_BINARY_DIR = /tmp/guest-U65Q5I/csc232_lab/build
 CMakeFiles/ros_publisher.dir/all:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/depend
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles  1 2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab1/build/CMakeFiles  1 2
 	@echo "Built target ros_publisher"
 .PHONY : CMakeFiles/ros_publisher.dir/all
 
@@ -69,23 +66,14 @@ all: CMakeFiles/ros_publisher.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ros_publisher.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab1/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ros_publisher.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab1/build/CMakeFiles 0
 .PHONY : CMakeFiles/ros_publisher.dir/rule
 
 # Convenience name for target.
 ros_publisher: CMakeFiles/ros_publisher.dir/rule
 .PHONY : ros_publisher
-
-# Pre-install relink rule for target.
-CMakeFiles/ros_publisher.dir/preinstall:
-	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/preinstall
-.PHONY : CMakeFiles/ros_publisher.dir/preinstall
-
-# Prepare target for install.
-preinstall: CMakeFiles/ros_publisher.dir/preinstall
-.PHONY : preinstall
 
 # clean rule for target.
 CMakeFiles/ros_publisher.dir/clean:
@@ -103,7 +91,7 @@ clean: CMakeFiles/ros_publisher.dir/clean
 CMakeFiles/ros_subscriber.dir/all:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/depend
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles  3 4
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab1/build/CMakeFiles  3 4
 	@echo "Built target ros_subscriber"
 .PHONY : CMakeFiles/ros_subscriber.dir/all
 
@@ -113,23 +101,14 @@ all: CMakeFiles/ros_subscriber.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ros_subscriber.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab1/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ros_subscriber.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-U65Q5I/csc232_lab/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab1/build/CMakeFiles 0
 .PHONY : CMakeFiles/ros_subscriber.dir/rule
 
 # Convenience name for target.
 ros_subscriber: CMakeFiles/ros_subscriber.dir/rule
 .PHONY : ros_subscriber
-
-# Pre-install relink rule for target.
-CMakeFiles/ros_subscriber.dir/preinstall:
-	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/preinstall
-.PHONY : CMakeFiles/ros_subscriber.dir/preinstall
-
-# Prepare target for install.
-preinstall: CMakeFiles/ros_subscriber.dir/preinstall
-.PHONY : preinstall
 
 # clean rule for target.
 CMakeFiles/ros_subscriber.dir/clean:
