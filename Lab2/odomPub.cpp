@@ -65,15 +65,19 @@ void yawToQuaternion(float yaw, float quaternion[]) {
     float r12 = -sin(yaw);
     float r21 = sin(yaw);
     float r22 = cos(yaw);
-    quaternion[0] = 0.5*sqrt(r11+r22+2); // normalizer
-    quaternion[1] = 0.5*sqrt(r11-r22);
-    quaternion[2] = 0.5*sqrt(r22-r11);
-    if (r21-r12 >= 0) {
-        quaternion[3] = 0.5*sqrt(-r11-r22+2);
-    }
-    else {
-        quaternion[3] = -0.5*sqrt(-r11-r22+2);
-    }
+    // quaternion[0] = 0.5*sqrt(r11+r22+2); // normalizer
+    // quaternion[1] = 0.5*sqrt(r11-r22);
+    // quaternion[2] = 0.5*sqrt(r22-r11);
+    // if (r21-r12 >= 0) {
+    //     quaternion[3] = 0.5*sqrt(-r11-r22+2);
+    // }
+    // else {
+    //     quaternion[3] = -0.5*sqrt(-r11-r22+2);
+    // }
+    quaternion[0] = cos(yaw/2);
+    quaternion[1] = 0;
+    quaternion[2] = 0;
+    quaternion[3] = sin(yaw/2);
 }
 
 float sampleDistribution(float val) {
