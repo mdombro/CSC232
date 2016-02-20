@@ -74,19 +74,6 @@ int main(int argc, char* argv[]) {
 }
 
 void yawToQuaternion(float yaw, float quaternion[]) {
-    // float r11 = cos(yaw);
-    // float r12 = -1.0*sin(yaw);
-    // float r21 = sin(yaw);
-    // float r22 = cos(yaw);
-    // quaternion[0] = 0.5*sqrt(r11+r22+2); // normalizer
-    // quaternion[1] = 0; //0.5*sqrt(r11-r22);
-    // quaternion[2] = 0; //0.5*sqrt(r22-r11);
-    // if (r21-r12 >= 0) {
-    //     quaternion[3] = 0.5*sqrt(-r11-r22+2);
-    // }
-    // else {
-    //     quaternion[3] = -0.5*sqrt(-r11-r22+2);
-    // }
     quaternion[0] = cos(yaw/2);
     quaternion[1] = 0;
     quaternion[2] = 0;
@@ -110,7 +97,6 @@ void sampleMotionModel(float command[], float commandReal[], float pose[], float
     float gammaHat = sampleDistribution(coeffs[4]*pow(command[0],2)+coeffs[5]*pow(command[1],2));
     // assuming pose is [x y theta]
     float velRatio = commandReal[0]/commandReal[1];
-    cout << "X: " << pose[0] << "  Y: " << pose[1] << " Yaw: " << pose[2] << endl;
     pose[2] = pose[2] + (commandReal[1]*timeInc)+gammaHat*timeInc;
     if (pose[2] > M_PI) {
         pose[2] -= 2*M_PI;

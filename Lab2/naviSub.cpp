@@ -27,8 +27,6 @@ int main(int argc, char** argv) {
 
 	Rate loop_rate(10);
 	while (ros::ok()) {
-		cout << Duration(Time::now().toSec() - last.toSec()).toSec() << endl;
-
 		// If navi commands were previously recieved and now have stopped being recieved
 		// reset the command velocities to 0 and start listening for new commands
 		if (Duration(Time::now().toSec() - last.toSec()).toSec() > 0.15 && go == true) {
