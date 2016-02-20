@@ -162,6 +162,32 @@ odomPub/fast:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/build
 .PHONY : odomPub/fast
 
+#=============================================================================
+# Target rules for targets named ros_publisher
+
+# Build rule for target.
+ros_publisher: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ros_publisher
+.PHONY : ros_publisher
+
+# fast build rule for target.
+ros_publisher/fast:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
+.PHONY : ros_publisher/fast
+
+#=============================================================================
+# Target rules for targets named ros_subscriber
+
+# Build rule for target.
+ros_subscriber: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ros_subscriber
+.PHONY : ros_subscriber
+
+# fast build rule for target.
+ros_subscriber/fast:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
+.PHONY : ros_subscriber/fast
+
 naviSub.o: naviSub.cpp.o
 .PHONY : naviSub.o
 
@@ -258,6 +284,102 @@ odomPub_cmdline.c.s:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/odomPub_cmdline.c.s
 .PHONY : odomPub_cmdline.c.s
 
+ros_publisher.o: ros_publisher.cpp.o
+.PHONY : ros_publisher.o
+
+# target to build an object file
+ros_publisher.cpp.o:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o
+.PHONY : ros_publisher.cpp.o
+
+ros_publisher.i: ros_publisher.cpp.i
+.PHONY : ros_publisher.i
+
+# target to preprocess a source file
+ros_publisher.cpp.i:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/ros_publisher.cpp.i
+.PHONY : ros_publisher.cpp.i
+
+ros_publisher.s: ros_publisher.cpp.s
+.PHONY : ros_publisher.s
+
+# target to generate assembly for a file
+ros_publisher.cpp.s:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/ros_publisher.cpp.s
+.PHONY : ros_publisher.cpp.s
+
+ros_publisher_cmdline.o: ros_publisher_cmdline.c.o
+.PHONY : ros_publisher_cmdline.o
+
+# target to build an object file
+ros_publisher_cmdline.c.o:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o
+.PHONY : ros_publisher_cmdline.c.o
+
+ros_publisher_cmdline.i: ros_publisher_cmdline.c.i
+.PHONY : ros_publisher_cmdline.i
+
+# target to preprocess a source file
+ros_publisher_cmdline.c.i:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.i
+.PHONY : ros_publisher_cmdline.c.i
+
+ros_publisher_cmdline.s: ros_publisher_cmdline.c.s
+.PHONY : ros_publisher_cmdline.s
+
+# target to generate assembly for a file
+ros_publisher_cmdline.c.s:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.s
+.PHONY : ros_publisher_cmdline.c.s
+
+ros_subscriber.o: ros_subscriber.cpp.o
+.PHONY : ros_subscriber.o
+
+# target to build an object file
+ros_subscriber.cpp.o:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o
+.PHONY : ros_subscriber.cpp.o
+
+ros_subscriber.i: ros_subscriber.cpp.i
+.PHONY : ros_subscriber.i
+
+# target to preprocess a source file
+ros_subscriber.cpp.i:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.i
+.PHONY : ros_subscriber.cpp.i
+
+ros_subscriber.s: ros_subscriber.cpp.s
+.PHONY : ros_subscriber.s
+
+# target to generate assembly for a file
+ros_subscriber.cpp.s:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.s
+.PHONY : ros_subscriber.cpp.s
+
+ros_subscriber_cmdline.o: ros_subscriber_cmdline.c.o
+.PHONY : ros_subscriber_cmdline.o
+
+# target to build an object file
+ros_subscriber_cmdline.c.o:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/ros_subscriber_cmdline.c.o
+.PHONY : ros_subscriber_cmdline.c.o
+
+ros_subscriber_cmdline.i: ros_subscriber_cmdline.c.i
+.PHONY : ros_subscriber_cmdline.i
+
+# target to preprocess a source file
+ros_subscriber_cmdline.c.i:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/ros_subscriber_cmdline.c.i
+.PHONY : ros_subscriber_cmdline.c.i
+
+ros_subscriber_cmdline.s: ros_subscriber_cmdline.c.s
+.PHONY : ros_subscriber_cmdline.s
+
+# target to generate assembly for a file
+ros_subscriber_cmdline.c.s:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/ros_subscriber_cmdline.c.s
+.PHONY : ros_subscriber_cmdline.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -272,6 +394,8 @@ help:
 	@echo "... naviSub"
 	@echo "... odomPub"
 	@echo "... rebuild_cache"
+	@echo "... ros_publisher"
+	@echo "... ros_subscriber"
 	@echo "... naviSub.o"
 	@echo "... naviSub.i"
 	@echo "... naviSub.s"
@@ -284,6 +408,18 @@ help:
 	@echo "... odomPub_cmdline.o"
 	@echo "... odomPub_cmdline.i"
 	@echo "... odomPub_cmdline.s"
+	@echo "... ros_publisher.o"
+	@echo "... ros_publisher.i"
+	@echo "... ros_publisher.s"
+	@echo "... ros_publisher_cmdline.o"
+	@echo "... ros_publisher_cmdline.i"
+	@echo "... ros_publisher_cmdline.s"
+	@echo "... ros_subscriber.o"
+	@echo "... ros_subscriber.i"
+	@echo "... ros_subscriber.s"
+	@echo "... ros_subscriber_cmdline.o"
+	@echo "... ros_subscriber_cmdline.i"
+	@echo "... ros_subscriber_cmdline.s"
 .PHONY : help
 
 

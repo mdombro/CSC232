@@ -62,12 +62,12 @@ int main(int argc, char* argv[]) {
 
 void yawToQuaternion(float yaw, float quaternion[]) {
     float r11 = cos(yaw);
-    float r12 = -sin(yaw);
+    float r12 = -1.0*sin(yaw);
     float r21 = sin(yaw);
     float r22 = cos(yaw);
     // quaternion[0] = 0.5*sqrt(r11+r22+2); // normalizer
-    // quaternion[1] = 0.5*sqrt(r11-r22);
-    // quaternion[2] = 0.5*sqrt(r22-r11);
+    // quaternion[1] = 0; //0.5*sqrt(r11-r22);
+    // quaternion[2] = 0; //0.5*sqrt(r22-r11);
     // if (r21-r12 >= 0) {
     //     quaternion[3] = 0.5*sqrt(-r11-r22+2);
     // }
@@ -97,8 +97,14 @@ void sampleMotionModel(float command[], float commandReal[], float pose[], float
     float gammaHat = sampleDistribution(coeffs[4]*pow(command[0],2)+coeffs[5]*pow(command[1],2));
     // assuming pose is [x y theta]
     float velRatio = commandReal[0]/commandReal[1];
-    cout << commandReal[1] << endl;
+    cout << pose[2] << endl;
     pose[2] = pose[2] + (commandReal[1]*timeInc)+gammaHat*timeInc;
+    if (pose[2] > M_PI) {
+        pose[2] -= 2*M_PI;
+    }
+    else if (pose[2] < -M_PI) {
+        pose[2] += 2*M_PI;
+    }
     if (commandReal[1] > 0.00000000000000000000001) {
         pose[0] = pose[0] - velRatio*sin(pose[2]) + (velRatio)*sin(pose[2]+commandReal[1]*timeInc);
         pose[1] = pose[1] + velRatio*cos(pose[2]) - (velRatio)*cos(pose[2]+commandReal[1]*timeInc);
