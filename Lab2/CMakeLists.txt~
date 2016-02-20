@@ -18,10 +18,16 @@ include_directories(${ROS_INCLUDE_DIR} ${PROJECT_BINARY_DIR})
 file(GLOB ROS_LIBRARIES "${ROS_PATH_PREFIX}/lib/*.so*")
 add_executable(odomPub odomPub.cpp ${CMAKE_CURRENT_BINARY_DIR}/odomPub_cmdline.c)
 add_executable(naviSub naviSub.cpp ${CMAKE_CURRENT_BINARY_DIR}/naviSub_cmdline.c)
+add_executable(ros_publisher ros_publisher.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_publisher_cmdline.c)
+add_executable(ros_subscriber ros_subscriber.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_subscriber_cmdline.c)
 
 target_link_libraries(odomPub ${ROS_LIBRARIES})
 target_link_libraries(naviSub ${ROS_LIBRARIES})
+target_link_libraries(ros_publisher ${ROS_LIBRARIES})
+target_link_libraries(ros_subscriber ${ROS_LIBRARIES})
 
 install(TARGETS odomPub DESTINATION bin)
 install(TARGETS naviSub DESTINATION bin)
+install(TARGETS ros_publisher DESTINATION bin)
+install(TARGETS ros_subscriber DESTINATION bin)
 

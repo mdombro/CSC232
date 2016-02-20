@@ -2,14 +2,18 @@
 #include <ros/ros.h>
 #include <math.h>
 #include "nav_msgs/Odometry.h"
+#include "std_msgs/Empty.h"
 #include "geometry_msgs/Twist.h"
 #include "odomPub_cmdline.h"
+
 
 
 using namespace ros;
 using namespace std;
 
 float command[2];  //to come from navi sub
+float quaternion[4];
+float pose[3] = {0}; // formatted as [x y yaw]
 
 void yawToQuaternion(float yaw, float quaternion[]);
 float sampleDistribution(float val);
@@ -18,6 +22,16 @@ void sampleMotionModel(float command[], float commandReal[], float pose[], float
 void cmmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
     command[0] = msg->linear.x;
     command[1] = msg->angular.z;
+}
+
+void reset(const std_msgs::Empty::ConstPtr& msg) {
+    pose[0] = 0;
+    pose[1] = 0;
+    pose[2] = 0;
+    quaternion[0] = 1;
+    quaternion[1] = 0;
+    quaternion[2] = 0;
+    quaternion[3] = 0;
 }
 
 int main(int argc, char* argv[]) {
@@ -31,8 +45,6 @@ int main(int argc, char* argv[]) {
     coeffs[4] = args.a5_arg;
     coeffs[5] = args.a6_arg;
 
-    float quaternion[4];
-    float pose[3] = {0}; // formatted as [x y yaw]
     float commandReal[2];
 
     init(argc, argv, "Odom");
@@ -40,6 +52,7 @@ int main(int argc, char* argv[]) {
     NodeHandle n;
     Publisher pub = n.advertise<nav_msgs::Odometry>("odom", 1);
     Subscriber sub = n.subscribe("navi", 1000, cmmdUpdate);  // update the command velocities
+    Subscriber rst = n.subscribe("/mobile_base/commands/reset_odometry", 1000, reset);
     ros::Duration(1.3).sleep();
     ros::Rate loop_rate(10);
     while (ros::ok()) {
@@ -61,10 +74,10 @@ int main(int argc, char* argv[]) {
 }
 
 void yawToQuaternion(float yaw, float quaternion[]) {
-    float r11 = cos(yaw);
-    float r12 = -1.0*sin(yaw);
-    float r21 = sin(yaw);
-    float r22 = cos(yaw);
+    // float r11 = cos(yaw);
+    // float r12 = -1.0*sin(yaw);
+    // float r21 = sin(yaw);
+    // float r22 = cos(yaw);
     // quaternion[0] = 0.5*sqrt(r11+r22+2); // normalizer
     // quaternion[1] = 0; //0.5*sqrt(r11-r22);
     // quaternion[2] = 0; //0.5*sqrt(r22-r11);
@@ -97,7 +110,7 @@ void sampleMotionModel(float command[], float commandReal[], float pose[], float
     float gammaHat = sampleDistribution(coeffs[4]*pow(command[0],2)+coeffs[5]*pow(command[1],2));
     // assuming pose is [x y theta]
     float velRatio = commandReal[0]/commandReal[1];
-    cout << pose[2] << endl;
+    cout << "X: " << pose[0] << "  Y: " << pose[1] << " Yaw: " << pose[2] << endl;
     pose[2] = pose[2] + (commandReal[1]*timeInc)+gammaHat*timeInc;
     if (pose[2] > M_PI) {
         pose[2] -= 2*M_PI;

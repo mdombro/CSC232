@@ -11,7 +11,7 @@ execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_publishe
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_subscriber.ggo --file-name ros_subscriber_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
-set(ROS_PATH_PREFIX /opt/ros/hydro)
+set(ROS_PATH_PREFIX /opt/ros/indigo)
 find_path(ROS_INCLUDE_DIR NAMES ros/ros.h HINTS CMAKE_INSTALL_PREFIX/include)
 
 include_directories(${ROS_INCLUDE_DIR} ${PROJECT_BINARY_DIR})
