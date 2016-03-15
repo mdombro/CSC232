@@ -2,6 +2,7 @@
 #include <ros/ros.h>
 #include <math.h>
 #include "nav_msgs/Odometry.h"
+#include "sensor_msgs/LaserScan.h"
 #include "std_msgs/Empty.h"
 #include "geometry_msgs/Twist.h"
 #include "odomPub_cmdline.h"
@@ -18,12 +19,18 @@ float pose[3] = {0}; // formatted as [x y yaw]
 void yawToQuaternion(float yaw, float quaternion[]);
 float sampleDistribution(float val);
 void sampleMotionModel(float command[], float commandReal[], float pose[], float coeffs[], float timeInc);
+void calcTrueDistance(float trueDistances[], int numBeams);
+void calcNoisyDistance(float noisyDistances[], float trueDistances[], float sigmaHitm, int numBeams);
 
 // Laser Scan variables
 float sigmaHit;
 float angleMin;
 float angleMax;
-float angleIncrement = 0.02454; // increment in radians
+float angleIncrement;
+int numBeams;
+float dCone = 1.0;
+float dWall = 2.0;
+float rCone = 0.1;
 
 void cmmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
     command[0] = msg->linear.x;
@@ -50,17 +57,23 @@ int main(int argc, char* argv[]) {
     coeffs[3] = args.a4_arg;
     coeffs[4] = args.a5_arg;
     coeffs[5] = args.a6_arg;
-    sigmaHit = arge.sigma_arg;
+    sigmaHit = args.sigma_arg;
     angleMin = args.angleMin_arg;
     angleMax = args.angleMax_arg;
+    angleIncrement = (angleMax-angleMin)/args.numBeams_arg;
+    numBeams = args.numBeams_arg;
+    float trueDistances[numBeams];
+    calcTrueDistance(trueDistances, numBeams);
+    float noisyDistances[numBeams];
 
     float commandReal[2];
 
     init(argc, argv, "Odom");
     nav_msgs::Odometry msg;
+    sensor_msgs::LaserScan msg2;
     NodeHandle n;
     Publisher pub = n.advertise<nav_msgs::Odometry>("odom", 1);
-    Publisher las = n.advertise<sensor_msgs::LaserScan>("lasers");
+    Publisher las = n.advertise<sensor_msgs::LaserScan>("/scan", 1);
     Subscriber sub = n.subscribe("navi", 1000, cmmdUpdate);  // update the command velocities
     Subscriber rst = n.subscribe("/mobile_base/commands/reset_odometry", 1000, reset);
     ros::Duration(1.3).sleep();
@@ -76,8 +89,23 @@ int main(int argc, char* argv[]) {
         msg.pose.pose.orientation.z = quaternion[3];
         msg.twist.twist.linear.x = commandReal[0];
         msg.twist.twist.angular.z = commandReal[1];
+
+        // Laser scanning section
+        calcNoisyDistance(noisyDistances, trueDistances, sigmaHit, numBeams);
+        msg2.angle_max = angleMax;
+        msg2.angle_min = angleMin;
+        msg2.time_increment = 0;
+        msg2.scan_time = 0.1;
+        msg2.range_min = 0;
+        msg2.range_max = 100;
+        msg2.ranges.resize(numBeams);
+        for (int i = 0; i < numBeams; i++) {
+            msg2.ranges[i] = noisyDistances[i];
+        }
+
         ros::spinOnce();
         pub.publish(msg);
+        las.publish(msg2);
         loop_rate.sleep();
     }
     return 0;
@@ -98,6 +126,26 @@ float sampleDistribution(float val) {
     }
     sample *= 0.5;
     return sample;
+}
+
+void calcTrueDistance(float trueDistances[], int numBeams) {
+    float angle = angleMin;
+    for (int i = 0; i < numBeams; i++) {
+        if (angle < atan(rCone) && angle > atan(rCone)) {
+            trueDistances[i] = dWall/sin((M_PI/2) - angle);
+        }
+        else {
+            float b = asin(sin(angle)/rCone);
+            float c = M_PI - angle - b;
+            trueDistances[i] = -(sin(c)/sin(b))+4.0;
+        }
+    }
+}
+
+void calcNoisyDistance(float noisyDistances[], float trueDistances[], float sigmaHitm, int numBeams) {
+    for (int i = 0; i < numBeams; i++) {
+        noisyDistances[i] = trueDistances[i] + sampleDistribution(pow(sigmaHit,2));
+    }
 }
 
 void sampleMotionModel(float command[], float commandReal[], float pose[], float coeffs[], float timeInc) {
