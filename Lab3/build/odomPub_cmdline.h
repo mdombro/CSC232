@@ -60,10 +60,10 @@ struct gengetopt_args_info
   double sigma_arg;	/**< @brief v (default='0').  */
   char * sigma_orig;	/**< @brief v original value given at command line.  */
   const char *sigma_help; /**< @brief v help description.  */
-  double angleMin_arg;	/**< @brief v (default='0').  */
+  double angleMin_arg;	/**< @brief v (default='-45').  */
   char * angleMin_orig;	/**< @brief v original value given at command line.  */
   const char *angleMin_help; /**< @brief v help description.  */
-  double angleMax_arg;	/**< @brief v (default='0').  */
+  double angleMax_arg;	/**< @brief v (default='45').  */
   char * angleMax_orig;	/**< @brief v original value given at command line.  */
   const char *angleMax_help; /**< @brief v help description.  */
   double numBeams_arg;	/**< @brief v (default='64').  */

@@ -27,7 +27,7 @@
 
 const char *gengetopt_args_info_purpose = "To control robots";
 
-const char *gengetopt_args_info_usage = "Usage: ros_publisher [OPTIONS]... [FILES]...";
+const char *gengetopt_args_info_usage = "Usage: ros_subscriber [OPTIONS]... [FILES]...";
 
 const char *gengetopt_args_info_versiontext = "";
 

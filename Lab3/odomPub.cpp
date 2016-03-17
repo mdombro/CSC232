@@ -19,7 +19,7 @@ float pose[3] = {0}; // formatted as [x y yaw]
 void yawToQuaternion(float yaw, float quaternion[]);
 float sampleDistribution(float val);
 void sampleMotionModel(float command[], float commandReal[], float pose[], float coeffs[], float timeInc);
-void calcTrueDistance(float trueDistances[], int numBeams);
+void calcTrueDistance(float trueDistances[], int numBeams, float inc);
 void calcNoisyDistance(float noisyDistances[], float trueDistances[], float sigmaHitm, int numBeams);
 
 // Laser Scan variables
@@ -60,10 +60,12 @@ int main(int argc, char* argv[]) {
     sigmaHit = args.sigma_arg;
     angleMin = args.angleMin_arg;
     angleMax = args.angleMax_arg;
+    angleMin *= (M_PI/180.0);
+    angleMax *= (M_PI/180.0);
     angleIncrement = (angleMax-angleMin)/args.numBeams_arg;
     numBeams = args.numBeams_arg;
     float trueDistances[numBeams];
-    calcTrueDistance(trueDistances, numBeams);
+    calcTrueDistance(trueDistances, numBeams, angleIncrement);
     float noisyDistances[numBeams];
 
     float commandReal[2];
@@ -102,7 +104,6 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < numBeams; i++) {
             msg2.ranges[i] = noisyDistances[i];
         }
-
         ros::spinOnce();
         pub.publish(msg);
         las.publish(msg2);
@@ -128,10 +129,10 @@ float sampleDistribution(float val) {
     return sample;
 }
 
-void calcTrueDistance(float trueDistances[], int numBeams) {
+void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
     float angle = angleMin;
     for (int i = 0; i < numBeams; i++) {
-        if (angle < atan(rCone) && angle > atan(rCone)) {
+        if (angle < atan(rCone) || angle > atan(rCone)) {
             trueDistances[i] = dWall/sin((M_PI/2) - angle);
         }
         else {
@@ -139,6 +140,7 @@ void calcTrueDistance(float trueDistances[], int numBeams) {
             float c = M_PI - angle - b;
             trueDistances[i] = -(sin(c)/sin(b))+4.0;
         }
+        angle += inc;
     }
 }
 

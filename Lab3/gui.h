@@ -8,17 +8,20 @@
 #include <QtCore>
 #include <QTimer>
 #include <GL/glu.h>
+#include <vector>
 class GUI: public QGLWidget {
     Q_OBJECT
+    float posx, posy;
+    std::vector<float> scans;
     public:
-    GUI( QWidget * parent = NULL );
-    virtual ~GUI();
+        GUI( QWidget * parent = NULL );
+        virtual ~GUI();
         void handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg );
         void handle_odom( const nav_msgs::Odometry::ConstPtr& msg );
         QTimer* timer;
-    protected slots:
+        protected slots:
         void timer_callback( void );
-protected:
-    virtual void initializeGL();
-    virtual void paintGL();
+    protected:
+        virtual void initializeGL();
+        virtual void paintGL();
 };

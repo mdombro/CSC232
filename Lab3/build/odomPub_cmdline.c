@@ -43,8 +43,8 @@ const char *gengetopt_args_info_help[] = {
   "      --a5=DOUBLE        v  (default=`0')",
   "      --a6=DOUBLE        v  (default=`0')",
   "      --sigma=DOUBLE     v  (default=`0')",
-  "      --angleMin=DOUBLE  v  (default=`0')",
-  "      --angleMax=DOUBLE  v  (default=`0')",
+  "      --angleMin=DOUBLE  v  (default=`-45')",
+  "      --angleMax=DOUBLE  v  (default=`45')",
   "      --numBeams=DOUBLE  v  (default=`64')",
     0
 };
@@ -101,9 +101,9 @@ void clear_args (struct gengetopt_args_info *args_info)
   args_info->a6_orig = NULL;
   args_info->sigma_arg = 0;
   args_info->sigma_orig = NULL;
-  args_info->angleMin_arg = 0;
+  args_info->angleMin_arg = -45;
   args_info->angleMin_orig = NULL;
-  args_info->angleMax_arg = 0;
+  args_info->angleMax_arg = 45;
   args_info->angleMax_orig = NULL;
   args_info->numBeams_arg = 64;
   args_info->numBeams_orig = NULL;
@@ -661,7 +661,7 @@ cmdline_parser_internal (
           
             if (update_arg( (void *)&(args_info->angleMin_arg), 
                  &(args_info->angleMin_orig), &(args_info->angleMin_given),
-                &(local_args_info.angleMin_given), optarg, 0, "0", ARG_DOUBLE,
+                &(local_args_info.angleMin_given), optarg, 0, "-45", ARG_DOUBLE,
                 check_ambiguity, override, 0, 0,
                 "angleMin", '-',
                 additional_error))
@@ -675,7 +675,7 @@ cmdline_parser_internal (
           
             if (update_arg( (void *)&(args_info->angleMax_arg), 
                  &(args_info->angleMax_orig), &(args_info->angleMax_given),
-                &(local_args_info.angleMax_given), optarg, 0, "0", ARG_DOUBLE,
+                &(local_args_info.angleMax_given), optarg, 0, "45", ARG_DOUBLE,
                 check_ambiguity, override, 0, 0,
                 "angleMax", '-',
                 additional_error))

@@ -21,12 +21,12 @@ extern "C" {
 
 #ifndef CMDLINE_PARSER_PACKAGE
 /** @brief the program name (used for printing errors) */
-#define CMDLINE_PARSER_PACKAGE "ros_publisher"
+#define CMDLINE_PARSER_PACKAGE "ros_subscriber"
 #endif
 
 #ifndef CMDLINE_PARSER_PACKAGE_NAME
 /** @brief the complete program name (used for help and version) */
-#define CMDLINE_PARSER_PACKAGE_NAME "ros_publisher"
+#define CMDLINE_PARSER_PACKAGE_NAME "ros_subscriber"
 #endif
 
 #ifndef CMDLINE_PARSER_VERSION
