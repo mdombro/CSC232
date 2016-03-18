@@ -34,6 +34,7 @@ void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
 
 void GUI::timer_callback( void ){
     ros::spinOnce(); // Process the messages in here
+    GUI::repaint();
     return;
 }
 
@@ -59,8 +60,8 @@ void GUI::paintGL(){
     glVertex3f( 0.0, 0.0, 1.0 );
     glEnd();
     glBegin(GL_LINE_LOOP);
-    float cy = 0.0;
-    float cx = 0.0;
+    float cy = posy;
+    float cx = posx;
     float r = 0.05;
     float num_segments = 20;
     float x = 0.0;

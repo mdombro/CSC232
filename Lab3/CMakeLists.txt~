@@ -41,7 +41,7 @@ include_directories(${QT_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} )
 # generate the MOC_SRCS from the QT header
 qt_wrap_cpp(gui MOC_SRCS gui.h)
 # generate the header and source files from the gengetopt file
-execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/{gui_process.ggo --file-name gui_process_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
+execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/gui_process.ggo --file-name gui_process_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 # generate the executable and link the libraries
 add_executable(gui-process gui_process.cpp gui.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/gui_process_cmdline.c) 
 target_link_libraries(gui-process ${ROS_LIBRARIES} ${QT_LIBRARIES} ${OPENGL_LIBRARIES} )

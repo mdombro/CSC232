@@ -3,8 +3,6 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/ros_subscriber.dir/ros_subscriber_cmdline.c.o"
   "ros_subscriber.pdb"
   "ros_subscriber"
-  "ros_subscriber.pdb"
-  "CMakeFiles/CMakeRelink.dir/ros_subscriber"
 )
 
 # Per-language clean rules from dependency scanning.

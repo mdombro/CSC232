@@ -35,9 +35,6 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab3
 
@@ -78,6 +75,16 @@ install/local: preinstall
 # Special rule for the target install/local
 install/local/fast: install/local
 .PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -142,11 +149,6 @@ gui-process/fast:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/build
 .PHONY : gui-process/fast
 
-# Manual pre-install relink rule for target.
-gui-process/preinstall:
-	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/preinstall
-.PHONY : gui-process/preinstall
-
 #=============================================================================
 # Target rules for targets named naviSub
 
@@ -159,11 +161,6 @@ naviSub: cmake_check_build_system
 naviSub/fast:
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/build
 .PHONY : naviSub/fast
-
-# Manual pre-install relink rule for target.
-naviSub/preinstall:
-	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/preinstall
-.PHONY : naviSub/preinstall
 
 #=============================================================================
 # Target rules for targets named odomPub
@@ -178,11 +175,6 @@ odomPub/fast:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/build
 .PHONY : odomPub/fast
 
-# Manual pre-install relink rule for target.
-odomPub/preinstall:
-	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/preinstall
-.PHONY : odomPub/preinstall
-
 #=============================================================================
 # Target rules for targets named ros_publisher
 
@@ -196,11 +188,6 @@ ros_publisher/fast:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
 .PHONY : ros_publisher/fast
 
-# Manual pre-install relink rule for target.
-ros_publisher/preinstall:
-	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/preinstall
-.PHONY : ros_publisher/preinstall
-
 #=============================================================================
 # Target rules for targets named ros_subscriber
 
@@ -213,11 +200,6 @@ ros_subscriber: cmake_check_build_system
 ros_subscriber/fast:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
 .PHONY : ros_subscriber/fast
-
-# Manual pre-install relink rule for target.
-ros_subscriber/preinstall:
-	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/preinstall
-.PHONY : ros_subscriber/preinstall
 
 gui.o: gui.cpp.o
 .PHONY : gui.o
@@ -517,6 +499,7 @@ help:
 	@echo "... gui-process"
 	@echo "... install"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... naviSub"
 	@echo "... odomPub"
