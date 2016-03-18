@@ -13,6 +13,7 @@ class GUI: public QGLWidget {
     Q_OBJECT
     float posx, posy;
     std::vector<float> scans;
+    float angleMin, angleIncrement;
     public:
         GUI( QWidget * parent = NULL );
         virtual ~GUI();

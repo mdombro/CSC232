@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab3/build/naviSub_cmdline.c
+/tmp/guest-EZIK9T/CSC232/Lab3/build/naviSub_cmdline.c
 config.h
-/home/matthew/CSC232/Lab3/build/config.h
+/tmp/guest-EZIK9T/CSC232/Lab3/build/config.h
 stdio.h
 -
 stdlib.h
@@ -18,11 +18,11 @@ string.h
 getopt.h
 -
 naviSub_cmdline.h
-/home/matthew/CSC232/Lab3/build/naviSub_cmdline.h
+/tmp/guest-EZIK9T/CSC232/Lab3/build/naviSub_cmdline.h
 
-/home/matthew/CSC232/Lab3/build/naviSub_cmdline.h
+/tmp/guest-EZIK9T/CSC232/Lab3/build/naviSub_cmdline.h
 config.h
-/home/matthew/CSC232/Lab3/build/config.h
+/tmp/guest-EZIK9T/CSC232/Lab3/build/config.h
 stdio.h
 -
 

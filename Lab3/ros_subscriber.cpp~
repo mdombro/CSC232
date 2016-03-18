@@ -30,7 +30,6 @@ void save_scan(const sensor_msgs::LaserScan::ConstPtr& msg) {
 		beams << msg->ranges[i] << ", ";
 	}
 	beams << msg->ranges[num-1] << ", " << msg->angle_min << ", " << msg->angle_max << ", " << msg->angle_increment << ", " << msg->time_increment << ", " << msg->scan_time << ", " << msg->range_min << ", " << msg->range_max << endl;
-        cout << "Got scans" << endl;
 }
 
 int main(int argc, char** argv) {
