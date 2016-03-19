@@ -39,22 +39,22 @@ struct gengetopt_args_info
 {
   const char *help_help; /**< @brief Print help and exit help description.  */
   const char *version_help; /**< @brief Print version and exit help description.  */
-  double a1_arg;	/**< @brief v (default='0').  */
+  double a1_arg;	/**< @brief v (default='0.01').  */
   char * a1_orig;	/**< @brief v original value given at command line.  */
   const char *a1_help; /**< @brief v help description.  */
-  double a2_arg;	/**< @brief v (default='0').  */
+  double a2_arg;	/**< @brief v (default='0.01').  */
   char * a2_orig;	/**< @brief v original value given at command line.  */
   const char *a2_help; /**< @brief v help description.  */
-  double a3_arg;	/**< @brief v (default='0').  */
+  double a3_arg;	/**< @brief v (default='0.01').  */
   char * a3_orig;	/**< @brief v original value given at command line.  */
   const char *a3_help; /**< @brief v help description.  */
-  double a4_arg;	/**< @brief v (default='0').  */
+  double a4_arg;	/**< @brief v (default='0.01').  */
   char * a4_orig;	/**< @brief v original value given at command line.  */
   const char *a4_help; /**< @brief v help description.  */
-  double a5_arg;	/**< @brief v (default='0').  */
+  double a5_arg;	/**< @brief v (default='0.01').  */
   char * a5_orig;	/**< @brief v original value given at command line.  */
   const char *a5_help; /**< @brief v help description.  */
-  double a6_arg;	/**< @brief v (default='0').  */
+  double a6_arg;	/**< @brief v (default='0.01').  */
   char * a6_orig;	/**< @brief v original value given at command line.  */
   const char *a6_help; /**< @brief v help description.  */
   double sigma_arg;	/**< @brief v (default='0.1').  */

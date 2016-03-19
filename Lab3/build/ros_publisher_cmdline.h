@@ -39,10 +39,10 @@ struct gengetopt_args_info
 {
   const char *help_help; /**< @brief Print help and exit help description.  */
   const char *version_help; /**< @brief Print version and exit help description.  */
-  double linearVelocity_arg;	/**< @brief v (default='0.5').  */
+  double linearVelocity_arg;	/**< @brief v (default='0.0').  */
   char * linearVelocity_orig;	/**< @brief v original value given at command line.  */
   const char *linearVelocity_help; /**< @brief v help description.  */
-  double angularVelocity_arg;	/**< @brief v (default='0.5').  */
+  double angularVelocity_arg;	/**< @brief v (default='0.0').  */
   char * angularVelocity_orig;	/**< @brief v original value given at command line.  */
   const char *angularVelocity_help; /**< @brief v help description.  */
   double time_arg;	/**< @brief v (default='0.5').  */

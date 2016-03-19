@@ -5,13 +5,13 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
-  "/tmp/guest-EZIK9T/CSC232/Lab3/build/gui_process_cmdline.c" "/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/gui-process.dir/gui_process_cmdline.c.o"
+  "/home/matthew/CSC232/Lab3/build/gui_process_cmdline.c" "/home/matthew/CSC232/Lab3/build/CMakeFiles/gui-process.dir/gui_process_cmdline.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/tmp/guest-EZIK9T/CSC232/Lab3/gui.cpp" "/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/gui-process.dir/gui.cpp.o"
-  "/tmp/guest-EZIK9T/CSC232/Lab3/gui_process.cpp" "/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/gui-process.dir/gui_process.cpp.o"
-  "/tmp/guest-EZIK9T/CSC232/Lab3/build/moc_gui.cxx" "/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/gui-process.dir/moc_gui.cxx.o"
+  "/home/matthew/CSC232/Lab3/gui.cpp" "/home/matthew/CSC232/Lab3/build/CMakeFiles/gui-process.dir/gui.cpp.o"
+  "/home/matthew/CSC232/Lab3/gui_process.cpp" "/home/matthew/CSC232/Lab3/build/CMakeFiles/gui-process.dir/gui_process.cpp.o"
+  "/home/matthew/CSC232/Lab3/build/moc_gui.cxx" "/home/matthew/CSC232/Lab3/build/CMakeFiles/gui-process.dir/moc_gui.cxx.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
