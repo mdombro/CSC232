@@ -19,9 +19,6 @@ void GUI::handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg ){
     // implement storing of laserscan message here
     GUI::scans.resize(msg->ranges.size());
     GUI::scans = msg->ranges;
-    GUI::angleMin = msg->angle_min;
-    GUI::angleIncrement = msg->angle_increment;
-    //std::cout << msg->ranges[9] << std::endl;
     return;
 }
 
@@ -30,22 +27,19 @@ void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
     // implement storing of robot pose here
     GUI::posx = msg->pose.pose.position.x;
     GUI::posy = msg->pose.pose.position.y;
-    //std::cout << msg->pose.pose.position.x << std::endl;
+
     return;
 }
 
 
 void GUI::timer_callback( void ){
     ros::spinOnce(); // Process the messages in here
-    GUI::repaint();
     return;
 }
 
 void GUI::initializeGL(){
     glClearColor( 1.0, 1.0, 1.0, 1.0 );
-    glMatrixMode( GL_PROJECTION );
     gluOrtho2D(-5,5,-5,5);
-    glMatrixMode( GL_MODELVIEW );
     return;
 }
 
@@ -65,9 +59,9 @@ void GUI::paintGL(){
     glVertex3f( 0.0, 0.0, 1.0 );
     glEnd();
     glBegin(GL_LINE_LOOP);
-    float cy = posy;
-    float cx = posx;
-    float r = 0.5;
+    float cy = 0.0;
+    float cx = 0.0;
+    float r = 0.05;
     float num_segments = 20;
     float x = 0.0;
     float y = 0.0;
@@ -84,12 +78,12 @@ void GUI::paintGL(){
     glEnd();
     glBegin(GL_LINES);
     glColor4f( 1.0, 0.0, 0.0, 1.0 );
-    float inc = angleIncrement; //(M_PI/2)/GUI::scans.size();
-    float angle = angleMin;
+    float inc = (M_PI/2)/GUI::scans.size();
+    float angle = -M_PI/4;
     for (int i = 0; i < GUI::scans.size(); i++) {
-        glVertex3f(posx, posy, 0.0);
-        glVertex3f((GUI::scans[i]*cos(angle)), (GUI::scans[i]*sin(angle)), 0.0);
-        //std::cout << GUI::scans[3] << std::endl;
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(GUI::scans[i]*sin(angle)/10.0, GUI::scans[i]*cos(angle)/10.0, 0.0);
+        std::cout << GUI::scans[3] << std::endl;
         angle += inc;
     }
     glEnd();
