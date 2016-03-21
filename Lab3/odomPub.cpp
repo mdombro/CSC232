@@ -135,7 +135,7 @@ float sampleDistribution(float val) {
 void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
     float angle = angleMin;
     for (int i = 0; i < numBeams; i++) {
-        if (angle < -atan(rCone        /dCone) || angle > atan(rCone/dCone)) {
+        if (angle < -atan(rCone/dCone) || angle > atan(rCone/dCone)) {
             trueDistances[i] = dWall/sin((M_PI/2) - angle);
         }
         else {
