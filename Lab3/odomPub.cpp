@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
     angleIncrement = (angleMax-angleMin)/args.numBeams_arg;
     numBeams = args.numBeams_arg;
     float trueDistances[numBeams];
-    calcTrueDistance(trueDistances, numBeams, angleIncrement);
+
     float noisyDistances[numBeams];
 
     float commandReal[2];
@@ -93,10 +93,13 @@ int main(int argc, char* argv[]) {
         msg.twist.twist.angular.z = commandReal[1];
 
         // Laser scanning section
+        calcTrueDistance(trueDistances, numBeams, angleIncrement);
         calcNoisyDistance(noisyDistances, trueDistances, sigmaHit, numBeams);
         msg2.angle_max = angleMax;
         msg2.angle_min = angleMin;
         msg2.time_increment = 0;
+        //angleIncrement = M_PI/numBeams;
+        msg2.angle_increment = angleIncrement;
         msg2.scan_time = 0.1;
         msg2.range_min = 0;
         msg2.range_max = 100;
@@ -132,13 +135,13 @@ float sampleDistribution(float val) {
 void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
     float angle = angleMin;
     for (int i = 0; i < numBeams; i++) {
-        if (angle < atan(rCone) || angle > atan(rCone)) {
+        if (angle < -atan(rCone        /dCone) || angle > atan(rCone/dCone)) {
             trueDistances[i] = dWall/sin((M_PI/2) - angle);
         }
         else {
-            float b = asin(sin(angle)/rCone);
+            float b = asin((dCone*sin(-angle))/rCone);
             float c = M_PI - angle - b;
-            trueDistances[i] = -(sin(c)/sin(b))+4.0;
+            trueDistances[i] = (dCone*sin(c))/sin(b);
         }
         angle += inc;
     }

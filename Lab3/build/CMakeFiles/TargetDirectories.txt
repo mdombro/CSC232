@@ -1,5 +1,0 @@
-/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/gui-process.dir
-/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/naviSub.dir
-/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/odomPub.dir
-/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/ros_publisher.dir
-/tmp/guest-EZIK9T/CSC232/Lab3/build/CMakeFiles/ros_subscriber.dir

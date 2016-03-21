@@ -19,6 +19,10 @@ void GUI::handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg ){
     // implement storing of laserscan message here
     GUI::scans.resize(msg->ranges.size());
     GUI::scans = msg->ranges;
+    //std::cout << msg->ranges[63] << std::endl;
+    GUI::angleMin = msg->angle_min;
+    GUI::angleIncrement = msg->angle_increment;
+    //std::cout << msg->ranges[9] << std::endl;
     return;
 }
 
@@ -78,12 +82,12 @@ void GUI::paintGL(){
     glEnd();
     glBegin(GL_LINES);
     glColor4f( 1.0, 0.0, 0.0, 1.0 );
-    float inc = (M_PI/2)/GUI::scans.size();
-    float angle = -M_PI/4;
+    float inc = angleIncrement; //(M_PI/2)/GUI::scans.size();
+    float angle = angleMin;
+    //std::cout << GUI::scans[63] << std::endl;
     for (int i = 0; i < GUI::scans.size(); i++) {
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(GUI::scans[i]*sin(angle)/10.0, GUI::scans[i]*cos(angle)/10.0, 0.0);
-        std::cout << GUI::scans[3] << std::endl;
+        glVertex3f(posx, posy, 0.0);
+        glVertex3f((GUI::scans[i]*cos(angle)), (GUI::scans[i]*sin(angle)), 0.0);
         angle += inc;
     }
     glEnd();
