@@ -1,0 +1,14 @@
+package "odomPub"
+version "1.0"
+purpose "To control robots"
+
+option "a1" - "v" double default="0.01" optional
+option "a2" - "v" double default="0.01" optional
+option "a3" - "v" double default="0.01" optional
+option "a4" - "v" double default="0.01" optional
+option "a5" - "v" double default="0.01" optional
+option "a6" - "v" double default="0.01" optional
+option "sigma" - "v" double default="0.1" optional
+option "angleMin" - "v" double default="-45" optional
+option "angleMax" - "v" double default="45" optional
+option "numBeams" - "v" double default="64" optional
