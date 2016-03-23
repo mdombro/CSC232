@@ -39,12 +39,16 @@ void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
 
 void GUI::timer_callback( void ){
     ros::spinOnce(); // Process the messages in here
+    GUI::repaint();
     return;
 }
 
 void GUI::initializeGL(){
     glClearColor( 1.0, 1.0, 1.0, 1.0 );
-    gluOrtho2D(-5,5,-5,5);
+    //gluOrtho2D(-5,5,-5,5);
+    glMatrixMode( GL_PROJECTION );
+    gluOrtho2D( -5, 5, -5, 5 );
+    glMatrixMode( GL_MODELVIEW );
     return;
 }
 
@@ -66,7 +70,7 @@ void GUI::paintGL(){
     glBegin(GL_LINE_LOOP);
     float cy = 0.0;
     float cx = 0.0;
-    float r = 0.05;
+    float r = 0.1;
     float num_segments = 20;
     float x = 0.0;
     float y = 0.0;

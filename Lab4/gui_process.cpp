@@ -14,7 +14,7 @@ int main( int argc, char* argv[] ){
     ros::init( argc, argv, "gui" );
     ros::NodeHandle node_handle;
     GUI gui;
-    ros::Subscriber subscriber_reset_odometry = node_handle.subscribe( "/laserscan", 1, &GUI::handle_laserscan, &gui );
+    ros::Subscriber subscriber_reset_odometry = node_handle.subscribe( "/scan", 1, &GUI::handle_laserscan, &gui );
     ros::Subscriber subscriber_odom = node_handle.subscribe( "/odom", 1, &GUI::handle_odom, &gui );
     gui.show();
     return app.exec();
