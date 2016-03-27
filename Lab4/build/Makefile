@@ -79,16 +79,6 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -140,6 +130,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Matrix
+
+# Build rule for target.
+Matrix: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Matrix
+.PHONY : Matrix
+
+# fast build rule for target.
+Matrix/fast:
+	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/build
+.PHONY : Matrix/fast
+
+#=============================================================================
 # Target rules for targets named gui-process
 
 # Build rule for target.
@@ -151,6 +154,29 @@ gui-process: cmake_check_build_system
 gui-process/fast:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/build
 .PHONY : gui-process/fast
+
+# Manual pre-install relink rule for target.
+gui-process/preinstall:
+	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/preinstall
+.PHONY : gui-process/preinstall
+
+#=============================================================================
+# Target rules for targets named localizer
+
+# Build rule for target.
+localizer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 localizer
+.PHONY : localizer
+
+# fast build rule for target.
+localizer/fast:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/build
+.PHONY : localizer/fast
+
+# Manual pre-install relink rule for target.
+localizer/preinstall:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/preinstall
+.PHONY : localizer/preinstall
 
 #=============================================================================
 # Target rules for targets named naviSub
@@ -165,6 +191,11 @@ naviSub/fast:
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/build
 .PHONY : naviSub/fast
 
+# Manual pre-install relink rule for target.
+naviSub/preinstall:
+	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/preinstall
+.PHONY : naviSub/preinstall
+
 #=============================================================================
 # Target rules for targets named odomPub
 
@@ -177,6 +208,11 @@ odomPub: cmake_check_build_system
 odomPub/fast:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/build
 .PHONY : odomPub/fast
+
+# Manual pre-install relink rule for target.
+odomPub/preinstall:
+	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/preinstall
+.PHONY : odomPub/preinstall
 
 #=============================================================================
 # Target rules for targets named ros_publisher
@@ -191,6 +227,11 @@ ros_publisher/fast:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
 .PHONY : ros_publisher/fast
 
+# Manual pre-install relink rule for target.
+ros_publisher/preinstall:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/preinstall
+.PHONY : ros_publisher/preinstall
+
 #=============================================================================
 # Target rules for targets named ros_subscriber
 
@@ -203,6 +244,11 @@ ros_subscriber: cmake_check_build_system
 ros_subscriber/fast:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
 .PHONY : ros_subscriber/fast
+
+# Manual pre-install relink rule for target.
+ros_subscriber/preinstall:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/preinstall
+.PHONY : ros_subscriber/preinstall
 
 gui.o: gui.cpp.o
 .PHONY : gui.o
@@ -275,6 +321,54 @@ gui_process_cmdline.s: gui_process_cmdline.c.s
 gui_process_cmdline.c.s:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/gui_process_cmdline.c.s
 .PHONY : gui_process_cmdline.c.s
+
+localizer.o: localizer.cpp.o
+.PHONY : localizer.o
+
+# target to build an object file
+localizer.cpp.o:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer.cpp.o
+.PHONY : localizer.cpp.o
+
+localizer.i: localizer.cpp.i
+.PHONY : localizer.i
+
+# target to preprocess a source file
+localizer.cpp.i:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer.cpp.i
+.PHONY : localizer.cpp.i
+
+localizer.s: localizer.cpp.s
+.PHONY : localizer.s
+
+# target to generate assembly for a file
+localizer.cpp.s:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer.cpp.s
+.PHONY : localizer.cpp.s
+
+localizer_cmdline.o: localizer_cmdline.c.o
+.PHONY : localizer_cmdline.o
+
+# target to build an object file
+localizer_cmdline.c.o:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer_cmdline.c.o
+.PHONY : localizer_cmdline.c.o
+
+localizer_cmdline.i: localizer_cmdline.c.i
+.PHONY : localizer_cmdline.i
+
+# target to preprocess a source file
+localizer_cmdline.c.i:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer_cmdline.c.i
+.PHONY : localizer_cmdline.c.i
+
+localizer_cmdline.s: localizer_cmdline.c.s
+.PHONY : localizer_cmdline.s
+
+# target to generate assembly for a file
+localizer_cmdline.c.s:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer_cmdline.c.s
+.PHONY : localizer_cmdline.c.s
 
 moc_gui.o: moc_gui.cxx.o
 .PHONY : moc_gui.o
@@ -498,12 +592,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... Matrix"
 	@echo "... edit_cache"
 	@echo "... gui-process"
 	@echo "... install"
 	@echo "... install/local"
-	@echo "... install/strip"
 	@echo "... list_install_components"
+	@echo "... localizer"
 	@echo "... naviSub"
 	@echo "... odomPub"
 	@echo "... rebuild_cache"
@@ -518,6 +613,12 @@ help:
 	@echo "... gui_process_cmdline.o"
 	@echo "... gui_process_cmdline.i"
 	@echo "... gui_process_cmdline.s"
+	@echo "... localizer.o"
+	@echo "... localizer.i"
+	@echo "... localizer.s"
+	@echo "... localizer_cmdline.o"
+	@echo "... localizer_cmdline.i"
+	@echo "... localizer_cmdline.s"
 	@echo "... moc_gui.o"
 	@echo "... moc_gui.i"
 	@echo "... moc_gui.s"

@@ -6,6 +6,8 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/gui-process.dir/gui_process_cmdline.c.o"
   "gui-process.pdb"
   "gui-process"
+  "gui-process.pdb"
+  "CMakeFiles/CMakeRelink.dir/gui-process"
 )
 
 # Per-language clean rules from dependency scanning.

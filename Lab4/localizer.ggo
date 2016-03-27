@@ -1,0 +1,5 @@
+package "localizer"
+version "1.0"
+purpose "To control robots"
+
+option "coneRadii" - "v" double default="0.1" optional

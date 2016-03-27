@@ -53,6 +53,37 @@ CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab4
 CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab4/build
 
 #=============================================================================
+# Target rules for target CMakeFiles/Matrix.dir
+
+# All Build rule for target.
+CMakeFiles/Matrix.dir/all:
+	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/depend
+	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles 
+	@echo "Built target Matrix"
+.PHONY : CMakeFiles/Matrix.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/Matrix.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Matrix.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles 0
+.PHONY : CMakeFiles/Matrix.dir/rule
+
+# Convenience name for target.
+Matrix: CMakeFiles/Matrix.dir/rule
+.PHONY : Matrix
+
+# clean rule for target.
+CMakeFiles/Matrix.dir/clean:
+	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/clean
+.PHONY : CMakeFiles/Matrix.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/Matrix.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/gui-process.dir
 
 # All Build rule for target.
@@ -78,6 +109,15 @@ CMakeFiles/gui-process.dir/rule: cmake_check_build_system
 gui-process: CMakeFiles/gui-process.dir/rule
 .PHONY : gui-process
 
+# Pre-install relink rule for target.
+CMakeFiles/gui-process.dir/preinstall:
+	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/preinstall
+.PHONY : CMakeFiles/gui-process.dir/preinstall
+
+# Prepare target for install.
+preinstall: CMakeFiles/gui-process.dir/preinstall
+.PHONY : preinstall
+
 # clean rule for target.
 CMakeFiles/gui-process.dir/clean:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/clean
@@ -88,13 +128,57 @@ clean: CMakeFiles/gui-process.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/localizer.dir
+
+# All Build rule for target.
+CMakeFiles/localizer.dir/all:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/depend
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  6 7
+	@echo "Built target localizer"
+.PHONY : CMakeFiles/localizer.dir/all
+
+# Include target in all.
+all: CMakeFiles/localizer.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/localizer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/localizer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles 0
+.PHONY : CMakeFiles/localizer.dir/rule
+
+# Convenience name for target.
+localizer: CMakeFiles/localizer.dir/rule
+.PHONY : localizer
+
+# Pre-install relink rule for target.
+CMakeFiles/localizer.dir/preinstall:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/preinstall
+.PHONY : CMakeFiles/localizer.dir/preinstall
+
+# Prepare target for install.
+preinstall: CMakeFiles/localizer.dir/preinstall
+.PHONY : preinstall
+
+# clean rule for target.
+CMakeFiles/localizer.dir/clean:
+	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/clean
+.PHONY : CMakeFiles/localizer.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/localizer.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/naviSub.dir
 
 # All Build rule for target.
 CMakeFiles/naviSub.dir/all:
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/depend
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  6 7
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  8 9
 	@echo "Built target naviSub"
 .PHONY : CMakeFiles/naviSub.dir/all
 
@@ -113,6 +197,15 @@ CMakeFiles/naviSub.dir/rule: cmake_check_build_system
 naviSub: CMakeFiles/naviSub.dir/rule
 .PHONY : naviSub
 
+# Pre-install relink rule for target.
+CMakeFiles/naviSub.dir/preinstall:
+	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/preinstall
+.PHONY : CMakeFiles/naviSub.dir/preinstall
+
+# Prepare target for install.
+preinstall: CMakeFiles/naviSub.dir/preinstall
+.PHONY : preinstall
+
 # clean rule for target.
 CMakeFiles/naviSub.dir/clean:
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/clean
@@ -129,7 +222,7 @@ clean: CMakeFiles/naviSub.dir/clean
 CMakeFiles/odomPub.dir/all:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/depend
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  8 9
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  10 11
 	@echo "Built target odomPub"
 .PHONY : CMakeFiles/odomPub.dir/all
 
@@ -148,6 +241,15 @@ CMakeFiles/odomPub.dir/rule: cmake_check_build_system
 odomPub: CMakeFiles/odomPub.dir/rule
 .PHONY : odomPub
 
+# Pre-install relink rule for target.
+CMakeFiles/odomPub.dir/preinstall:
+	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/preinstall
+.PHONY : CMakeFiles/odomPub.dir/preinstall
+
+# Prepare target for install.
+preinstall: CMakeFiles/odomPub.dir/preinstall
+.PHONY : preinstall
+
 # clean rule for target.
 CMakeFiles/odomPub.dir/clean:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/clean
@@ -164,7 +266,7 @@ clean: CMakeFiles/odomPub.dir/clean
 CMakeFiles/ros_publisher.dir/all:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/depend
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  10 11
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  12 13
 	@echo "Built target ros_publisher"
 .PHONY : CMakeFiles/ros_publisher.dir/all
 
@@ -183,6 +285,15 @@ CMakeFiles/ros_publisher.dir/rule: cmake_check_build_system
 ros_publisher: CMakeFiles/ros_publisher.dir/rule
 .PHONY : ros_publisher
 
+# Pre-install relink rule for target.
+CMakeFiles/ros_publisher.dir/preinstall:
+	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/preinstall
+.PHONY : CMakeFiles/ros_publisher.dir/preinstall
+
+# Prepare target for install.
+preinstall: CMakeFiles/ros_publisher.dir/preinstall
+.PHONY : preinstall
+
 # clean rule for target.
 CMakeFiles/ros_publisher.dir/clean:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/clean
@@ -199,7 +310,7 @@ clean: CMakeFiles/ros_publisher.dir/clean
 CMakeFiles/ros_subscriber.dir/all:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/depend
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  12 13
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles  14 15
 	@echo "Built target ros_subscriber"
 .PHONY : CMakeFiles/ros_subscriber.dir/all
 
@@ -217,6 +328,15 @@ CMakeFiles/ros_subscriber.dir/rule: cmake_check_build_system
 # Convenience name for target.
 ros_subscriber: CMakeFiles/ros_subscriber.dir/rule
 .PHONY : ros_subscriber
+
+# Pre-install relink rule for target.
+CMakeFiles/ros_subscriber.dir/preinstall:
+	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/preinstall
+.PHONY : CMakeFiles/ros_subscriber.dir/preinstall
+
+# Prepare target for install.
+preinstall: CMakeFiles/ros_subscriber.dir/preinstall
+.PHONY : preinstall
 
 # clean rule for target.
 CMakeFiles/ros_subscriber.dir/clean:

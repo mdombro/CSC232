@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/matthew/CSC232/Lab4/build/moc_gui.cxx
+../gui.h
+/home/matthew/CSC232/Lab4/gui.h
+
 /home/matthew/CSC232/Lab4/gui.cpp
 gui.h
 /home/matthew/CSC232/Lab4/gui.h
@@ -39,6 +43,14 @@ GL/glu.h
 -
 vector
 -
+
+/home/matthew/CSC232/Lab4/gui_process.cpp
+QtGui/QApplication
+-
+gui.h
+/home/matthew/CSC232/Lab4/gui.h
+gui_process_cmdline.h
+/home/matthew/CSC232/Lab4/gui_process_cmdline.h
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
@@ -2790,5 +2802,11 @@ GL/gl.h
 QtGui/qcolor.h
 -
 QtCore/qvector.h
+-
+
+gui_process_cmdline.h
+config.h
+config.h
+stdio.h
 -
 

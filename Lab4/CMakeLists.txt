@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 project(csc232)
-set (CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR} CACHE PATH "default 	install prefix" FORCE)
+set (CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR} CACHE PATH "default install prefix" FORCE)
 find_program(GENGETOPT gengetopt)
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/odomPub.ggo --file-name odomPub_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
@@ -11,6 +11,8 @@ execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_publishe
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_subscriber.ggo --file-name ros_subscriber_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
+execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/localizer.ggo --file-name localizer_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
+
 set(ROS_PATH_PREFIX /opt/ros/indigo)
 find_path(ROS_INCLUDE_DIR NAMES ros/ros.h HINTS CMAKE_INSTALL_PREFIX/include)
 
@@ -20,16 +22,20 @@ add_executable(odomPub odomPub.cpp ${CMAKE_CURRENT_BINARY_DIR}/odomPub_cmdline.c
 add_executable(naviSub naviSub.cpp ${CMAKE_CURRENT_BINARY_DIR}/naviSub_cmdline.c)
 add_executable(ros_publisher ros_publisher.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_publisher_cmdline.c)
 add_executable(ros_subscriber ros_subscriber.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_subscriber_cmdline.c)
+add_executable(localizer localizer.cpp ${CMAKE_CURRENT_BINARY_DIR}/localizer_cmdline.c)
 
 target_link_libraries(odomPub ${ROS_LIBRARIES})
 target_link_libraries(naviSub ${ROS_LIBRARIES})
 target_link_libraries(ros_publisher ${ROS_LIBRARIES})
 target_link_libraries(ros_subscriber ${ROS_LIBRARIES})
+target_link_libraries(localizer ${ROS_LIBRARIES})
+add_custom_target(Matrix SOURCES Matrix.h)
 
 install(TARGETS odomPub DESTINATION bin)
 install(TARGETS naviSub DESTINATION bin)
 install(TARGETS ros_publisher DESTINATION bin)
 install(TARGETS ros_subscriber DESTINATION bin)
+install(TARGETS localizer DESTINATION bin)
 
 
 # find the QT libraries
