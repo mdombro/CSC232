@@ -29,6 +29,7 @@ target_link_libraries(naviSub ${ROS_LIBRARIES})
 target_link_libraries(ros_publisher ${ROS_LIBRARIES})
 target_link_libraries(ros_subscriber ${ROS_LIBRARIES})
 target_link_libraries(localizer ${ROS_LIBRARIES})
+add_custom_target(Matrix SOURCES Matrix.h)
 
 install(TARGETS odomPub DESTINATION bin)
 install(TARGETS naviSub DESTINATION bin)
