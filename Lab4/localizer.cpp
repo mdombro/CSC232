@@ -10,15 +10,23 @@
 using namespace ros;
 using namespace std;
 
+// Odometry command vector
 float command[2];
 
+// LaserScan return information
 float minAngle;
 float angleIncrement;
 vector<float> scans;
+
+// predetermined cone radius
 double coneRadii;
+
+// current robot position belief
 float mu[3] = {0.0, 0.0, 0.0};
 
-float z[3]; // holds range, bearing, and signature of feature
+// holds range, bearing, and signature of feature
+float z[3];
+z[2] = 0.0;
 
 void handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
     minAngle = msg->angle_min;
@@ -55,16 +63,21 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-// void findFeature(float[] z, float[] mu, vector<float> scans, float minAngle, float angleIncrement) {
-//     float angle = minAngle;
-//     float min[2] = {scans[0], minAngle};
-//     for (int i = 0; i < scans.size(); i++) {
-//         if (scans[i] == scans[i] && scans[i] < min) {
-//             min[0] = scans[i];
-//             min[1] = angle;
-//         }
-//         angle += angleIncrement;
-//     }
-//     z[0] = min[0] + coneRadii;
-//     z[1] = min[1];
-// }
+// locate the feature from given LaserScan and update the feature vector z
+void findFeature() {
+    // filter out unlikely cone returns
+
+
+    // find center point of feature by taking minimum point of possible cone returns
+    float angle = minAngle;
+    float min[2] = {scans[0], minAngle};
+    for (int i = 0; i < scans.size(); i++) {
+        if (scans[i] == scans[i] && scans[i] < min) {
+            min[0] = scans[i];
+            min[1] = angle;
+        }
+        angle += angleIncrement;
+    }
+    z[0] = min[0] + coneRadii;
+    z[1] = min[1];
+}
