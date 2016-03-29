@@ -53,37 +53,6 @@ CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab4
 CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab4/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/Matrix.dir
-
-# All Build rule for target.
-CMakeFiles/Matrix.dir/all:
-	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/depend
-	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles 
-	@echo "Built target Matrix"
-.PHONY : CMakeFiles/Matrix.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/Matrix.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Matrix.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles 0
-.PHONY : CMakeFiles/Matrix.dir/rule
-
-# Convenience name for target.
-Matrix: CMakeFiles/Matrix.dir/rule
-.PHONY : Matrix
-
-# clean rule for target.
-CMakeFiles/Matrix.dir/clean:
-	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/clean
-.PHONY : CMakeFiles/Matrix.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/Matrix.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/gui-process.dir
 
 # All Build rule for target.

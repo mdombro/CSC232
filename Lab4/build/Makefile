@@ -130,19 +130,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Matrix
-
-# Build rule for target.
-Matrix: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Matrix
-.PHONY : Matrix
-
-# fast build rule for target.
-Matrix/fast:
-	$(MAKE) -f CMakeFiles/Matrix.dir/build.make CMakeFiles/Matrix.dir/build
-.PHONY : Matrix/fast
-
-#=============================================================================
 # Target rules for targets named gui-process
 
 # Build rule for target.
@@ -592,7 +579,6 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... Matrix"
 	@echo "... edit_cache"
 	@echo "... gui-process"
 	@echo "... install"

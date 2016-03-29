@@ -37,6 +37,14 @@ install(TARGETS ros_publisher DESTINATION bin)
 install(TARGETS ros_subscriber DESTINATION bin)
 install(TARGETS localizer DESTINATION bin)
 
+#find Eigen libraries
+SET(ENV{EIGEN3_INCLUDE_DIR} "/usr/include/eigen3")
+SET( EIGEN3_INCLUDE_DIR "$ENV{EIGEN3_INCLUDE_DIR}" )
+IF( NOT EIGEN3_INCLUDE_DIR )
+    MESSAGE( FATAL_ERROR "Please point the environment variable EIGEN3_INCLUDE_DIR to the include directory of your Eigen3 installation.")
+ENDIF()
+INCLUDE_DIRECTORIES ( "${EIGEN3_INCLUDE_DIR}" )
+#include_directories( "$ENV{EIGEN3_INCLUDE_DIR}" )
 
 # find the QT libraries
 find_package(Qt4 COMPONENTS QtCore QtGui QtOpenGL REQUIRED)

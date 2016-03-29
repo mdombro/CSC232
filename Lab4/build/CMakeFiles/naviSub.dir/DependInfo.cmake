@@ -29,6 +29,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/opt/ros/indigo/include"
   "."
+  "/usr/include/eigen3"
   "/usr/include/qt4"
   "/usr/include/qt4/QtOpenGL"
   "/usr/include/qt4/QtGui"
