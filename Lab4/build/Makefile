@@ -130,6 +130,42 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Localizer
+
+# Build rule for target.
+Localizer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Localizer
+.PHONY : Localizer
+
+# fast build rule for target.
+Localizer/fast:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/build
+.PHONY : Localizer/fast
+
+# Manual pre-install relink rule for target.
+Localizer/preinstall:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/preinstall
+.PHONY : Localizer/preinstall
+
+#=============================================================================
+# Target rules for targets named LocalizerStart
+
+# Build rule for target.
+LocalizerStart: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 LocalizerStart
+.PHONY : LocalizerStart
+
+# fast build rule for target.
+LocalizerStart/fast:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/build
+.PHONY : LocalizerStart/fast
+
+# Manual pre-install relink rule for target.
+LocalizerStart/preinstall:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/preinstall
+.PHONY : LocalizerStart/preinstall
+
+#=============================================================================
 # Target rules for targets named gui-process
 
 # Build rule for target.
@@ -146,24 +182,6 @@ gui-process/fast:
 gui-process/preinstall:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/preinstall
 .PHONY : gui-process/preinstall
-
-#=============================================================================
-# Target rules for targets named localizer
-
-# Build rule for target.
-localizer: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 localizer
-.PHONY : localizer
-
-# fast build rule for target.
-localizer/fast:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/build
-.PHONY : localizer/fast
-
-# Manual pre-install relink rule for target.
-localizer/preinstall:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/preinstall
-.PHONY : localizer/preinstall
 
 #=============================================================================
 # Target rules for targets named naviSub
@@ -237,6 +255,102 @@ ros_subscriber/preinstall:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/preinstall
 .PHONY : ros_subscriber/preinstall
 
+Localizer.o: Localizer.cpp.o
+.PHONY : Localizer.o
+
+# target to build an object file
+Localizer.cpp.o:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/Localizer.cpp.o
+.PHONY : Localizer.cpp.o
+
+Localizer.i: Localizer.cpp.i
+.PHONY : Localizer.i
+
+# target to preprocess a source file
+Localizer.cpp.i:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/Localizer.cpp.i
+.PHONY : Localizer.cpp.i
+
+Localizer.s: Localizer.cpp.s
+.PHONY : Localizer.s
+
+# target to generate assembly for a file
+Localizer.cpp.s:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/Localizer.cpp.s
+.PHONY : Localizer.cpp.s
+
+LocalizerStart.o: LocalizerStart.cpp.o
+.PHONY : LocalizerStart.o
+
+# target to build an object file
+LocalizerStart.cpp.o:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o
+.PHONY : LocalizerStart.cpp.o
+
+LocalizerStart.i: LocalizerStart.cpp.i
+.PHONY : LocalizerStart.i
+
+# target to preprocess a source file
+LocalizerStart.cpp.i:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.i
+.PHONY : LocalizerStart.cpp.i
+
+LocalizerStart.s: LocalizerStart.cpp.s
+.PHONY : LocalizerStart.s
+
+# target to generate assembly for a file
+LocalizerStart.cpp.s:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.s
+.PHONY : LocalizerStart.cpp.s
+
+LocalizerStart_cmdline.o: LocalizerStart_cmdline.c.o
+.PHONY : LocalizerStart_cmdline.o
+
+# target to build an object file
+LocalizerStart_cmdline.c.o:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o
+.PHONY : LocalizerStart_cmdline.c.o
+
+LocalizerStart_cmdline.i: LocalizerStart_cmdline.c.i
+.PHONY : LocalizerStart_cmdline.i
+
+# target to preprocess a source file
+LocalizerStart_cmdline.c.i:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.i
+.PHONY : LocalizerStart_cmdline.c.i
+
+LocalizerStart_cmdline.s: LocalizerStart_cmdline.c.s
+.PHONY : LocalizerStart_cmdline.s
+
+# target to generate assembly for a file
+LocalizerStart_cmdline.c.s:
+	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.s
+.PHONY : LocalizerStart_cmdline.c.s
+
+Localizer_cmdline.o: Localizer_cmdline.c.o
+.PHONY : Localizer_cmdline.o
+
+# target to build an object file
+Localizer_cmdline.c.o:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/Localizer_cmdline.c.o
+.PHONY : Localizer_cmdline.c.o
+
+Localizer_cmdline.i: Localizer_cmdline.c.i
+.PHONY : Localizer_cmdline.i
+
+# target to preprocess a source file
+Localizer_cmdline.c.i:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/Localizer_cmdline.c.i
+.PHONY : Localizer_cmdline.c.i
+
+Localizer_cmdline.s: Localizer_cmdline.c.s
+.PHONY : Localizer_cmdline.s
+
+# target to generate assembly for a file
+Localizer_cmdline.c.s:
+	$(MAKE) -f CMakeFiles/Localizer.dir/build.make CMakeFiles/Localizer.dir/Localizer_cmdline.c.s
+.PHONY : Localizer_cmdline.c.s
+
 gui.o: gui.cpp.o
 .PHONY : gui.o
 
@@ -308,54 +422,6 @@ gui_process_cmdline.s: gui_process_cmdline.c.s
 gui_process_cmdline.c.s:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/gui_process_cmdline.c.s
 .PHONY : gui_process_cmdline.c.s
-
-localizer.o: localizer.cpp.o
-.PHONY : localizer.o
-
-# target to build an object file
-localizer.cpp.o:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer.cpp.o
-.PHONY : localizer.cpp.o
-
-localizer.i: localizer.cpp.i
-.PHONY : localizer.i
-
-# target to preprocess a source file
-localizer.cpp.i:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer.cpp.i
-.PHONY : localizer.cpp.i
-
-localizer.s: localizer.cpp.s
-.PHONY : localizer.s
-
-# target to generate assembly for a file
-localizer.cpp.s:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer.cpp.s
-.PHONY : localizer.cpp.s
-
-localizer_cmdline.o: localizer_cmdline.c.o
-.PHONY : localizer_cmdline.o
-
-# target to build an object file
-localizer_cmdline.c.o:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer_cmdline.c.o
-.PHONY : localizer_cmdline.c.o
-
-localizer_cmdline.i: localizer_cmdline.c.i
-.PHONY : localizer_cmdline.i
-
-# target to preprocess a source file
-localizer_cmdline.c.i:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer_cmdline.c.i
-.PHONY : localizer_cmdline.c.i
-
-localizer_cmdline.s: localizer_cmdline.c.s
-.PHONY : localizer_cmdline.s
-
-# target to generate assembly for a file
-localizer_cmdline.c.s:
-	$(MAKE) -f CMakeFiles/localizer.dir/build.make CMakeFiles/localizer.dir/localizer_cmdline.c.s
-.PHONY : localizer_cmdline.c.s
 
 moc_gui.o: moc_gui.cxx.o
 .PHONY : moc_gui.o
@@ -579,17 +645,30 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... Localizer"
+	@echo "... LocalizerStart"
 	@echo "... edit_cache"
 	@echo "... gui-process"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... list_install_components"
-	@echo "... localizer"
 	@echo "... naviSub"
 	@echo "... odomPub"
 	@echo "... rebuild_cache"
 	@echo "... ros_publisher"
 	@echo "... ros_subscriber"
+	@echo "... Localizer.o"
+	@echo "... Localizer.i"
+	@echo "... Localizer.s"
+	@echo "... LocalizerStart.o"
+	@echo "... LocalizerStart.i"
+	@echo "... LocalizerStart.s"
+	@echo "... LocalizerStart_cmdline.o"
+	@echo "... LocalizerStart_cmdline.i"
+	@echo "... LocalizerStart_cmdline.s"
+	@echo "... Localizer_cmdline.o"
+	@echo "... Localizer_cmdline.i"
+	@echo "... Localizer_cmdline.s"
 	@echo "... gui.o"
 	@echo "... gui.i"
 	@echo "... gui.s"
@@ -599,12 +678,6 @@ help:
 	@echo "... gui_process_cmdline.o"
 	@echo "... gui_process_cmdline.i"
 	@echo "... gui_process_cmdline.s"
-	@echo "... localizer.o"
-	@echo "... localizer.i"
-	@echo "... localizer.s"
-	@echo "... localizer_cmdline.o"
-	@echo "... localizer_cmdline.i"
-	@echo "... localizer_cmdline.s"
 	@echo "... moc_gui.o"
 	@echo "... moc_gui.i"
 	@echo "... moc_gui.s"

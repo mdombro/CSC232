@@ -7,36 +7,36 @@
 #include "localizer_cmdline.h"
 #include <Eigen/Dense>
 
-using namespace ros;
-using namespace std;
-using namespace Eigen;
+// using namespace ros;
+// using namespace std;
+// using namespace Eigen;
 
 /*** Odometry command vector  ***/
-RowVector2f u;
+// RowVector2f u;
+//
+// /*** LaserScan return information ***/
+// float minAngle;
+// float angleIncrement;
+// vector<float> scans;
+//
+// /*** predetermined cone radius ***/
+// double coneRadii;
+//
+// /*** EKF Matrix variables ***/
+// // current robot position belief
+// RowVector3f mu
+//
+// // holds range, bearing, and signature of feature
+// RowVector3f z
+//
+// void initVariables();
+// void initVariables() {
+//     u << 0.0, 0.0;
+//     mu << 0.0, 0.0, 0.0;
+//     z << 0.0, 0.0, 0.0;
+// }
 
-/*** LaserScan return information ***/
-float minAngle;
-float angleIncrement;
-vector<float> scans;
-
-/*** predetermined cone radius ***/
-double coneRadii;
-
-/*** EKF Matrix variables ***/
-// current robot position belief
-RowVector3f mu
-
-// holds range, bearing, and signature of feature
-RowVector3f z
-
-void initVariables();
-void initVariables() {
-    u << 0.0, 0.0;
-    mu << 0.0, 0.0, 0.0;
-    z << 0.0, 0.0, 0.0;
-}
-
-void handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
+void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
     minAngle = msg->angle_min;
     angleIncrement = msg->angle_increment;
     scans.resize(msg->ranges.size());
@@ -45,7 +45,7 @@ void handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
     }
 }
 
-void cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
+void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 	u(0) = msg->linear.x;
 	u(1) = msg->angular.z;
 }
@@ -53,7 +53,7 @@ void cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 
 
 // locate the feature from given LaserScan and update the feature vector z
-void findFeature() {
+void Localizer::findFeature() {
     // filter out unlikely cone returns
 
 
