@@ -5,7 +5,6 @@
 #include "sensor_msgs/LaserScan.h"
 #include "geometry_msgs/PoseWithCovariance.h"
 #include "geometry_msgs/Twist.h"
-#include "Localizer_cmdline.h"
 #include "Localizer.h"
 #include <Eigen/Dense>
 
@@ -52,7 +51,7 @@ void Localizer::findFeature() {
     // filter out unlikely cone returns
     // find if either bearing or range are significantly outside expectation
     for (int o = 0; o < scans.size(); o++) {
-        if ( Math.abs(z(0)-zest(0)) >> 4.0*Math.sqrt(St(0)) || Math.abs(z(1)-zest(1)) >> 4.0*Math.sqrt(St(1)) ) {
+        if ( abs(z(0)-zest(0)) > 4.0*sqrt(St(0)) || abs(z(1)-zest(1)) > 4.0*sqrt(St(1)) ) {
             continue;
         }
         else {

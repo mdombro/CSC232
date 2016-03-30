@@ -11,11 +11,11 @@ execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_publishe
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_subscriber.ggo --file-name ros_subscriber_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
-execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/Localizer.ggo --file-name Localizer_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
+#execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/Localizer.ggo --file-name Localizer_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/LocalizerStart.ggo --file-name LocalizerStart_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
-set(ROS_PATH_PREFIX /opt/ros/indigo)
+set(ROS_PATH_PREFIX /opt/ros/hydro)
 find_path(ROS_INCLUDE_DIR NAMES ros/ros.h HINTS CMAKE_INSTALL_PREFIX/include)
 
 include_directories(${ROS_INCLUDE_DIR} ${PROJECT_BINARY_DIR})
@@ -24,14 +24,14 @@ add_executable(odomPub odomPub.cpp ${CMAKE_CURRENT_BINARY_DIR}/odomPub_cmdline.c
 add_executable(naviSub naviSub.cpp ${CMAKE_CURRENT_BINARY_DIR}/naviSub_cmdline.c)
 add_executable(ros_publisher ros_publisher.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_publisher_cmdline.c)
 add_executable(ros_subscriber ros_subscriber.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_subscriber_cmdline.c)
-add_executable(Localizer Localizer.cpp ${CMAKE_CURRENT_BINARY_DIR}/Localizer_cmdline.c)
-add_executable(LocalizerStart LocalizerStart.cpp ${CMAKE_CURRENT_BINARY_DIR}/LocalizerStart_cmdline.c)
+#add_executable(Localizer Localizer.cpp ${CMAKE_CURRENT_BINARY_DIR}/Localizer_cmdline.c)
+add_executable(LocalizerStart LocalizerStart.cpp Localizer.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/LocalizerStart_cmdline.c)
 
 target_link_libraries(odomPub ${ROS_LIBRARIES})
 target_link_libraries(naviSub ${ROS_LIBRARIES})
 target_link_libraries(ros_publisher ${ROS_LIBRARIES})
 target_link_libraries(ros_subscriber ${ROS_LIBRARIES})
-target_link_libraries(Localizer ${ROS_LIBRARIES})
+#target_link_libraries(Localizer ${ROS_LIBRARIES})
 target_link_libraries(LocalizerStart ${ROS_LIBRARIES})
 
 
@@ -39,7 +39,7 @@ install(TARGETS odomPub DESTINATION bin)
 install(TARGETS naviSub DESTINATION bin)
 install(TARGETS ros_publisher DESTINATION bin)
 install(TARGETS ros_subscriber DESTINATION bin)
-install(TARGETS Localizer DESTINATION bin)
+#install(TARGETS Localizer DESTINATION bin)
 install(TARGETS LocalizerStart DESTINATION bin)
 
 #find Eigen libraries

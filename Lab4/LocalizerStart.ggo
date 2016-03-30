@@ -1,4 +1,4 @@
-package "localizertart"
+package "LocalizerStart"
 version "1.0"
 purpose "To control robots"
 
