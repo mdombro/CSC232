@@ -12,7 +12,6 @@
 #include "odomPub_cmdline.h"
 
 
-
 using namespace ros;
 using namespace std;
 
@@ -106,7 +105,7 @@ int main(int argc, char* argv[]) {
         msg2.angle_increment = angleIncrement;
         msg2.scan_time = 0.1;
         msg2.range_min = 0;
-        msg2.range_max = 100;
+        msg2.range_max = 2.5;
         msg2.ranges.resize(numBeams);
         for (int i = 0; i < numBeams; i++) {
             msg2.ranges[i] = noisyDistances[i];
@@ -137,15 +136,18 @@ float sampleDistribution(float val) {
 }
 
 void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
-    float angle = angleMin;
+    float angle = angleMin - pose[2];
     for (int i = 0; i < numBeams; i++) {
-        if (angle < -atan(rCone/dCone) || angle > atan(rCone/dCone)) {
-            trueDistances[i] = dWall/sin((M_PI/2) - angle);
-        }
-        else {
+        // if (angle < -atan(rCone/dCone) || angle > atan(rCone/dCone)) {
+        //     trueDistances[i] = dWall/sin((M_PI/2) - angle);
+        // }
+        if (angle > -atan(rCone/dCone) && angle < atan(rCone/dCone)) {
             float b = asin((dCone*sin(-angle))/rCone);
             float c = M_PI - angle - b;
             trueDistances[i] = (dCone*sin(c))/sin(b);
+        }
+        else {
+            trueDistances[i] = 2.5;
         }
         angle += inc;
     }

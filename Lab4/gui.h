@@ -14,6 +14,7 @@ class GUI: public QGLWidget {
     float posx, posy;
     std::vector<float> scans;
     float angleMin, angleIncrement;
+    std::vector<float> quaternion;
     public:
         GUI( QWidget * parent = NULL );
         virtual ~GUI();

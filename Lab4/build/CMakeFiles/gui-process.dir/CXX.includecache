@@ -34,16 +34,6 @@ vector
 ../gui.h
 /home/matthew/CSC232/Lab4/build/../gui.h
 
-/home/matthew/CSC232/Lab4/gui.cpp
-gui.h
-/home/matthew/CSC232/Lab4/gui.h
-vector
--
-iostream
--
-math.h
--
-
 /home/matthew/CSC232/Lab4/gui.h
 iostream
 -

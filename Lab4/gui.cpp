@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <math.h>
+#include <tf/LinearMath/Quaternion.h>
+#include <tf/LinearMath/Matrix3x3.h>
 
 GUI::GUI( QWidget * parent ) : QGLWidget( parent ), timer() {
     setMinimumSize( 600, 600 );
@@ -32,7 +34,10 @@ void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
     // implement storing of robot pose here
     GUI::posx = msg->pose.pose.position.x;
     GUI::posy = msg->pose.pose.position.y;
-
+    GUI::quaternion.push_back(msg->pose.pose.orientation.w);
+    GUI::quaternion.push_back(msg->pose.pose.orientation.x);
+    GUI::quaternion.push_back(msg->pose.pose.orientation.y);
+    GUI::quaternion.push_back(msg->pose.pose.orientation.z);
     return;
 }
 
@@ -68,8 +73,8 @@ void GUI::paintGL(){
     glVertex3f( 0.0, 0.0, 1.0 );
     glEnd();
     glBegin(GL_LINE_LOOP);
-    float cy = 0.0;
-    float cx = 0.0;
+    float cy = posy;
+    float cx = posx;
     float r = 0.1;
     float num_segments = 20;
     float x = 0.0;
@@ -87,8 +92,13 @@ void GUI::paintGL(){
     glEnd();
     glBegin(GL_LINES);
     glColor4f( 1.0, 0.0, 0.0, 1.0 );
+    tf::Quaternion q(GUI::quaternion[1], GUI::quaternion[2], GUI::quaternion[3], GUI::quaternion[0]);
+    tf::Matrix3x3 m(q);
+    double roll, pitch, yaw;
+    m.getRPY(roll, pitch, yaw);
+
     float inc = angleIncrement;
-    float angle = angleMin;
+    float angle = angleMin - yaw;
     for (int i = 0; i < GUI::scans.size(); i++) {
         glVertex3f(posx, posy, 0.0);
         glVertex3f((GUI::scans[i]*cos(angle)), (GUI::scans[i]*sin(angle)), 0.0);
