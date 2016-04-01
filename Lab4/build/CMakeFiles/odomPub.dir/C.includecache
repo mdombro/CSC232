@@ -6,23 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/tmp/guest-cAui15/CSC232/Lab4/build/odomPub_cmdline.c
-config.h
-/tmp/guest-cAui15/CSC232/Lab4/build/config.h
-stdio.h
--
-stdlib.h
--
-string.h
--
-getopt.h
--
-odomPub_cmdline.h
-/tmp/guest-cAui15/CSC232/Lab4/build/odomPub_cmdline.h
-
-/tmp/guest-cAui15/CSC232/Lab4/build/odomPub_cmdline.h
-config.h
-/tmp/guest-cAui15/CSC232/Lab4/build/config.h
-stdio.h
--
-

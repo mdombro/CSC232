@@ -31,14 +31,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/guest-cAui15/CSC232/Lab4
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/guest-cAui15/CSC232/Lab4/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab4/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/naviSub.dir/depend.make
@@ -51,17 +48,17 @@ include CMakeFiles/naviSub.dir/flags.make
 
 CMakeFiles/naviSub.dir/naviSub.cpp.o: CMakeFiles/naviSub.dir/flags.make
 CMakeFiles/naviSub.dir/naviSub.cpp.o: ../naviSub.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /tmp/guest-cAui15/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/naviSub.dir/naviSub.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/naviSub.dir/naviSub.cpp.o -c /tmp/guest-cAui15/CSC232/Lab4/naviSub.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/naviSub.dir/naviSub.cpp.o -c /home/matthew/CSC232/Lab4/naviSub.cpp
 
 CMakeFiles/naviSub.dir/naviSub.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/naviSub.dir/naviSub.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /tmp/guest-cAui15/CSC232/Lab4/naviSub.cpp > CMakeFiles/naviSub.dir/naviSub.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab4/naviSub.cpp > CMakeFiles/naviSub.dir/naviSub.cpp.i
 
 CMakeFiles/naviSub.dir/naviSub.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/naviSub.dir/naviSub.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /tmp/guest-cAui15/CSC232/Lab4/naviSub.cpp -o CMakeFiles/naviSub.dir/naviSub.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab4/naviSub.cpp -o CMakeFiles/naviSub.dir/naviSub.cpp.s
 
 CMakeFiles/naviSub.dir/naviSub.cpp.o.requires:
 .PHONY : CMakeFiles/naviSub.dir/naviSub.cpp.o.requires
@@ -74,17 +71,17 @@ CMakeFiles/naviSub.dir/naviSub.cpp.o.provides.build: CMakeFiles/naviSub.dir/navi
 
 CMakeFiles/naviSub.dir/naviSub_cmdline.c.o: CMakeFiles/naviSub.dir/flags.make
 CMakeFiles/naviSub.dir/naviSub_cmdline.c.o: naviSub_cmdline.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /tmp/guest-cAui15/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/naviSub.dir/naviSub_cmdline.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/naviSub.dir/naviSub_cmdline.c.o   -c /tmp/guest-cAui15/CSC232/Lab4/build/naviSub_cmdline.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/naviSub.dir/naviSub_cmdline.c.o   -c /home/matthew/CSC232/Lab4/build/naviSub_cmdline.c
 
 CMakeFiles/naviSub.dir/naviSub_cmdline.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/naviSub.dir/naviSub_cmdline.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /tmp/guest-cAui15/CSC232/Lab4/build/naviSub_cmdline.c > CMakeFiles/naviSub.dir/naviSub_cmdline.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab4/build/naviSub_cmdline.c > CMakeFiles/naviSub.dir/naviSub_cmdline.c.i
 
 CMakeFiles/naviSub.dir/naviSub_cmdline.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/naviSub.dir/naviSub_cmdline.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /tmp/guest-cAui15/CSC232/Lab4/build/naviSub_cmdline.c -o CMakeFiles/naviSub.dir/naviSub_cmdline.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab4/build/naviSub_cmdline.c -o CMakeFiles/naviSub.dir/naviSub_cmdline.c.s
 
 CMakeFiles/naviSub.dir/naviSub_cmdline.c.o.requires:
 .PHONY : CMakeFiles/naviSub.dir/naviSub_cmdline.c.o.requires
@@ -105,210 +102,245 @@ naviSub_EXTERNAL_OBJECTS =
 
 naviSub: CMakeFiles/naviSub.dir/naviSub.cpp.o
 naviSub: CMakeFiles/naviSub.dir/naviSub_cmdline.c.o
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_laser.so
+naviSub: /opt/ros/hydro/lib/libopencv_contrib.so
+naviSub: /opt/ros/hydro/lib/libopencv_gpu.so
+naviSub: /opt/ros/hydro/lib/libturtlebot_follower.so
+naviSub: /opt/ros/hydro/lib/libroscpp.so
+naviSub: /opt/ros/hydro/lib/libdiagnostic_aggregator.so
+naviSub: /opt/ros/hydro/lib/librandom_numbers.so
+naviSub: /opt/ros/hydro/lib/libglobal_planner.so
+naviSub: /opt/ros/hydro/lib/libopencv_stitching.so
+naviSub: /opt/ros/hydro/lib/libopencv_video.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_camera_utils.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_moveit_planning_scene.so
+naviSub: /opt/ros/hydro/lib/libopenni_nodelet.so
+naviSub: /opt/ros/hydro/lib/libopenni2_camera_nodelet.so
+naviSub: /opt/ros/hydro/lib/libopencv_ocl.so
+naviSub: /opt/ros/hydro/lib/libimage_geometry.so
+naviSub: /opt/ros/hydro/lib/libcompressed_depth_image_transport.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_joint_pose_trajectory.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_ft_sensor.so
+naviSub: /opt/ros/hydro/lib/liburdfdom_model_state.so
+naviSub: /opt/ros/hydro/lib/libcpp_common.so
+naviSub: /opt/ros/hydro/lib/libtf_conversions.so
+naviSub: /opt/ros/hydro/lib/libcompressed_image_transport.so
+naviSub: /opt/ros/hydro/lib/liborocos-kdl.so.1.3
+naviSub: /opt/ros/hydro/lib/librosconsole_bridge.so
+naviSub: /opt/ros/hydro/lib/libshape_tools.so
+naviSub: /opt/ros/hydro/lib/libdepth_image_proc.so
+naviSub: /opt/ros/hydro/lib/libparams.so
+naviSub: /opt/ros/hydro/lib/libmedian.so
+naviSub: /opt/ros/hydro/lib/libopencv_highgui.so.2.4
+naviSub: /opt/ros/hydro/lib/libopencv_imgproc.so.2.4
+naviSub: /opt/ros/hydro/lib/libecl_time_lite.so
+naviSub: /opt/ros/hydro/lib/libopencv_calib3d.so.2.4
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_gpu_laser.so
+naviSub: /opt/ros/hydro/lib/libkdl_parser.so
+naviSub: /opt/ros/hydro/lib/libinteractive_markers.so
+naviSub: /opt/ros/hydro/lib/librospack.so
+naviSub: /opt/ros/hydro/lib/libstage.so.4.1.1
+naviSub: /opt/ros/hydro/lib/librviz.so
+naviSub: /opt/ros/hydro/lib/libpcl_ros_tf.so
+naviSub: /opt/ros/hydro/lib/libecl_exceptions.so
+naviSub: /opt/ros/hydro/lib/librqt_rviz.so
+naviSub: /opt/ros/hydro/lib/libdwa_local_planner.so
+naviSub: /opt/ros/hydro/lib/libopencv_superres.so.2.4
+naviSub: /opt/ros/hydro/lib/libopencv_gpu.so.2.4
+naviSub: /opt/ros/hydro/lib/libresource_retriever.so
+naviSub: /opt/ros/hydro/lib/libtopic_tools.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_force.so
+naviSub: /opt/ros/hydro/lib/libDepthImageToLaserScan.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_joint_trajectory.so
+naviSub: /opt/ros/hydro/lib/libdynamic_reconfigure_config_init_mutex.so
+naviSub: /opt/ros/hydro/lib/libopencv_video.so.2.4
+naviSub: /opt/ros/hydro/lib/libcostmap_2d.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_projector.so
+naviSub: /opt/ros/hydro/lib/libecl_geometry.so
+naviSub: /opt/ros/hydro/lib/libopencv_flann.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libecl_threads.so
+naviSub: /opt/ros/hydro/lib/libkobuki_nodelet.so
+naviSub: /opt/ros/hydro/lib/libvoxel_grid.so
+naviSub: /opt/ros/hydro/lib/libamcl_map.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_utils.so
+naviSub: /opt/ros/hydro/lib/libecl_type_traits.so
+naviSub: /opt/ros/hydro/lib/libkobuki_dock_drive.so
+naviSub: /opt/ros/hydro/lib/libscanmatcher.so
+naviSub: /opt/ros/hydro/lib/libecl_formatters.so
+naviSub: /opt/ros/hydro/lib/librosbag_storage.so
+naviSub: /opt/ros/hydro/lib/libopencv_legacy.so.2.4
+naviSub: /opt/ros/hydro/lib/libopenni2_driver_lib.so
+naviSub: /opt/ros/hydro/lib/libimage_loader.so
+naviSub: /opt/ros/hydro/lib/libcollada_urdf.so
+naviSub: /opt/ros/hydro/lib/libopencv_core.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libwarehouse_ros.so
+naviSub: /opt/ros/hydro/lib/liburdfdom_sensor.so
+naviSub: /opt/ros/hydro/lib/libroscpp_serialization.so
+naviSub: /opt/ros/hydro/lib/libkdl_conversions.so
+naviSub: /opt/ros/hydro/lib/libpointcloud_filters.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_bumper.so
+naviSub: /opt/ros/hydro/lib/libecl_mobile_robot.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_imu.so
+naviSub: /opt/ros/hydro/lib/libkobuki.so
+naviSub: /opt/ros/hydro/lib/librosconsole.so
+naviSub: /opt/ros/hydro/lib/libMultiCameraPlugin.so
+naviSub: /opt/ros/hydro/lib/libDepthImageToLaserScanNodelet.so
+naviSub: /opt/ros/hydro/lib/libsensor_odometry.so
+naviSub: /opt/ros/hydro/lib/libopencv_photo.so
+naviSub: /opt/ros/hydro/lib/libopencv_flann.so.2.4
+naviSub: /opt/ros/hydro/lib/libcollada_parser.so
+naviSub: /opt/ros/hydro/lib/liborocos-bfl.so
+naviSub: /opt/ros/hydro/lib/libclass_loader.so
+naviSub: /opt/ros/hydro/lib/libzeroconf_avahi.so
+naviSub: /opt/ros/hydro/lib/libclear_costmap_recovery.so
+naviSub: /opt/ros/hydro/lib/libopencv_objdetect.so
+naviSub: /opt/ros/hydro/lib/libopencv_ml.so
+naviSub: /opt/ros/hydro/lib/libopencv_calib3d.so
+naviSub: /opt/ros/hydro/lib/libtrajectory_planner_ros.so
+naviSub: /opt/ros/hydro/lib/libopencv_ml.so.2.4
+naviSub: /opt/ros/hydro/lib/libsensor_range.so
+naviSub: /opt/ros/hydro/lib/libqt_gui_cpp.so
+naviSub: /opt/ros/hydro/lib/libopencv_stitching.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libopencv_superres.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libopencv_videostab.so
+naviSub: /opt/ros/hydro/lib/libopencv_photo.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libopencv_video.so.2.4.9
+naviSub: /opt/ros/hydro/lib/liburdfdom_world.so
+naviSub: /opt/ros/hydro/lib/libimage_view.so
+naviSub: /opt/ros/hydro/lib/librotate_recovery.so
+naviSub: /opt/ros/hydro/lib/libopencv_superres.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_api_plugin.so
+naviSub: /opt/ros/hydro/lib/libimage_transport.so
+naviSub: /opt/ros/hydro/lib/libopencv_imgproc.so
+naviSub: /opt/ros/hydro/lib/librosbag.so
+naviSub: /opt/ros/hydro/lib/libxmlrpcpp.so
+naviSub: /opt/ros/hydro/lib/libmove_base.so
+naviSub: /opt/ros/hydro/lib/libopencv_legacy.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libsensor_base.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_video.so
+naviSub: /opt/ros/hydro/lib/libopencv_ocl.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libstage.so
+naviSub: /opt/ros/hydro/lib/libpcl_ros_features.so
+naviSub: /opt/ros/hydro/lib/libmean.so
+naviSub: /opt/ros/hydro/lib/libopencv_videostab.so.2.4
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_camera.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_joint_state_publisher.so
+naviSub: /opt/ros/hydro/lib/librosconsole_log4cxx.so
+naviSub: /opt/ros/hydro/lib/libamcl_pf.so
+naviSub: /opt/ros/hydro/lib/libimage_transport_plugins.so
+naviSub: /opt/ros/hydro/lib/libopencv_legacy.so
+naviSub: /opt/ros/hydro/lib/libopencv_ocl.so.2.4
+naviSub: /opt/ros/hydro/lib/libpcl_ros_surface.so
+naviSub: /opt/ros/hydro/lib/libimage_proc.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_template.so
+naviSub: /opt/ros/hydro/lib/libtf2_ros.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_diff_drive.so
+naviSub: /opt/ros/hydro/lib/libopencv_objdetect.so.2.4.9
+naviSub: /opt/ros/hydro/lib/librqt_image_view.so
+naviSub: /opt/ros/hydro/lib/libnodeletlib.so
+naviSub: /opt/ros/hydro/lib/libopencv_highgui.so
+naviSub: /opt/ros/hydro/lib/libopencv_imgproc.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_skid_steer_drive.so
+naviSub: /opt/ros/hydro/lib/liboctomath.so.1.6
+naviSub: /opt/ros/hydro/lib/librobot_state_publisher_solver.so
+naviSub: /opt/ros/hydro/lib/libpano_core.so
+naviSub: /opt/ros/hydro/lib/libpointcloud_to_laserscan.so
+naviSub: /opt/ros/hydro/lib/liboctomap.so.1.6
+naviSub: /opt/ros/hydro/lib/libopencv_features2d.so.2.4
+naviSub: /opt/ros/hydro/lib/libpcl_ros_segmentation.so
+naviSub: /opt/ros/hydro/lib/libkobuki_safety_controller_nodelet.so
+naviSub: /opt/ros/hydro/lib/libopencv_core.so
+naviSub: /opt/ros/hydro/lib/liburdf.so
+naviSub: /opt/ros/hydro/lib/libbase_local_planner.so
+naviSub: /opt/ros/hydro/lib/libincrement.so
+naviSub: /opt/ros/hydro/lib/libcamera_info_manager.so
+naviSub: /opt/ros/hydro/lib/libkobuki_ros.so
+naviSub: /opt/ros/hydro/lib/libpcl_ros_io.so
+naviSub: /opt/ros/hydro/lib/libbondcpp.so
+naviSub: /opt/ros/hydro/lib/libopencv_calib3d.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libopencv_photo.so.2.4
+naviSub: /opt/ros/hydro/lib/liboctomap.so
+naviSub: /opt/ros/hydro/lib/liboctomath.so.1.6.8
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_block_laser.so
+naviSub: /opt/ros/hydro/lib/libopenni2_wrapper.so
+naviSub: /opt/ros/hydro/lib/libopencv_nonfree.so.2.4.9
+naviSub: /opt/ros/hydro/lib/liblaser_geometry.so
+naviSub: /opt/ros/hydro/lib/libutils.so
+naviSub: /opt/ros/hydro/lib/libeigen_conversions.so
+naviSub: /opt/ros/hydro/lib/libnavfn.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_openni_kinect.so
+naviSub: /opt/ros/hydro/lib/liblayers.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_p3d.so
+naviSub: /opt/ros/hydro/lib/libecl_devices.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_paths_plugin.so
+naviSub: /opt/ros/hydro/lib/libgridfastslam.so
+naviSub: /opt/ros/hydro/lib/libdefault_plugin.so
+naviSub: /opt/ros/hydro/lib/libopencv_features2d.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_create.so
+naviSub: /opt/ros/hydro/lib/libkobuki_auto_docking_ros.so
+naviSub: /opt/ros/hydro/lib/liborocos-kdl.so
+naviSub: /opt/ros/hydro/lib/librqt_gui_cpp.so
+naviSub: /opt/ros/hydro/lib/libopencv_objdetect.so.2.4
+naviSub: /opt/ros/hydro/lib/librosconsole_backend_interface.so
+naviSub: /opt/ros/hydro/lib/liborocos-kdl.so.1.3.0
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_kobuki.so
+naviSub: /opt/ros/hydro/lib/libtheora_image_transport.so
+naviSub: /opt/ros/hydro/lib/libamcl_sensors.so
+naviSub: /opt/ros/hydro/lib/libconsole_bridge.so
+naviSub: /opt/ros/hydro/lib/libkobuki_bumper2pc_nodelet.so
+naviSub: /opt/ros/hydro/lib/librostime.so
+naviSub: /opt/ros/hydro/lib/libyocs_velocity_smoother_nodelet.so
+naviSub: /opt/ros/hydro/lib/libgeometric_shapes.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_hand_of_god.so
+naviSub: /opt/ros/hydro/lib/libcollada_parser_plugin.so
+naviSub: /opt/ros/hydro/lib/libecl_time.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_prosilica.so
+naviSub: /opt/ros/hydro/lib/liboctomath.so
+naviSub: /opt/ros/hydro/lib/libstereo_image_proc.so
+naviSub: /opt/ros/hydro/lib/liblaser_scan_filters.so
+naviSub: /opt/ros/hydro/lib/librviz_plugin_tutorials.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_f3d.so
+naviSub: /opt/ros/hydro/lib/libecl_errors.so
+naviSub: /opt/ros/hydro/lib/libopencv_contrib.so.2.4
+naviSub: /opt/ros/hydro/lib/libopencv_ml.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libnodelet_math.so
+naviSub: /opt/ros/hydro/lib/libpluginlib_tutorials.so
+naviSub: /opt/ros/hydro/lib/libroslib.so
+naviSub: /opt/ros/hydro/lib/libecl_streams.so
+naviSub: /opt/ros/hydro/lib/libyocs_cmd_vel_mux_nodelet.so
+naviSub: /opt/ros/hydro/lib/libopencv_videostab.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libtf.so
+naviSub: /opt/ros/hydro/lib/libimage_rotate.so
+naviSub: /opt/ros/hydro/lib/libopencv_nonfree.so.2.4
+naviSub: /opt/ros/hydro/lib/libopencv_nonfree.so
+naviSub: /opt/ros/hydro/lib/libtf2.so
+naviSub: /opt/ros/hydro/lib/libopencv_core.so.2.4
+naviSub: /opt/ros/hydro/lib/libopencv_features2d.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_planar_move.so
+naviSub: /opt/ros/hydro/lib/libvision_reconfigure.so
+naviSub: /opt/ros/hydro/lib/liboctomap.so.1.6.8
+naviSub: /opt/ros/hydro/lib/libpolled_camera.so
+naviSub: /opt/ros/hydro/lib/libmove_slow_and_clear.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_multicamera.so
+naviSub: /opt/ros/hydro/lib/libtransfer_function.so
+naviSub: /opt/ros/hydro/lib/libopencv_gpu.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libDepthImageToLaserScanROS.so
+naviSub: /opt/ros/hydro/lib/libcamera_calibration_parsers.so
+naviSub: /opt/ros/hydro/lib/liburdfdom_model.so
+naviSub: /opt/ros/hydro/lib/libactionlib.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_depth_camera.so
+naviSub: /opt/ros/hydro/lib/libopencv_stitching.so.2.4
+naviSub: /opt/ros/hydro/lib/libopencv_highgui.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libopenni_driver.so
+naviSub: /opt/ros/hydro/lib/libmessage_filters.so
+naviSub: /opt/ros/hydro/lib/libcv_bridge.so
+naviSub: /opt/ros/hydro/lib/libkobuki_auto_docking_nodelet.so
+naviSub: /opt/ros/hydro/lib/libopencv_contrib.so.2.4.9
+naviSub: /opt/ros/hydro/lib/libopencv_flann.so
+naviSub: /opt/ros/hydro/lib/libgazebo_ros_tricycle_drive.so
+naviSub: /opt/ros/hydro/lib/libpcl_ros_filters.so
+naviSub: /opt/ros/hydro/lib/libcarrot_planner.so
 naviSub: CMakeFiles/naviSub.dir/build.make
-naviSub: /opt/ros/indigo/lib/libopenni2_driver_lib.so
-naviSub: /opt/ros/indigo/lib/libecl_devices.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_kobuki.so
-naviSub: /opt/ros/indigo/lib/libtransfer_function.so
-naviSub: /opt/ros/indigo/lib/libclear_costmap_recovery.so
-naviSub: /opt/ros/indigo/lib/libstdr_sensor_base.so
-naviSub: /opt/ros/indigo/lib/libtf2_ros.so
-naviSub: /opt/ros/indigo/lib/libresource_retriever.so
-naviSub: /opt/ros/indigo/lib/libdiagnostic_aggregator.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_diff_drive.so
-naviSub: /opt/ros/indigo/lib/libpano_core.so
-naviSub: /opt/ros/indigo/lib/libcollada_parser.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_ft_sensor.so
-naviSub: /opt/ros/indigo/lib/liblayers.so
-naviSub: /opt/ros/indigo/lib/libscanmatcher.so
-naviSub: /opt/ros/indigo/lib/libyocs_math_toolkit.so
-naviSub: /opt/ros/indigo/lib/libpcl_ros_filters.so
-naviSub: /opt/ros/indigo/lib/librqt_rviz.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_hand_of_god.so
-naviSub: /opt/ros/indigo/lib/libstdr_co2_sensor.so
-naviSub: /opt/ros/indigo/lib/libkobuki_ros.so
-naviSub: /opt/ros/indigo/lib/libcamera_calibration_parsers.so
-naviSub: /opt/ros/indigo/lib/librosconsole_backend_interface.so
-naviSub: /opt/ros/indigo/lib/librosbag.so
-naviSub: /opt/ros/indigo/lib/librotate_recovery.so
-naviSub: /opt/ros/indigo/lib/libecl_geometry.so
-naviSub: /opt/ros/indigo/lib/liboctomath.so.1.6
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_prosilica.so
-naviSub: /opt/ros/indigo/lib/librosconsole.so
-naviSub: /opt/ros/indigo/lib/libyocs_cmd_vel_mux_nodelet.so
-naviSub: /opt/ros/indigo/lib/librqt_gui_cpp.so
-naviSub: /opt/ros/indigo/lib/libimage_rotate.so
-naviSub: /opt/ros/indigo/lib/libecl_formatters.so
-naviSub: /opt/ros/indigo/lib/libcollada_urdf.so
-naviSub: /opt/ros/indigo/lib/libdynamic_reconfigure_config_init_mutex.so
-naviSub: /opt/ros/indigo/lib/libpluginlib_tutorials.so
-naviSub: /opt/ros/indigo/lib/libstdr_microphone_sensor.so
-naviSub: /opt/ros/indigo/lib/libecl_exceptions.so
-naviSub: /opt/ros/indigo/lib/libecl_threads.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_video.so
-naviSub: /opt/ros/indigo/lib/libroscpp_serialization.so
-naviSub: /opt/ros/indigo/lib/libdepth_image_proc.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_utils.so
-naviSub: /opt/ros/indigo/lib/libsensor_odometry.so
-naviSub: /opt/ros/indigo/lib/libecl_mobile_robot.so
-naviSub: /opt/ros/indigo/lib/libtopic_tools.so
-naviSub: /opt/ros/indigo/lib/libstdr_sonar.so
-naviSub: /opt/ros/indigo/lib/libzeroconf_avahi.so
-naviSub: /opt/ros/indigo/lib/liboctomath.so
-naviSub: /opt/ros/indigo/lib/libkobuki_bumper2pc_nodelet.so
-naviSub: /opt/ros/indigo/lib/libpointcloud_filters.so
-naviSub: /opt/ros/indigo/lib/libnodeletlib.so
-naviSub: /opt/ros/indigo/lib/libstdr_ideal_motion_controller.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_block_laser.so
-naviSub: /opt/ros/indigo/lib/liboctomath.so.1.6.8
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_planar_move.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_joint_state_publisher.so
-naviSub: /opt/ros/indigo/lib/liboctomap.so
-naviSub: /opt/ros/indigo/lib/libopenni_driver.so
-naviSub: /opt/ros/indigo/lib/libkobuki_safety_controller_nodelet.so
-naviSub: /opt/ros/indigo/lib/libfreenect.so
-naviSub: /opt/ros/indigo/lib/libpointcloud_to_laserscan.so
-naviSub: /opt/ros/indigo/lib/libmove_slow_and_clear.so
-naviSub: /opt/ros/indigo/lib/libpcl_ros_surface.so
-naviSub: /opt/ros/indigo/lib/libstdr_map_server.so
-naviSub: /opt/ros/indigo/lib/libkobuki_random_walker_nodelet.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_imu.so
-naviSub: /opt/ros/indigo/lib/libturtlebot_follower.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_projector.so
-naviSub: /opt/ros/indigo/lib/libMultiCameraPlugin.so
-naviSub: /opt/ros/indigo/lib/libimage_transport.so
-naviSub: /opt/ros/indigo/lib/libstage.so.4.1.1
-naviSub: /opt/ros/indigo/lib/libpcl_ros_io.so
-naviSub: /opt/ros/indigo/lib/libcarrot_planner.so
-naviSub: /opt/ros/indigo/lib/liborocos-bfl.so
-naviSub: /opt/ros/indigo/lib/libgeometric_shapes.so
-naviSub: /opt/ros/indigo/lib/libgridfastslam.so
-naviSub: /opt/ros/indigo/lib/libroscpp.so
-naviSub: /opt/ros/indigo/lib/libmedian.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_joint_trajectory.so
-naviSub: /opt/ros/indigo/lib/libopencv_apps.so
-naviSub: /opt/ros/indigo/lib/libnodelet_math.so
-naviSub: /opt/ros/indigo/lib/libstdr_rfid_reader.so
-naviSub: /opt/ros/indigo/lib/liboctomap.so.1.6.8
-naviSub: /opt/ros/indigo/lib/libstdr_robot_nodelet.so
-naviSub: /opt/ros/indigo/lib/libcv_bridge.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_openni_kinect.so
-naviSub: /opt/ros/indigo/lib/libmove_base.so
-naviSub: /opt/ros/indigo/lib/libopenni2_camera_nodelet.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_gpu_laser.so
-naviSub: /opt/ros/indigo/lib/libkobuki_auto_docking_nodelet.so
-naviSub: /opt/ros/indigo/lib/libstdr_thermal_sensor.so
-naviSub: /opt/ros/indigo/lib/libfreenect_sync.so.0.5.1
-naviSub: /opt/ros/indigo/lib/liborocos-kdl.so
-naviSub: /opt/ros/indigo/lib/liblaser_scan_filters.so
-naviSub: /opt/ros/indigo/lib/librandom_numbers.so
-naviSub: /opt/ros/indigo/lib/libstdr_handle_robot.so
-naviSub: /opt/ros/indigo/lib/libdefault_plugin.so
-naviSub: /opt/ros/indigo/lib/libkdl_parser.so
-naviSub: /opt/ros/indigo/lib/libcompressed_depth_image_transport.so
-naviSub: /opt/ros/indigo/lib/libvision_reconfigure.so
-naviSub: /opt/ros/indigo/lib/librosconsole_log4cxx.so
-naviSub: /opt/ros/indigo/lib/libactionlib.so
-naviSub: /opt/ros/indigo/lib/libecl_streams.so
-naviSub: /opt/ros/indigo/lib/libecl_time.so
-naviSub: /opt/ros/indigo/lib/libtheora_image_transport.so
-naviSub: /opt/ros/indigo/lib/libmessage_filters.so
-naviSub: /opt/ros/indigo/lib/libfreenect.so.0.5
-naviSub: /opt/ros/indigo/lib/libamcl_map.so
-naviSub: /opt/ros/indigo/lib/libinteractive_markers.so
-naviSub: /opt/ros/indigo/lib/libDepthImageToLaserScanNodelet.so
-naviSub: /opt/ros/indigo/lib/libqt_gui_cpp.so
-naviSub: /opt/ros/indigo/lib/libroslib.so
-naviSub: /opt/ros/indigo/lib/librosbag_storage.so
-naviSub: /opt/ros/indigo/lib/libcostmap_2d.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_laser.so
-naviSub: /opt/ros/indigo/lib/libfreenect_sync.so.0.5
-naviSub: /opt/ros/indigo/lib/libmean.so
-naviSub: /opt/ros/indigo/lib/libimage_transport_plugins.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_force.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_multicamera.so
-naviSub: /opt/ros/indigo/lib/libamcl_sensors.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_range.so
-naviSub: /opt/ros/indigo/lib/libcpp_common.so
-naviSub: /opt/ros/indigo/lib/libutils.so
-naviSub: /opt/ros/indigo/lib/libkdl_conversions.so
-naviSub: /opt/ros/indigo/lib/libkobuki.so
-naviSub: /opt/ros/indigo/lib/liboctomap.so.1.6
-naviSub: /opt/ros/indigo/lib/libdwa_local_planner.so
-naviSub: /opt/ros/indigo/lib/libDepthImageToLaserScanROS.so
-naviSub: /opt/ros/indigo/lib/libstdr_parser.so
-naviSub: /opt/ros/indigo/lib/libimage_proc.so
-naviSub: /opt/ros/indigo/lib/librqt_image_view.so
-naviSub: /opt/ros/indigo/lib/libcompressed_image_transport.so
-naviSub: /opt/ros/indigo/lib/libroslz4.so
-naviSub: /opt/ros/indigo/lib/libtf.so
-naviSub: /opt/ros/indigo/lib/libDepthImageToLaserScan.so
-naviSub: /opt/ros/indigo/lib/libimage_loader.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_paths_plugin.so
-naviSub: /opt/ros/indigo/lib/libbase_local_planner.so
-naviSub: /opt/ros/indigo/lib/libstdr_map_loader.so
-naviSub: /opt/ros/indigo/lib/libeigen_conversions.so
-naviSub: /opt/ros/indigo/lib/libstdr_laser.so
-naviSub: /opt/ros/indigo/lib/libxmlrpcpp.so
-naviSub: /opt/ros/indigo/lib/libecl_errors.so
-naviSub: /opt/ros/indigo/lib/libamcl_pf.so
-naviSub: /opt/ros/indigo/lib/liborocos-kdl.so.1.3
-naviSub: /opt/ros/indigo/lib/librviz_plugin_tutorials.so
-naviSub: /opt/ros/indigo/lib/libclass_loader.so
-naviSub: /opt/ros/indigo/lib/libincrement.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_p3d.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_depth_camera.so
-naviSub: /opt/ros/indigo/lib/libpcl_ros_segmentation.so
-naviSub: /opt/ros/indigo/lib/libfreenect_nodelet.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_camera.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_template.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_bumper.so
-naviSub: /opt/ros/indigo/lib/libstereo_image_proc.so
-naviSub: /opt/ros/indigo/lib/libsensor_base.so
-naviSub: /opt/ros/indigo/lib/libecl_type_traits.so
-naviSub: /opt/ros/indigo/lib/libtf_conversions.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_f3d.so
-naviSub: /opt/ros/indigo/lib/librostime.so
-naviSub: /opt/ros/indigo/lib/liblaser_geometry.so
-naviSub: /opt/ros/indigo/lib/libglobal_planner.so
-naviSub: /opt/ros/indigo/lib/libpcl_ros_tf.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_tricycle_drive.so
-naviSub: /opt/ros/indigo/lib/libkobuki_auto_docking_ros.so
-naviSub: /opt/ros/indigo/lib/librviz.so
-naviSub: /opt/ros/indigo/lib/libpcl_ros_features.so
-naviSub: /opt/ros/indigo/lib/libtrajectory_planner_ros.so
-naviSub: /opt/ros/indigo/lib/libvoxel_grid.so
-naviSub: /opt/ros/indigo/lib/liburdf.so
-naviSub: /opt/ros/indigo/lib/libparams.so
-naviSub: /opt/ros/indigo/lib/libfreenect.so.0.5.1
-naviSub: /opt/ros/indigo/lib/liborocos-kdl.so.1.3.0
-naviSub: /opt/ros/indigo/lib/libpolled_camera.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_camera_utils.so
-naviSub: /opt/ros/indigo/lib/librospack.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_joint_pose_trajectory.so
-naviSub: /opt/ros/indigo/lib/libkobuki_dock_drive.so
-naviSub: /opt/ros/indigo/lib/libkobuki_nodelet.so
-naviSub: /opt/ros/indigo/lib/libnavfn.so
-naviSub: /opt/ros/indigo/lib/librosconsole_bridge.so
-naviSub: /opt/ros/indigo/lib/libimage_view.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_api_plugin.so
-naviSub: /opt/ros/indigo/lib/libcollada_parser_plugin.so
-naviSub: /opt/ros/indigo/lib/libgazebo_ros_skid_steer_drive.so
-naviSub: /opt/ros/indigo/lib/libyocs_velocity_smoother_nodelet.so
-naviSub: /opt/ros/indigo/lib/libstage.so
-naviSub: /opt/ros/indigo/lib/libsensor_range.so
-naviSub: /opt/ros/indigo/lib/libecl_linear_algebra.so
-naviSub: /opt/ros/indigo/lib/libimage_geometry.so
-naviSub: /opt/ros/indigo/lib/libopenni2_wrapper.so
-naviSub: /opt/ros/indigo/lib/librobot_state_publisher_solver.so
-naviSub: /opt/ros/indigo/lib/libtf2.so
-naviSub: /opt/ros/indigo/lib/libcamera_info_manager.so
-naviSub: /opt/ros/indigo/lib/libopenni_nodelet.so
-naviSub: /opt/ros/indigo/lib/libecl_time_lite.so
-naviSub: /opt/ros/indigo/lib/libwarehouse_ros.so
-naviSub: /opt/ros/indigo/lib/libstdr_server.so
-naviSub: /opt/ros/indigo/lib/libbondcpp.so
-naviSub: /opt/ros/indigo/lib/libfreenect_sync.so
 naviSub: CMakeFiles/naviSub.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable naviSub"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/naviSub.dir/link.txt --verbose=$(VERBOSE)
@@ -316,228 +348,6 @@ naviSub: CMakeFiles/naviSub.dir/link.txt
 # Rule to build all files generated by this target.
 CMakeFiles/naviSub.dir/build: naviSub
 .PHONY : CMakeFiles/naviSub.dir/build
-
-# Object files for target naviSub
-naviSub_OBJECTS = \
-"CMakeFiles/naviSub.dir/naviSub.cpp.o" \
-"CMakeFiles/naviSub.dir/naviSub_cmdline.c.o"
-
-# External object files for target naviSub
-naviSub_EXTERNAL_OBJECTS =
-
-CMakeFiles/CMakeRelink.dir/naviSub: CMakeFiles/naviSub.dir/naviSub.cpp.o
-CMakeFiles/CMakeRelink.dir/naviSub: CMakeFiles/naviSub.dir/naviSub_cmdline.c.o
-CMakeFiles/CMakeRelink.dir/naviSub: CMakeFiles/naviSub.dir/build.make
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libopenni2_driver_lib.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_devices.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_kobuki.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtransfer_function.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libclear_costmap_recovery.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_sensor_base.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtf2_ros.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libresource_retriever.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libdiagnostic_aggregator.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_diff_drive.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpano_core.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcollada_parser.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_ft_sensor.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liblayers.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libscanmatcher.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libyocs_math_toolkit.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpcl_ros_filters.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librqt_rviz.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_hand_of_god.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_co2_sensor.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_ros.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcamera_calibration_parsers.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librosconsole_backend_interface.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librosbag.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librotate_recovery.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_geometry.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liboctomath.so.1.6
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_prosilica.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librosconsole.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libyocs_cmd_vel_mux_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librqt_gui_cpp.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libimage_rotate.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_formatters.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcollada_urdf.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libdynamic_reconfigure_config_init_mutex.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpluginlib_tutorials.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_microphone_sensor.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_exceptions.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_threads.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_video.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libroscpp_serialization.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libdepth_image_proc.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_utils.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libsensor_odometry.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_mobile_robot.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtopic_tools.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_sonar.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libzeroconf_avahi.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liboctomath.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_bumper2pc_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpointcloud_filters.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libnodeletlib.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_ideal_motion_controller.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_block_laser.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liboctomath.so.1.6.8
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_planar_move.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_joint_state_publisher.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liboctomap.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libopenni_driver.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_safety_controller_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libfreenect.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpointcloud_to_laserscan.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libmove_slow_and_clear.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpcl_ros_surface.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_map_server.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_random_walker_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_imu.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libturtlebot_follower.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_projector.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libMultiCameraPlugin.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libimage_transport.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstage.so.4.1.1
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpcl_ros_io.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcarrot_planner.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liborocos-bfl.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgeometric_shapes.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgridfastslam.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libroscpp.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libmedian.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_joint_trajectory.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libopencv_apps.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libnodelet_math.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_rfid_reader.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liboctomap.so.1.6.8
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_robot_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcv_bridge.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_openni_kinect.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libmove_base.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libopenni2_camera_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_gpu_laser.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_auto_docking_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_thermal_sensor.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libfreenect_sync.so.0.5.1
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liborocos-kdl.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liblaser_scan_filters.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librandom_numbers.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_handle_robot.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libdefault_plugin.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkdl_parser.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcompressed_depth_image_transport.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libvision_reconfigure.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librosconsole_log4cxx.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libactionlib.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_streams.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_time.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtheora_image_transport.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libmessage_filters.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libfreenect.so.0.5
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libamcl_map.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libinteractive_markers.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libDepthImageToLaserScanNodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libqt_gui_cpp.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libroslib.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librosbag_storage.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcostmap_2d.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_laser.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libfreenect_sync.so.0.5
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libmean.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libimage_transport_plugins.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_force.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_multicamera.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libamcl_sensors.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_range.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcpp_common.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libutils.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkdl_conversions.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liboctomap.so.1.6
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libdwa_local_planner.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libDepthImageToLaserScanROS.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_parser.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libimage_proc.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librqt_image_view.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcompressed_image_transport.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libroslz4.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtf.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libDepthImageToLaserScan.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libimage_loader.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_paths_plugin.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libbase_local_planner.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_map_loader.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libeigen_conversions.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_laser.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libxmlrpcpp.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_errors.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libamcl_pf.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liborocos-kdl.so.1.3
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librviz_plugin_tutorials.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libclass_loader.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libincrement.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_p3d.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_depth_camera.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpcl_ros_segmentation.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libfreenect_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_camera.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_template.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_bumper.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstereo_image_proc.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libsensor_base.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_type_traits.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtf_conversions.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_f3d.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librostime.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liblaser_geometry.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libglobal_planner.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpcl_ros_tf.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_tricycle_drive.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_auto_docking_ros.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librviz.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpcl_ros_features.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtrajectory_planner_ros.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libvoxel_grid.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liburdf.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libparams.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libfreenect.so.0.5.1
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/liborocos-kdl.so.1.3.0
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libpolled_camera.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_camera_utils.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librospack.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_joint_pose_trajectory.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_dock_drive.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libkobuki_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libnavfn.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librosconsole_bridge.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libimage_view.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_api_plugin.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcollada_parser_plugin.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libgazebo_ros_skid_steer_drive.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libyocs_velocity_smoother_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstage.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libsensor_range.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_linear_algebra.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libimage_geometry.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libopenni2_wrapper.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/librobot_state_publisher_solver.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libtf2.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libcamera_info_manager.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libopenni_nodelet.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libecl_time_lite.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libwarehouse_ros.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libstdr_server.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libbondcpp.so
-CMakeFiles/CMakeRelink.dir/naviSub: /opt/ros/indigo/lib/libfreenect_sync.so
-CMakeFiles/CMakeRelink.dir/naviSub: CMakeFiles/naviSub.dir/relink.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable CMakeFiles/CMakeRelink.dir/naviSub"
-	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/naviSub.dir/relink.txt --verbose=$(VERBOSE)
-
-# Rule to relink during preinstall.
-CMakeFiles/naviSub.dir/preinstall: CMakeFiles/CMakeRelink.dir/naviSub
-.PHONY : CMakeFiles/naviSub.dir/preinstall
 
 CMakeFiles/naviSub.dir/requires: CMakeFiles/naviSub.dir/naviSub.cpp.o.requires
 CMakeFiles/naviSub.dir/requires: CMakeFiles/naviSub.dir/naviSub_cmdline.c.o.requires
@@ -548,6 +358,6 @@ CMakeFiles/naviSub.dir/clean:
 .PHONY : CMakeFiles/naviSub.dir/clean
 
 CMakeFiles/naviSub.dir/depend:
-	cd /tmp/guest-cAui15/CSC232/Lab4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /tmp/guest-cAui15/CSC232/Lab4 /tmp/guest-cAui15/CSC232/Lab4 /tmp/guest-cAui15/CSC232/Lab4/build /tmp/guest-cAui15/CSC232/Lab4/build /tmp/guest-cAui15/CSC232/Lab4/build/CMakeFiles/naviSub.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/matthew/CSC232/Lab4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build/CMakeFiles/naviSub.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/naviSub.dir/depend
 

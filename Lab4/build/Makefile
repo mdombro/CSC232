@@ -35,14 +35,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/guest-cAui15/CSC232/Lab4
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/guest-cAui15/CSC232/Lab4/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab4/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,6 +76,16 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
+
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -100,9 +107,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-cAui15/CSC232/Lab4/build/CMakeFiles /tmp/guest-cAui15/CSC232/Lab4/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles /home/matthew/CSC232/Lab4/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/guest-cAui15/CSC232/Lab4/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab4/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,11 +149,6 @@ LocalizerStart/fast:
 	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/build
 .PHONY : LocalizerStart/fast
 
-# Manual pre-install relink rule for target.
-LocalizerStart/preinstall:
-	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/preinstall
-.PHONY : LocalizerStart/preinstall
-
 #=============================================================================
 # Target rules for targets named gui-process
 
@@ -159,11 +161,6 @@ gui-process: cmake_check_build_system
 gui-process/fast:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/build
 .PHONY : gui-process/fast
-
-# Manual pre-install relink rule for target.
-gui-process/preinstall:
-	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/preinstall
-.PHONY : gui-process/preinstall
 
 #=============================================================================
 # Target rules for targets named naviSub
@@ -178,11 +175,6 @@ naviSub/fast:
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/build
 .PHONY : naviSub/fast
 
-# Manual pre-install relink rule for target.
-naviSub/preinstall:
-	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/preinstall
-.PHONY : naviSub/preinstall
-
 #=============================================================================
 # Target rules for targets named odomPub
 
@@ -195,11 +187,6 @@ odomPub: cmake_check_build_system
 odomPub/fast:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/build
 .PHONY : odomPub/fast
-
-# Manual pre-install relink rule for target.
-odomPub/preinstall:
-	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/preinstall
-.PHONY : odomPub/preinstall
 
 #=============================================================================
 # Target rules for targets named ros_publisher
@@ -214,11 +201,6 @@ ros_publisher/fast:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
 .PHONY : ros_publisher/fast
 
-# Manual pre-install relink rule for target.
-ros_publisher/preinstall:
-	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/preinstall
-.PHONY : ros_publisher/preinstall
-
 #=============================================================================
 # Target rules for targets named ros_subscriber
 
@@ -231,11 +213,6 @@ ros_subscriber: cmake_check_build_system
 ros_subscriber/fast:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
 .PHONY : ros_subscriber/fast
-
-# Manual pre-install relink rule for target.
-ros_subscriber/preinstall:
-	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/preinstall
-.PHONY : ros_subscriber/preinstall
 
 Localizer.o: Localizer.cpp.o
 .PHONY : Localizer.o
@@ -608,6 +585,7 @@ help:
 	@echo "... gui-process"
 	@echo "... install"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... naviSub"
 	@echo "... odomPub"

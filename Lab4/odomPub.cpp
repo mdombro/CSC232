@@ -156,27 +156,49 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
         // }
 
         //if ( (float)(phi+(psi/2.0)+angleMax) > pose[2] && (float)(phi-(psi/2.0)-angleMin) < pose[2] ) {
-        if (angle < -phi+psi/2.0 && angle > -phi-psi/2.0 && dCone < 2.5) {
-            float posx = pose[0] + 1;
-            float posy = pose[1];
-            float endX = 2.5*cos(angle)+1;
-            float endY = 2.5*sin(angle);
-            float dx = endX - (posx);
-            float dy = endY - posy;
-            float dr = sqrt( pow(dx, 2) + pow(dy, 2) );
-            float D = (posx*endY - endX*posy);
-            float x_intersect1 = (D*dy+sgn(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            float x_intersect2 = (D*dy-sgn(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            float y_intersect1 = (D*dx+abs(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            float y_intersect2 = (D*dx-abs(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            float range1 = sqrt( pow(posx - x_intersect1, 2) + pow(posy - y_intersect1, 2) );
-            float range2 = sqrt( pow(posx - x_intersect2, 2) + pow(posy - y_intersect2, 2) );
-            if (range1 > range2) {
+        float maxX = pose[0] + 2.5*cos(angle);
+        float maxY = pose[1] + 2.5*sin(angle);
+        float m = (pose[1] - maxY)/(pose[0]-maxX);
+        float c = pose[1] - m*pose[0];
+        float A = pow(m,2)+1;
+        float B = 2*(m*c - 1.0);
+        float C = -pow(rCone, 2) + 1.0 + pow(c,2);
+        float Disc = pow(B, 2) - 4*A*C;
+        //if (angle < -phi+psi/2.0 && angle > -phi-psi/2.0 && dCone < 2.5) {
+        if (Disc > 0.0) {
+            float x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
+            float x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
+            float y1 = m*((-B + sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
+            float y2 = m*((-B - sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
+            float range1 = sqrt( pow(pose[0] - x1, 2) + pow(pose[1] - y1, 2) );
+            float range2 = sqrt( pow(pose[0] - x2, 2) + pow(pose[1] - y2, 2) );
+            if (range1 < range2) {
                 trueDistances[i] = range1;
             }
             else {
                 trueDistances[i] = range2;
             }
+            // float posx = pose[0] + 1;
+            // float posy = pose[1];
+            // float endX = 2.5*cos(angle)+1;
+            // float endY = 2.5*sin(angle);
+            // float dx = endX - (posx);
+            // float dy = endY - posy;
+            // float dr = sqrt( pow(dx, 2) + pow(dy, 2) );
+            // float D = (posx*endY - endX*posy);
+            // float x_intersect1 = (D*dy+sgn(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
+            // float x_intersect2 = (D*dy-sgn(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
+            // float y_intersect1 = (D*dx+abs(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
+            // float y_intersect2 = (D*dx-abs(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
+            // float range1 = sqrt( pow(posx - x_intersect1, 2) + pow(posy - y_intersect1, 2) );
+            // float range2 = sqrt( pow(posx - x_intersect2, 2) + pow(posy - y_intersect2, 2) );
+            // if (range1 > range2) {
+            //     trueDistances[i] = range1;
+            // }
+            // else {
+            //     trueDistances[i] = range2;
+            // }
+
             // float b = asin((dCone*sin(-angle))/rCone);
             // float c = M_PI - angle - b;
             // trueDistances[i] = (dCone*sin(c))/sin(b);
