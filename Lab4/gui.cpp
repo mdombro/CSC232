@@ -105,7 +105,7 @@ void GUI::paintGL(){
     float angle = angleMin+yaw;
     for (int i = 0; i < GUI::scans.size(); i++) {
         glVertex3f(posx, posy, 0.0);
-        glVertex3f((GUI::scans[i]*cos(angle)), (GUI::scans[i]*sin(angle)), 0.0);
+        glVertex3f(posx + (GUI::scans[i]*cos(angle)), posy + (GUI::scans[i]*sin(angle)), 0.0);
         angle += inc;
     }
     glEnd();
