@@ -12,6 +12,7 @@
 class GUI: public QGLWidget {
     Q_OBJECT
     float posx, posy;
+    float robot_x, robot_y;
     std::vector<float> scans;
     float angleMin, angleIncrement;
     std::vector<float> quaternion;
@@ -20,6 +21,7 @@ class GUI: public QGLWidget {
         virtual ~GUI();
         void handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg );
         void handle_odom( const nav_msgs::Odometry::ConstPtr& msg );
+        void handle_robot_mu( const nav_msgs::Odometry::ConstPtr& msg);
         QTimer* timer;
         protected slots:
         void timer_callback( void );

@@ -31,6 +31,10 @@ void GUI::handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg ){
     return;
 }
 
+void GUI::handle_robot_mu( const nav_msgs::Odometry::ConstPtr& msg) {
+    GUI::robot_x = msg->pose.pose.position.x;
+    GUI::robot_y = msg->pose.pose.position.y;
+}
 
 void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
     // implement storing of robot pose here
@@ -82,10 +86,12 @@ void GUI::paintGL(){
     glVertex3f( 0.0, 0.0, 0.0 );
     glVertex3f( 0.0, 0.0, 1.0 );
     glEnd();
+
+    // actual robot location
     glBegin(GL_LINE_LOOP);
     float cy = posy;
     float cx = posx;
-    float r = 0.1;
+    float r = 0.4;
     float num_segments = 20;
     float x = 0.0;
     float y = 0.0;
@@ -97,6 +103,26 @@ void GUI::paintGL(){
 		float y = r * sinf(theta);//calculate the y component
 
         glColor4f(1.0, 0.0, 0.0, 1.0);
+		glVertex3f(x + cx, y + cy, 0.0);//output vertex
+	}
+    glEnd();
+
+    // predicted robot location
+    glBegin(GL_LINE_LOOP);
+    cy = robot_y;
+    cx = robot_x;
+    r = 0.1;
+    num_segments = 20;
+    x = 0.0;
+    y = 0.0;
+	for(int ii = 0; ii < num_segments; ii++)
+	{
+		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments);//get the current angle
+
+		float x = r * cosf(theta);//calculate the x component
+		float y = r * sinf(theta);//calculate the y component
+
+        glColor4f(1.0, 1.0, 0.5, 1.0);
 		glVertex3f(x + cx, y + cy, 0.0);//output vertex
 	}
     glEnd();

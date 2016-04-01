@@ -3,6 +3,7 @@
 #include <math.h>
 #include "sensor_msgs/LaserScan.h"
 #include "geometry_msgs/PoseWithCovariance.h"
+#include "nav_msgs/Odometry.h"
 #include "geometry_msgs/Twist.h"
 //#include "localizer_cmdline.h"
 #include <vector>
@@ -10,11 +11,12 @@
 
 class Localizer {
     /*** Odometry command vector  ***/
-    Eigen::RowVector2f u;
+    Eigen::RowVector2f u;  // [lv, av]
 
     /*** LaserScan return information ***/
     float minAngle;
     float angleIncrement;
+    float alpha;
     std::vector<float> scans;
 
     /*** predetermined cone radius ***/
@@ -36,10 +38,25 @@ class Localizer {
     // Covariance matrix of predicted beam returns
     Eigen::Matrix3f St;
 
+    // Other EKF matrices
+    Eigen::Matrix3f Gt;
+    Eigen::MatrixXf Vt;
+    Eigen::Matrix2f Mt;
+    Eigen::Vector3f projMu;
+    Eigen::Matrix3f projSigma;
+    Eigen::Matrix3f Qt;
+    Eigen::Matrix3f Ht;
+    Eigen::Matrix3f Kt;
+
+
 public:
     Localizer();
     void findFeature();
     void handleScans(const sensor_msgs::LaserScan::ConstPtr& msg);
     void cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg);
     void setConeRadii(double radii);
+    void setAlpha(float alphas);
+    float getx();
+    float gety();
+    void EKF();
 };

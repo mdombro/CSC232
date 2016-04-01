@@ -16,6 +16,7 @@ int main( int argc, char* argv[] ){
     GUI gui;
     ros::Subscriber subscriber_reset_odometry = node_handle.subscribe( "/scan", 1, &GUI::handle_laserscan, &gui );
     ros::Subscriber subscriber_odom = node_handle.subscribe( "/odom", 1, &GUI::handle_odom, &gui );
+    ros::Subscriber subscriber_robot_pose = node_handle.subscribe("/pos", 1, &GUI::handle_robot_mu, &gui);
     gui.show();
     return app.exec();
 }
