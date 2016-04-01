@@ -72,6 +72,12 @@ CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/ros/wall_timer_opti
 CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/rosconsole/macros_generated.h
 CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/sensor_msgs/LaserScan.h
 CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/std_msgs/Header.h
+CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/tf/LinearMath/Matrix3x3.h
+CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/tf/LinearMath/MinMax.h
+CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/tf/LinearMath/QuadWord.h
+CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/tf/LinearMath/Quaternion.h
+CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/tf/LinearMath/Scalar.h
+CMakeFiles/gui-process.dir/gui.cpp.o: /opt/ros/hydro/include/tf/LinearMath/Vector3.h
 CMakeFiles/gui-process.dir/gui.cpp.o: /usr/include/qt4/Qt3Support/q3cstring.h
 CMakeFiles/gui-process.dir/gui.cpp.o: /usr/include/qt4/Qt3Support/q3valuelist.h
 CMakeFiles/gui-process.dir/gui.cpp.o: /usr/include/qt4/QtCore/QDate

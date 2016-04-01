@@ -13,6 +13,8 @@ GUI::GUI( QWidget * parent ) : QGLWidget( parent ), timer() {
     timer = new QTimer( this );
     connect( timer, SIGNAL( timeout() ), this, SLOT( timer_callback() ) );
     timer->start( 100 ); // call timer_callback at 0.1 Hz (period is 100 ms)
+    GUI::quaternion.resize(4);
+    //ector<float> quaternion(4);
 }
 
 GUI::
@@ -34,10 +36,11 @@ void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
     // implement storing of robot pose here
     GUI::posx = msg->pose.pose.position.x;
     GUI::posy = msg->pose.pose.position.y;
-    GUI::quaternion.push_back(msg->pose.pose.orientation.w);
-    GUI::quaternion.push_back(msg->pose.pose.orientation.x);
-    GUI::quaternion.push_back(msg->pose.pose.orientation.y);
-    GUI::quaternion.push_back(msg->pose.pose.orientation.z);
+    GUI::quaternion.assign(0, msg->pose.pose.orientation.w);
+    GUI::quaternion.assign(1, msg->pose.pose.orientation.x);
+    GUI::quaternion.assign(2, msg->pose.pose.orientation.y);
+    GUI::quaternion.assign(3, msg->pose.pose.orientation.z);
+    //std::cout << GUI::quaternion[2] << std::endl;
     return;
 }
 
@@ -96,9 +99,10 @@ void GUI::paintGL(){
     tf::Matrix3x3 m(q);
     double roll, pitch, yaw;
     m.getRPY(roll, pitch, yaw);
-
+    std::cout << roll << " " << pitch << " " << yaw << std::endl;
+    //std::cout << yaw << std::endl;
     float inc = angleIncrement;
-    float angle = angleMin - yaw;
+    float angle = angleMin+yaw;
     for (int i = 0; i < GUI::scans.size(); i++) {
         glVertex3f(posx, posy, 0.0);
         glVertex3f((GUI::scans[i]*cos(angle)), (GUI::scans[i]*sin(angle)), 0.0);

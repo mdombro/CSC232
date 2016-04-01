@@ -31,8 +31,8 @@ float angleMin;
 float angleMax;
 float angleIncrement;
 int numBeams;
-float dCone = 1.0;
-float dWall = 2.0;
+float dCone;
+//float dWall = 2.0;
 float rCone = 0.1;
 
 void cmmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
@@ -136,12 +136,21 @@ float sampleDistribution(float val) {
 }
 
 void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
-    float angle = angleMin - pose[2];
+    float angle = angleMin - pose[2];  // find the starting angle beam
+    dCone = sqrt( pow(pose[0]-1.0,2) + pow(pose[1],2 ) );
+    float psi = 2*atan(rCone/dCone);
+    float phi = (atan((pose[1]-1)/pose[0]));  // bearing of feature from robot
     for (int i = 0; i < numBeams; i++) {
         // if (angle < -atan(rCone/dCone) || angle > atan(rCone/dCone)) {
         //     trueDistances[i] = dWall/sin((M_PI/2) - angle);
         // }
-        if (angle > -atan(rCone/dCone) && angle < atan(rCone/dCone)) {
+        // if (angle > -atan(rCone/dCone) && angle < atan(rCone/dCone)) {
+        //     float b = asin((dCone*sin(-angle))/rCone);
+        //     float c = M_PI - angle - b;
+        //     trueDistances[i] = (dCone*sin(c))/sin(b);
+        // }
+
+        if ( (float)(phi+(psi/2.0)+angleMax) > pose[2] && (float)(phi-(psi/2.0)-angleMin) < pose[2] ) {
             float b = asin((dCone*sin(-angle))/rCone);
             float c = M_PI - angle - b;
             trueDistances[i] = (dCone*sin(c))/sin(b);
