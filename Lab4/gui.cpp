@@ -36,10 +36,17 @@ void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
     // implement storing of robot pose here
     GUI::posx = msg->pose.pose.position.x;
     GUI::posy = msg->pose.pose.position.y;
-    GUI::quaternion.assign(0, msg->pose.pose.orientation.w);
-    GUI::quaternion.assign(1, msg->pose.pose.orientation.x);
-    GUI::quaternion.assign(2, msg->pose.pose.orientation.y);
-    GUI::quaternion.assign(3, msg->pose.pose.orientation.z);
+    //std::cout << posy << " " << posx << std::endl;
+    //GUI::quaternion.resize(4);
+    GUI::quaternion[0] = msg->pose.pose.orientation.w;    //.assign(0, msg->pose.pose.orientation.w);
+    GUI::quaternion[1] = msg->pose.pose.orientation.x;    //.assign(1, msg->pose.pose.orientation.x);
+    GUI::quaternion[2] = msg->pose.pose.orientation.y;      // .assign(2, msg->pose.pose.orientation.y);
+    GUI::quaternion[3] = msg->pose.pose.orientation.z;    //.assign(3, msg->pose.pose.orientation.z);
+    // GUI::quaternion.assign(0, msg->pose.pose.orientation.w);
+    // GUI::quaternion.assign(1, msg->pose.pose.orientation.x);
+    // GUI::quaternion.assign(2, msg->pose.pose.orientation.y);
+    // GUI::quaternion.assign(3, msg->pose.pose.orientation.z);
+    std::cout << GUI::quaternion[1] << " " << GUI::quaternion[2] << " " << GUI::quaternion[3] << " " << GUI::quaternion[0] << " " << std::endl;
     //std::cout << GUI::quaternion[2] << std::endl;
     return;
 }
@@ -93,13 +100,15 @@ void GUI::paintGL(){
 		glVertex3f(x + cx, y + cy, 0.0);//output vertex
 	}
     glEnd();
-    glBegin(GL_LINES);
-    glColor4f( 1.0, 0.0, 0.0, 1.0 );
+
     tf::Quaternion q(GUI::quaternion[1], GUI::quaternion[2], GUI::quaternion[3], GUI::quaternion[0]);
+    //std::cout << quaternion[1] << " " << quaternion[2] << " " << quaternion[3] << " " << quaternion[0] << " " << endl;
     tf::Matrix3x3 m(q);
     double roll, pitch, yaw;
     m.getRPY(roll, pitch, yaw);
-    std::cout << roll << " " << pitch << " " << yaw << std::endl;
+    glBegin(GL_LINES);
+    glColor4f( 1.0, 0.0, 0.0, 1.0 );
+    //std::cout << roll << " " << pitch << " " << yaw << std::endl;
     //std::cout << yaw << std::endl;
     float inc = angleIncrement;
     float angle = angleMin+yaw;
@@ -108,6 +117,13 @@ void GUI::paintGL(){
         glVertex3f(posx + (GUI::scans[i]*cos(angle)), posy + (GUI::scans[i]*sin(angle)), 0.0);
         angle += inc;
     }
+    glEnd();
+    glBegin(GL_LINES);
+    glColor4f( 1.0, 0.5, 0.0, 1.0 );
+
+    // Line from robot to cone
+    glVertex3f(posx, posy, 0.0);
+    glVertex3f(1.0,0.0,0.0);
     glEnd();
     return;
 }
