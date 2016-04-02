@@ -40,18 +40,10 @@ void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
     // implement storing of robot pose here
     GUI::posx = msg->pose.pose.position.x;
     GUI::posy = msg->pose.pose.position.y;
-    //std::cout << posy << " " << posx << std::endl;
-    //GUI::quaternion.resize(4);
     GUI::quaternion[0] = msg->pose.pose.orientation.w;    //.assign(0, msg->pose.pose.orientation.w);
     GUI::quaternion[1] = msg->pose.pose.orientation.x;    //.assign(1, msg->pose.pose.orientation.x);
     GUI::quaternion[2] = msg->pose.pose.orientation.y;      // .assign(2, msg->pose.pose.orientation.y);
     GUI::quaternion[3] = msg->pose.pose.orientation.z;    //.assign(3, msg->pose.pose.orientation.z);
-    // GUI::quaternion.assign(0, msg->pose.pose.orientation.w);
-    // GUI::quaternion.assign(1, msg->pose.pose.orientation.x);
-    // GUI::quaternion.assign(2, msg->pose.pose.orientation.y);
-    // GUI::quaternion.assign(3, msg->pose.pose.orientation.z);
-    std::cout << GUI::quaternion[1] << " " << GUI::quaternion[2] << " " << GUI::quaternion[3] << " " << GUI::quaternion[0] << " " << std::endl;
-    //std::cout << GUI::quaternion[2] << std::endl;
     return;
 }
 

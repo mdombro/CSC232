@@ -143,19 +143,12 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
     float angle = angleMin + pose[2];  // find the starting angle beam
     dCone = sqrt( pow(pose[0]-1.0,2) + pow(pose[1],2 ) );
     float psi = 2*atan(rCone/dCone);   // angular diameter of the cone
-    float phi = -atan(pose[1]/(pose[0]-1));  // bearing of feature from robot
-    cout << phi+psi/2.0 << " " << phi-psi/2.0 << endl;
+    float phi = atan(pose[1]/(pose[0]-1));  // bearing of feature from robot
+    if (pose[0] > 1.0 && pose[1] > 0.0) phi -= M_PI;  // quadrant one subtract 180 degrees
+    if (pose[0] < 1.0 && pose[1] > 0.0) phi = phi;      // quadrant two no change
+    if (pose[0] < 1.0 && pose[1] < 0.0) phi = phi;      // quadrant three no change
+    if (pose[0] > 1.0 && pose[1] < 0.0) phi += M_PI;
     for (int i = 0; i < numBeams; i++) {
-        // if (angle < -atan(rCone/dCone) || angle > atan(rCone/dCone)) {
-        //     trueDistances[i] = dWall/sin((M_PI/2) - angle);
-        // }
-        // if (angle > -atan(rCone/dCone) && angle < atan(rCone/dCone)) {
-        //     float b = asin((dCone*sin(-angle))/rCone);
-        //     float c = M_PI - angle - b;
-        //     trueDistances[i] = (dCone*sin(c))/sin(b);
-        // }
-
-        //if ( (float)(phi+(psi/2.0)+angleMax) > pose[2] && (float)(phi-(psi/2.0)-angleMin) < pose[2] ) {
         float maxX = pose[0] + 2.5*cos(angle);
         float maxY = pose[1] + 2.5*sin(angle);
         float m = (pose[1] - maxY)/(pose[0]-maxX);
@@ -164,8 +157,8 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
         float B = 2*(m*c - 1.0);
         float C = -pow(rCone, 2) + 1.0 + pow(c,2);
         float Disc = pow(B, 2) - 4*A*C;
-        //if (angle < -phi+psi/2.0 && angle > -phi-psi/2.0 && dCone < 2.5) {
-        if (Disc > 0.0) {
+        cout << "Bearing: " << phi << " Theta: " << pose[2] << endl;
+        if (Disc > 0.0 && abs(phi-pose[2]) <= M_PI/2) {
             float x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
             float x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
             float y1 = m*((-B + sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
@@ -173,35 +166,17 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
             float range1 = sqrt( pow(pose[0] - x1, 2) + pow(pose[1] - y1, 2) );
             float range2 = sqrt( pow(pose[0] - x2, 2) + pow(pose[1] - y2, 2) );
             if (range1 < range2) {
-                trueDistances[i] = range1;
+                if (range1 < 2.5)
+                    trueDistances[i] = range1;
+                else
+                    trueDistances[i] = 2.5;
             }
             else {
-                trueDistances[i] = range2;
+                if (range2 < 2.5)
+                    trueDistances[i] = range2;
+                else
+                    trueDistances[i] = 2.5;
             }
-            // float posx = pose[0] + 1;
-            // float posy = pose[1];
-            // float endX = 2.5*cos(angle)+1;
-            // float endY = 2.5*sin(angle);
-            // float dx = endX - (posx);
-            // float dy = endY - posy;
-            // float dr = sqrt( pow(dx, 2) + pow(dy, 2) );
-            // float D = (posx*endY - endX*posy);
-            // float x_intersect1 = (D*dy+sgn(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            // float x_intersect2 = (D*dy-sgn(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            // float y_intersect1 = (D*dx+abs(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            // float y_intersect2 = (D*dx-abs(dy)*sqrt( pow(rCone, 2)*pow(dr, 2) - pow(D, 2)))/pow(dr, 2);
-            // float range1 = sqrt( pow(posx - x_intersect1, 2) + pow(posy - y_intersect1, 2) );
-            // float range2 = sqrt( pow(posx - x_intersect2, 2) + pow(posy - y_intersect2, 2) );
-            // if (range1 > range2) {
-            //     trueDistances[i] = range1;
-            // }
-            // else {
-            //     trueDistances[i] = range2;
-            // }
-
-            // float b = asin((dCone*sin(-angle))/rCone);
-            // float c = M_PI - angle - b;
-            // trueDistances[i] = (dCone*sin(c))/sin(b);
         }
         else {
             trueDistances[i] = 2.5;
