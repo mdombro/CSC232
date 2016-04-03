@@ -1,6 +1,8 @@
 #include "Localizer.h"
 #include "LocalizerStart_cmdline.h"
 #include <ros/ros.h>
+#include "geometry_msgs/PoseWithCovariance.h"
+#include <Eigen/Dense>
 
 using namespace std;
 //using namespace ros;
@@ -10,13 +12,13 @@ int main(int argc, char* argv[]) {
     gengetopt_args_info args;
     cmdline_parser(argc,argv,&args);
     ros::init(argc, argv, "localizer");
-    nav_msgs::Odometry msg;
+    geometry_msgs::PoseWithCovariance msg;
     Localizer localizer;
     localizer.setConeRadii(args.coneRadii_arg);
     float alphas = 0.01;
     localizer.setAlpha(alphas);
     ros::NodeHandle n;
-    ros::Publisher posWCov = n.advertise<nav_msgs::Odometry>("/pos", 1);
+    ros::Publisher posWCov = n.advertise<geometry_msgs::PoseWithCovariance>("/pos", 1);
     ros::Subscriber cntrl = n.subscribe("/cmd_vel_mux/input/navi", 1000, &Localizer::cmdUpdate, &localizer);  // update the command velocities
     ros::Subscriber beams = n.subscribe("/scan", 1000, &Localizer::handleScans, &localizer);
     //ros::Duration(1.3).sleep();
@@ -24,8 +26,20 @@ int main(int argc, char* argv[]) {
     while (ros::ok()) {
         localizer.findFeature();
         localizer.EKF();
-        msg.pose.pose.position.x = localizer.getx();
-        msg.pose.pose.position.y = localizer.gety();
+        msg.pose.position.x = localizer.getx();
+        msg.pose.position.y = localizer.gety();
+        msg.pose.orientation.x = localizer.getQuatx();
+        msg.pose.orientation.y = localizer.getQuaty();
+        msg.pose.orientation.z = localizer.getQuatz();
+        msg.pose.orientation.w = localizer.getQuatw();
+        Eigen::Matrix3f Covariance = localizer.getSigma();
+        int index = 0;
+        for (int i = 0; i < Covariance.rows(); i++) {
+            for (int k = 0; k < Covariance.cols(); k++) {
+                msg.covariance[index] = Covariance(i,k);
+                index++;
+            }
+        }
         ros::spinOnce();
         posWCov.publish(msg);
         loop_rate.sleep();

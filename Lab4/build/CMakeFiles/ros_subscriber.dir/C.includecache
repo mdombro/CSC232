@@ -6,23 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab4/build/ros_subscriber_cmdline.c
-config.h
-/home/matthew/CSC232/Lab4/build/config.h
-stdio.h
--
-stdlib.h
--
-string.h
--
-getopt.h
--
-ros_subscriber_cmdline.h
-/home/matthew/CSC232/Lab4/build/ros_subscriber_cmdline.h
-
-/home/matthew/CSC232/Lab4/build/ros_subscriber_cmdline.h
-config.h
-/home/matthew/CSC232/Lab4/build/config.h
-stdio.h
--
-

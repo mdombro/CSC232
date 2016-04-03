@@ -21,7 +21,7 @@ class GUI: public QGLWidget {
         virtual ~GUI();
         void handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg );
         void handle_odom( const nav_msgs::Odometry::ConstPtr& msg );
-        void handle_robot_mu( const nav_msgs::Odometry::ConstPtr& msg);
+        void handle_robot_mu( const geometry_msgs::PoseWithCovariance::ConstPtr& msg);
         QTimer* timer;
         protected slots:
         void timer_callback( void );

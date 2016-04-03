@@ -7,6 +7,7 @@
 #include <math.h>
 #include <tf/LinearMath/Quaternion.h>
 #include <tf/LinearMath/Matrix3x3.h>
+#include "geometry_msgs/PoseWithCovariance.h"
 
 GUI::GUI( QWidget * parent ) : QGLWidget( parent ), timer() {
     setMinimumSize( 600, 600 );
@@ -31,9 +32,9 @@ void GUI::handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg ){
     return;
 }
 
-void GUI::handle_robot_mu( const nav_msgs::Odometry::ConstPtr& msg) {
-    GUI::robot_x = msg->pose.pose.position.x;
-    GUI::robot_y = msg->pose.pose.position.y;
+void GUI::handle_robot_mu( const geometry_msgs::PoseWithCovariance::ConstPtr& msg) {
+    GUI::robot_x = msg->pose.position.x;
+    GUI::robot_y = msg->pose.position.y;
 }
 
 void GUI::handle_odom( const nav_msgs::Odometry::ConstPtr& msg ){
@@ -114,7 +115,7 @@ void GUI::paintGL(){
 		float x = r * cosf(theta);//calculate the x component
 		float y = r * sinf(theta);//calculate the y component
 
-        glColor4f(0.0, 1.0, 1.0, 1.0);
+        glColor4f(0.2, 1.0, 0.1, 1.0);
 		glVertex3f(x + cx, y + cy, 0.0);//output vertex
 	}
     glEnd();

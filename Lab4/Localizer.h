@@ -25,6 +25,7 @@ class Localizer {
     /*** EKF Matrix variables ***/
     // current robot position belief
     Eigen::RowVector3f mu;
+    std::vector<float> quaternion;
 
     // holds range, bearing, and signature of feature
     Eigen::RowVector3f z;
@@ -50,13 +51,18 @@ class Localizer {
 
 
 public:
-    std::vector<float> scans;   
+    std::vector<float> scans;
     Localizer();
     void findFeature();
     void handleScans(const sensor_msgs::LaserScan::ConstPtr& msg);
     void cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg);
     void setConeRadii(double radii);
     void setAlpha(float alphas);
+    float getQuatx();
+    float getQuaty();
+    float getQuatz();
+    float getQuatw();
+    Eigen::Matrix3f getSigma();
     float getx();
     float gety();
     void EKF();

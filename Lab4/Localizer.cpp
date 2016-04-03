@@ -14,6 +14,7 @@ using namespace std;
 //using namespace Localizer;
 
 Localizer::Localizer() {
+        quaternion.resize(4);
         u << 0.00000000001, 0.00000000001;        // linear velocity, angular velocity
         mu << 0.0, 0.0, 0.0;  // x, y, theta of robot
         z << 0.0, 0.0, 0.0;   // distance, bearing, signature
@@ -45,9 +46,9 @@ cout << Mt << endl;
         projSigma << 0.0, 0.0, 0.0,
 		     0.0, 0.0, 0.0,
 		     0.0, 0.0, 0.0;
-        Qt << 0.000001, 0.0, 0.0,
-              0.0, 0.000001, 0.0,
-              0.0, 0.0, 0.000001;
+        Qt << 0.001, 0.0, 0.0,
+              0.0, 0.001, 0.0,
+              0.0, 0.0, 0.001;
 cout << Qt << endl;
         Ht << 0.0, 0.0, 0.0,
               0.0, 0.0, -1.0,
@@ -95,6 +96,10 @@ void Localizer::EKF() {
     St = Ht*projSigma*Ht.transpose() + Qt;
     Kt = projSigma*Ht.transpose()*St.inverse();
     mu = projMu + Kt*(z-zest).transpose();
+    quaternion[0] = cos(mu(2)/2);
+    quaternion[1] = 0;
+    quaternion[2] = 0;
+    quaternion[3] = sin(mu(2)/2);
     Eigen::Matrix3f I;
     I << 1.0, 0.0, 0.0,
          0.0, 1.0, 0.0,
@@ -214,4 +219,24 @@ float Localizer::getx() {
 
 float Localizer::gety() {
     return mu(1);
+}
+
+float Localizer::getQuatx() {
+    return quaternion[0];
+}
+
+float Localizer::getQuaty() {
+    return quaternion[1];
+}
+
+float Localizer::getQuatz() {
+    return quaternion[2];
+}
+
+float Localizer::getQuatw() {
+    return quaternion[3];
+}
+
+Eigen::Matrix3f Localizer::getSigma() {
+    return sigma;
 }

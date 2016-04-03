@@ -17,6 +17,8 @@ nav_msgs/Odometry.h
 /home/matthew/CSC232/Lab4/nav_msgs/Odometry.h
 sensor_msgs/LaserScan.h
 /home/matthew/CSC232/Lab4/sensor_msgs/LaserScan.h
+geometry_msgs/PoseWithCovariance.h
+/home/matthew/CSC232/Lab4/geometry_msgs/PoseWithCovariance.h
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
