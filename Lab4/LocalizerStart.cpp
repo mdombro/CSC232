@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
     //ros::Duration(1.3).sleep();
     ros::Rate loop_rate(10);
     while (ros::ok()) {
+        localizer.findFeature();
+        localizer.EKF();
         msg.pose.pose.position.x = localizer.getx();
         msg.pose.pose.position.y = localizer.gety();
         ros::spinOnce();

@@ -17,7 +17,7 @@ class Localizer {
     float minAngle;
     float angleIncrement;
     float alpha;
-    std::vector<float> scans;
+    // std::vector<float> scans;
 
     /*** predetermined cone radius ***/
     double coneRadii;
@@ -50,6 +50,7 @@ class Localizer {
 
 
 public:
+    std::vector<float> scans;   
     Localizer();
     void findFeature();
     void handleScans(const sensor_msgs::LaserScan::ConstPtr& msg);

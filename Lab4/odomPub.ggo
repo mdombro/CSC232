@@ -11,4 +11,4 @@ option "a6" - "v" double default="0.01" optional
 option "sigma" - "v" double default="0.1" optional
 option "angleMin" - "v" double default="-45" optional
 option "angleMax" - "v" double default="45" optional
-option "numBeams" - "v" double default="64" optional
+option "numBeams" - "v" double default="300" optional

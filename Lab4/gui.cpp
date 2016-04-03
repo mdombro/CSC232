@@ -107,18 +107,19 @@ void GUI::paintGL(){
     num_segments = 20;
     x = 0.0;
     y = 0.0;
-	for(int ii = 0; ii < num_segments; ii++)
+	for(int f = 0; f < num_segments; f++)
 	{
-		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments);//get the current angle
+		float theta = 2.0f * 3.1415926f * float(f) / float(num_segments);//get the current angle
 
 		float x = r * cosf(theta);//calculate the x component
 		float y = r * sinf(theta);//calculate the y component
 
-        glColor4f(1.0, 1.0, 0.0, 1.0);
+        glColor4f(0.0, 1.0, 1.0, 1.0);
 		glVertex3f(x + cx, y + cy, 0.0);//output vertex
 	}
     glEnd();
 
+    // Laser Scan Drawing
     tf::Quaternion q(GUI::quaternion[1], GUI::quaternion[2], GUI::quaternion[3], GUI::quaternion[0]);
     //std::cout << quaternion[1] << " " << quaternion[2] << " " << quaternion[3] << " " << quaternion[0] << " " << endl;
     tf::Matrix3x3 m(q);

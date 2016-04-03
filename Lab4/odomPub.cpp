@@ -38,6 +38,7 @@ float rCone = 0.1;
 void cmmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
     command[0] = msg->linear.x;
     command[1] = msg->angular.z;
+    cout << "Commands: " << command[0] << " " << command[1] << endl;
 }
 
 void reset(const std_msgs::Empty::ConstPtr& msg) {
@@ -157,7 +158,7 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
         float B = 2*(m*c - 1.0);
         float C = -pow(rCone, 2) + 1.0 + pow(c,2);
         float Disc = pow(B, 2) - 4*A*C;
-        cout << "Bearing: " << phi << " Theta: " << pose[2] << endl;
+        //cout << "Bearing: " << phi << " Theta: " << pose[2] << endl;
         if (Disc > 0.0 && abs(phi-pose[2]) <= M_PI/2) {
             float x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
             float x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
