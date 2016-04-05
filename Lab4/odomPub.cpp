@@ -32,6 +32,7 @@ float angleMax;
 float angleIncrement;
 int numBeams;
 float dCone;
+float maxRange = 3.0f;
 //float dWall = 2.0;
 float rCone = 0.1;
 
@@ -106,7 +107,7 @@ int main(int argc, char* argv[]) {
         msg2.angle_increment = angleIncrement;
         msg2.scan_time = 0.1;
         msg2.range_min = 0;
-        msg2.range_max = 2.5;
+        msg2.range_max = maxRange;
         msg2.ranges.resize(numBeams);
         for (int i = 0; i < numBeams; i++) {
             msg2.ranges[i] = noisyDistances[i];
@@ -150,8 +151,8 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
     if (pose[0] < 1.0 && pose[1] < 0.0) phi = phi;      // quadrant three no change
     if (pose[0] > 1.0 && pose[1] < 0.0) phi += M_PI;
     for (int i = 0; i < numBeams; i++) {
-        float maxX = pose[0] + 2.5*cos(angle);
-        float maxY = pose[1] + 2.5*sin(angle);
+        float maxX = pose[0] + maxRange*cos(angle);
+        float maxY = pose[1] + maxRange*sin(angle);
         float m = (pose[1] - maxY)/(pose[0]-maxX);
         float c = pose[1] - m*pose[0];
         float A = pow(m,2)+1;
@@ -167,20 +168,20 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
             float range1 = sqrt( pow(pose[0] - x1, 2) + pow(pose[1] - y1, 2) );
             float range2 = sqrt( pow(pose[0] - x2, 2) + pow(pose[1] - y2, 2) );
             if (range1 < range2) {
-                if (range1 < 2.5)
+                if (range1 < maxRange)
                     trueDistances[i] = range1;
                 else
-                    trueDistances[i] = 2.5;
+                    trueDistances[i] = maxRange;
             }
             else {
-                if (range2 < 2.5)
+                if (range2 < maxRange)
                     trueDistances[i] = range2;
                 else
-                    trueDistances[i] = 2.5;
+                    trueDistances[i] = maxRange;
             }
         }
         else {
-            trueDistances[i] = 2.5;
+            trueDistances[i] = maxRange;
         }
         angle += inc;
     }
@@ -189,7 +190,8 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
 
 void calcNoisyDistance(float noisyDistances[], float trueDistances[], float sigmaHitm, int numBeams) {
     for (int i = 0; i < numBeams; i++) {
-        noisyDistances[i] = trueDistances[i] + sampleDistribution(pow(sigmaHit,2));
+        if (trueDistances[i] < maxRange) noisyDistances[i] = trueDistances[i] + sampleDistribution(pow(sigmaHit,2));
+        else noisyDistances[i] = maxRange;
     }
 }
 

@@ -88,12 +88,13 @@ void Localizer::EKF() {
     zest(0) = sqrt(q);
     zest(1) = atan2(-projMu(1), 1.0-projMu(0) - projMu(2));
     zest(2) = 0;
-    cout << "Estimated measurement: " << zest << "  Actual measurement: " << z << endl;
+    //cout << "Estimated measurement: " << zest << "  Actual measurement: " << z << endl;
     Ht(0,0) = -(1.0-projMu(0))/sqrt(q);
     Ht(0,1) = -(-projMu(1))/sqrt(q);
     Ht(1,0) = (-projMu(1))/q;
     Ht(1,1) = -(1.0-projMu(0))/q;
     St = Ht*projSigma*Ht.transpose() + Qt;
+    cout << sqrt(St(0,0)) << " " << sqrt(St(1,1)) << endl;
     Kt = projSigma*Ht.transpose()*St.inverse();
     mu = projMu + Kt*(z-zest).transpose();
     quaternion[0] = cos(mu(2)/2);
@@ -136,7 +137,9 @@ void Localizer::findFeature() {
     //cout << "Scans size: " << scans.size() << endl;
     for (int o = 0; o < scans.size(); o++) {
         //cout << "Conditionals: " << Localizer::zest(0) << " " << scans[o]-zest(0) << " " << sqrt(St(0,0)) << endl;
-        if ( scans[o] < 1.5) { // 4.0*sqrt(St(0,0)) ) {//|| abs(beamAngle-zest(1)) > 4.0*sqrt(St(1,1)) ) {
+
+        //if ( scans[o] < 1.5) { // 4.0*sqrt(St(0,0)) ) {//|| abs(beamAngle-zest(1)) > 4.0*sqrt(St(1,1)) ) {
+        if (beamAngle < 4.0*St(1,1)+zest(1)) {
             filterScans.push_back(scans[o]);
             angles.push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
         }
@@ -189,9 +192,6 @@ void Localizer::findFeature() {
         ********/
 
             for (int i = 0; i < filterScans.size(); i++) {
-
-
-
                 if (filterScans[i] < min[0]) {
                     min[0] = filterScans[i];
                     min[1] = angles[i];
