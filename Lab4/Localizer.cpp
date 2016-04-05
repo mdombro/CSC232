@@ -111,6 +111,7 @@ void Localizer::EKF() {
 
 void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
     minAngle = msg->angle_min;
+    maxRange = msg->range_max;
     angleIncrement = msg->angle_increment;
     scans.resize(msg->ranges.size());
     //cout << "orig scans: " << scans.size() << endl;
@@ -139,7 +140,7 @@ void Localizer::findFeature() {
         //cout << "Conditionals: " << Localizer::zest(0) << " " << scans[o]-zest(0) << " " << sqrt(St(0,0)) << endl;
 
         //if ( scans[o] < 1.5) { // 4.0*sqrt(St(0,0)) ) {//|| abs(beamAngle-zest(1)) > 4.0*sqrt(St(1,1)) ) {
-        if (beamAngle < 4.0*St(1,1)+zest(1)) {
+        if (beamAngle < 4.0*St(1,1)+zest(1) && scans[o] < maxRange) {
             filterScans.push_back(scans[o]);
             angles.push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
         }

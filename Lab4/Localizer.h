@@ -15,6 +15,7 @@ class Localizer {
 
     /*** LaserScan return information ***/
     float minAngle;
+    float maxRange;
     float angleIncrement;
     float alpha;
     // std::vector<float> scans;
