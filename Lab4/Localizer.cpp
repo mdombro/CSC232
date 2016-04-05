@@ -22,9 +22,9 @@ Localizer::Localizer() {
                  0.0, 0.0, 0.0,
                  0.0, 0.0, 0.0;
 cout << sigma << endl;
-        St << 0.1, 0.0, 0.0,    // covariance of beam returns - play with values
-              0.0, 0.1, 0.0,
-              0.0, 0.0, 0.1;
+        St << 0.4, 0.0, 0.0,    // covariance of beam returns - play with values
+              0.0, 0.4, 0.0,
+              0.0, 0.0, 0.4;
 cout << St << endl;
         zest << 1.0, 0.0, 0.0;  // predicted beam return at initialization - range bearing signature
         cout << "zest: " << zest << endl;
@@ -46,9 +46,9 @@ cout << Mt << endl;
         projSigma << 0.0, 0.0, 0.0,
 		     0.0, 0.0, 0.0,
 		     0.0, 0.0, 0.0;
-        Qt << 0.001, 0.0, 0.0,
-              0.0, 0.001, 0.0,
-              0.0, 0.0, 0.001;
+        Qt << 0.1, 0.0, 0.0,
+              0.0, 0.1, 0.0,
+              0.0, 0.0, 0.1;
 cout << Qt << endl;
         Ht << 0.0, 0.0, 0.0,
               0.0, 0.0, -1.0,
@@ -86,7 +86,7 @@ void Localizer::EKF() {
     projSigma = Gt*sigma*Gt.transpose() + Vt*Mt*Vt.transpose();
     float q = pow(1.0 - projMu(0), 2) + pow(-projMu(1), 2);
     zest(0) = sqrt(q);
-    zest(1) = atan2(-projMu(1), 1.0-projMu(0) - projMu(2));
+    zest(1) = atan2(-projMu(1), 1.0-projMu(0)) - projMu(2);
     zest(2) = 0;
     //cout << "Estimated measurement: " << zest << "  Actual measurement: " << z << endl;
     Ht(0,0) = -(1.0-projMu(0))/sqrt(q);
@@ -95,8 +95,9 @@ void Localizer::EKF() {
     Ht(1,1) = -(1.0-projMu(0))/q;
     St = Ht*projSigma*Ht.transpose() + Qt;
     cout << sqrt(St(0,0)) << " " << sqrt(St(1,1)) << endl;
+    cout << " Estimated mean angle: " << zest(1) << endl;
     Kt = projSigma*Ht.transpose()*St.inverse();
-    if(z(0) != -1) mu = projMu + Kt*(z-zest).transpose();
+    if(z(0) != -1000) mu = projMu + Kt*(z-zest).transpose();
     else mu = projMu;
     quaternion[0] = cos(mu(2)/2);
     quaternion[1] = 0;
@@ -124,6 +125,7 @@ void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
 void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 	u(0) = msg->linear.x;
 	u(1) = msg->angular.z;
+    //cout << "Command: " << u(0) << " " << u(1) << endl;
 }
 
 // locate the feature from given LaserScan and update the feature vector z
@@ -204,8 +206,8 @@ void Localizer::findFeature() {
             z(1) = min[1];
         }
     else {
-        z(0) = -1;
-        z(1) = -1;
+        z(0) = -1000;
+        z(1) = -1000;
     }
     filterScans.clear();
     angles.clear();
