@@ -6,6 +6,26 @@
 
 #IncludeRegexTransform: 
 
+/home/matthew/CSC232/Lab4/Localizer.cpp
+iostream
+-
+ros/ros.h
+-
+math.h
+-
+vector
+-
+sensor_msgs/LaserScan.h
+/home/matthew/CSC232/Lab4/sensor_msgs/LaserScan.h
+geometry_msgs/PoseWithCovariance.h
+/home/matthew/CSC232/Lab4/geometry_msgs/PoseWithCovariance.h
+geometry_msgs/Twist.h
+/home/matthew/CSC232/Lab4/geometry_msgs/Twist.h
+Localizer.h
+/home/matthew/CSC232/Lab4/Localizer.h
+Eigen/Dense
+-
+
 /home/matthew/CSC232/Lab4/Localizer.h
 iostream
 -
@@ -23,18 +43,6 @@ geometry_msgs/Twist.h
 /home/matthew/CSC232/Lab4/geometry_msgs/Twist.h
 vector
 -
-Eigen/Dense
--
-
-/home/matthew/CSC232/Lab4/LocalizerStart.cpp
-Localizer.h
-/home/matthew/CSC232/Lab4/Localizer.h
-LocalizerStart_cmdline.h
-/home/matthew/CSC232/Lab4/LocalizerStart_cmdline.h
-ros/ros.h
--
-geometry_msgs/PoseWithCovariance.h
-/home/matthew/CSC232/Lab4/geometry_msgs/PoseWithCovariance.h
 Eigen/Dense
 -
 
@@ -1795,10 +1803,4 @@ ParametrizedLine.h
 /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseBinaryOps.h
 
 /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
-
-LocalizerStart_cmdline.h
-config.h
-/config.h
-stdio.h
--
 

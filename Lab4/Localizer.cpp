@@ -22,9 +22,9 @@ Localizer::Localizer() {
                  0.0, 0.0, 0.0,
                  0.0, 0.0, 0.0;
 cout << sigma << endl;
-        St << 0.01, 0.0, 0.0,    // covariance of beam returns - play with values
-              0.0, 0.01, 0.0,
-              0.0, 0.0, 0.01;
+        St << 0.1, 0.0, 0.0,    // covariance of beam returns - play with values
+              0.0, 0.1, 0.0,
+              0.0, 0.0, 0.1;
 cout << St << endl;
         zest << 1.0, 0.0, 0.0;  // predicted beam return at initialization - range bearing signature
         cout << "zest: " << zest << endl;
@@ -96,7 +96,8 @@ void Localizer::EKF() {
     St = Ht*projSigma*Ht.transpose() + Qt;
     cout << sqrt(St(0,0)) << " " << sqrt(St(1,1)) << endl;
     Kt = projSigma*Ht.transpose()*St.inverse();
-    mu = projMu + Kt*(z-zest).transpose();
+    if(z(0) != -1) mu = projMu + Kt*(z-zest).transpose();
+    else mu = projMu;
     quaternion[0] = cos(mu(2)/2);
     quaternion[1] = 0;
     quaternion[2] = 0;
@@ -140,7 +141,7 @@ void Localizer::findFeature() {
         //cout << "Conditionals: " << Localizer::zest(0) << " " << scans[o]-zest(0) << " " << sqrt(St(0,0)) << endl;
 
         //if ( scans[o] < 1.5) { // 4.0*sqrt(St(0,0)) ) {//|| abs(beamAngle-zest(1)) > 4.0*sqrt(St(1,1)) ) {
-        if (beamAngle < 4.0*St(1,1)+zest(1) && scans[o] < maxRange) {
+        if (beamAngle < 4.0*sqrt(St(1,1))+zest(1) && beamAngle > -4.0*sqrt(St(1,1))+zest(1) && scans[o] < 4.0*sqrt(St(0,0))+zest(0) && scans[o] > -4.0*sqrt(St(0,0))+zest(0)) {
             filterScans.push_back(scans[o]);
             angles.push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
         }
@@ -203,8 +204,8 @@ void Localizer::findFeature() {
             z(1) = min[1];
         }
     else {
-        z(0) = z(0);
-        z(1) = z(1);
+        z(0) = -1;
+        z(1) = -1;
     }
     filterScans.clear();
     angles.clear();
