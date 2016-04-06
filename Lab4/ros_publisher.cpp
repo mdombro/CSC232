@@ -25,7 +25,7 @@ int main (int argc, char* argv[]) {
 	msg.angular.z = a;
 
 	NodeHandle n;
-	Publisher pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/navi", 1);
+	Publisher pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/navi", 1000);
 	ros::Rate loop_rate(10);
 
 	while (ros::ok() && count < (int)time*10) {
@@ -36,9 +36,11 @@ int main (int argc, char* argv[]) {
 		loop_rate.sleep();
 		count++;
 	}
-	msg.linear.x = 0;
-	msg.angular.z = 0;
-	ros::spinOnce();
-	pub.publish(msg);
+	//while (ros::ok) { 
+		msg.linear.x = 0;
+		msg.angular.z = 0;
+		pub.publish(msg);
+		ros::spinOnce();
+	//}
 	return 0;
 }

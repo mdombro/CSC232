@@ -6,3 +6,23 @@
 
 #IncludeRegexTransform: 
 
+/tmp/guest-h1YQJU/CSC232/Lab4/build/gui_process_cmdline.c
+config.h
+/tmp/guest-h1YQJU/CSC232/Lab4/build/config.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+getopt.h
+-
+gui_process_cmdline.h
+/tmp/guest-h1YQJU/CSC232/Lab4/build/gui_process_cmdline.h
+
+/tmp/guest-h1YQJU/CSC232/Lab4/build/gui_process_cmdline.h
+config.h
+/tmp/guest-h1YQJU/CSC232/Lab4/build/config.h
+stdio.h
+-
+

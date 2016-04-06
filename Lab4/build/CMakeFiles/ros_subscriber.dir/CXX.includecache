@@ -6,20 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab4/ros_subscriber.cpp
-iostream
--
-fstream
--
-ros/ros.h
--
-nav_msgs/Odometry.h
-/home/matthew/CSC232/Lab4/nav_msgs/Odometry.h
-sensor_msgs/LaserScan.h
-/home/matthew/CSC232/Lab4/sensor_msgs/LaserScan.h
-geometry_msgs/PoseWithCovariance.h
-/home/matthew/CSC232/Lab4/geometry_msgs/PoseWithCovariance.h
-
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
 -
@@ -841,4 +827,18 @@ ros/builtin_message_traits.h
 -
 ros/message_operations.h
 -
+
+/tmp/guest-h1YQJU/CSC232/Lab4/ros_subscriber.cpp
+iostream
+-
+fstream
+-
+ros/ros.h
+-
+nav_msgs/Odometry.h
+/tmp/guest-h1YQJU/CSC232/Lab4/nav_msgs/Odometry.h
+sensor_msgs/LaserScan.h
+/tmp/guest-h1YQJU/CSC232/Lab4/sensor_msgs/LaserScan.h
+geometry_msgs/PoseWithCovariance.h
+/tmp/guest-h1YQJU/CSC232/Lab4/geometry_msgs/PoseWithCovariance.h
 

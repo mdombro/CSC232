@@ -46,9 +46,9 @@ cout << Mt << endl;
         projSigma << 0.0, 0.0, 0.0,
 		     0.0, 0.0, 0.0,
 		     0.0, 0.0, 0.0;
-        Qt << 0.1, 0.0, 0.0,
-              0.0, 0.1, 0.0,
-              0.0, 0.0, 0.1;
+        Qt << 0.001, 0.0, 0.0,
+              0.0, 0.001, 0.0,
+              0.0, 0.0, 0.001;
 cout << Qt << endl;
         Ht << 0.0, 0.0, 0.0,
               0.0, 0.0, -1.0,
@@ -71,7 +71,7 @@ void Localizer::EKF() {
         float theta = mu(2);
         //cout << "Robot pose: " << mu(0) << " " << mu(1) << " " << mu(2) << endl;
         float spr = u(0)/u(1);
-        cout << "Commands: " << u(0) << " " << u(1) << endl;
+        //cout << "Commands: " << u(0) << " " << u(1) << endl;
         // Gt
         Gt(0,2) = (-spr*cos(theta))+(spr*cos(theta+u(1)*0.1));
         Gt(1,2) = (-spr*sin(theta))+(spr*sin(theta+u(1)*0.1));
@@ -99,7 +99,7 @@ void Localizer::EKF() {
         Ht(1,1) = -(1.0-projMu(0))/q;
         St = Ht*projSigma*Ht.transpose() + Qt;
         //cout << sqrt(St(0,0)) << " " << sqrt(St(1,1)) << endl;
-        cout << "Estimated mean angle: " << zest(1) << endl;
+        //cout << "Estimated mean angle: " << zest(1) << endl;
         //cout << "Mean Yaw: " << projMu(2) << endl;
         Kt = projSigma*Ht.transpose()*St.inverse();
         if(z(0) != -1000) mu = projMu + Kt*((z-zest).transpose());
@@ -158,10 +158,10 @@ void Localizer::findFeature() {
         }
         beamAngle += angleIncrement;
     }
-    cout << "Filter Scans size: " << filterScans.size() << endl;
+    //cout << "Filter Scans size: " << filterScans.size() << endl;
 
     //cout << "scans: " << scans.size() << endl;
-    //cout <<  "filter scans: " << filterScans.size() << endl;
+    cout <<  "filter scans: " << filterScans.size() << endl;
     //cout << "angles: " << angles.size() << endl;
 
 
@@ -218,6 +218,7 @@ void Localizer::findFeature() {
         z(0) = -1000;
         z(1) = -1000;
     }
+    cout << "Estimated cone: " << z(0) << " " << z(1) << endl;
     filterScans.clear();
     angles.clear();
 }
