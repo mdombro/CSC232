@@ -100,26 +100,6 @@ void GUI::paintGL(){
 	}
     glEnd();
 
-    // predicted robot location
-    glBegin(GL_LINE_LOOP);
-    cy = robot_y;
-    cx = robot_x;
-    r = 0.1;
-    num_segments = 20;
-    x = 0.0;
-    y = 0.0;
-	for(int f = 0; f < num_segments; f++)
-	{
-		float theta = 2.0f * 3.1415926f * float(f) / float(num_segments);//get the current angle
-
-		float x = r * cosf(theta);//calculate the x component
-		float y = r * sinf(theta);//calculate the y component
-
-        glColor4f(0.2, 1.0, 0.1, 1.0);
-		glVertex3f(x + cx, y + cy, 0.0);//output vertex
-	}
-    glEnd();
-
     // Laser Scan Drawing
     tf::Quaternion q(GUI::quaternion[1], GUI::quaternion[2], GUI::quaternion[3], GUI::quaternion[0]);
     //std::cout << quaternion[1] << " " << quaternion[2] << " " << quaternion[3] << " " << quaternion[0] << " " << endl;
@@ -138,12 +118,34 @@ void GUI::paintGL(){
         angle += inc;
     }
     glEnd();
+
     glBegin(GL_LINES);
-    glColor4f( 1.0, 0.5, 0.0, 1.0 );
+    glColor4f( 0.7, 0.2, 0.0, 1.0 );
 
     // Line from robot to cone
     glVertex3f(posx, posy, 0.0);
     glVertex3f(1.0,0.0,0.0);
     glEnd();
+
+    // predicted robot location
+    glBegin(GL_LINE_LOOP);
+    cy = robot_y;
+    cx = robot_x;
+    r = 0.13;
+    num_segments = 20;
+    x = 0.0;
+    y = 0.0;
+	for(int f = 0; f < num_segments; f++)
+	{
+		float theta = 2.0f * 3.1415926f * float(f) / float(num_segments);//get the current angle
+
+		float x = r * cosf(theta);//calculate the x component
+		float y = r * sinf(theta);//calculate the y component
+
+        glColor4f(0.2, 1.0, 0.1, 1.0);
+		glVertex3f(x + cx, y + cy, 0.0);//output vertex
+	}
+    glEnd();
+
     return;
 }

@@ -36,5 +36,9 @@ int main (int argc, char* argv[]) {
 		loop_rate.sleep();
 		count++;
 	}
+	msg.linear.x = 0;
+	msg.angular.z = 0;
+	ros::spinOnce();
+	pub.publish(msg);
 	return 0;
 }
