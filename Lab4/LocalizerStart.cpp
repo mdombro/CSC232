@@ -5,8 +5,6 @@
 #include <Eigen/Dense>
 
 using namespace std;
-//using namespace ros;
-//using namespace Localizer;
 
 int main(int argc, char* argv[]) {
     gengetopt_args_info args;
@@ -21,7 +19,6 @@ int main(int argc, char* argv[]) {
     ros::Publisher posWCov = n.advertise<geometry_msgs::PoseWithCovariance>("/pos", 1);
     ros::Subscriber cntrl = n.subscribe("/cmd_vel_mux/input/navi", 1000, &Localizer::cmdUpdate, &localizer);  // update the command velocities
     ros::Subscriber beams = n.subscribe("/scan", 1000, &Localizer::handleScans, &localizer);
-    //ros::Duration(1.3).sleep();
     ros::Rate loop_rate(10);
     while (ros::ok()) {
         localizer.findFeature();

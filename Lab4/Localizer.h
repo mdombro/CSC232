@@ -18,7 +18,6 @@ class Localizer {
     float maxRange;
     float angleIncrement;
     float alpha;
-    // std::vector<float> scans;
 
     /*** predetermined cone radius ***/
     double coneRadii;

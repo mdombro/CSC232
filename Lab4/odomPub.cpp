@@ -103,7 +103,6 @@ int main(int argc, char* argv[]) {
         msg2.angle_max = angleMax;
         msg2.angle_min = angleMin;
         msg2.time_increment = 0;
-        //angleIncrement = M_PI/numBeams;
         msg2.angle_increment = angleIncrement;
         msg2.scan_time = 0.1;
         msg2.range_min = 0;
@@ -144,12 +143,7 @@ float sgn(float x) {
 void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
     float angle = angleMin + pose[2];  // find the starting angle beam
     dCone = sqrt( pow(pose[0]-1.0,2) + pow(pose[1],2 ) );
-    float psi = 2*atan(rCone/dCone);   // angular diameter of the cone
-    float phi = atan(pose[1]/(pose[0]-1));  // bearing of feature from robot
-    if (pose[0] > 1.0 && pose[1] > 0.0) phi -= M_PI;  // quadrant one subtract 180 degrees
-    if (pose[0] < 1.0 && pose[1] > 0.0) phi = phi;      // quadrant two no change
-    if (pose[0] < 1.0 && pose[1] < 0.0) phi = phi;      // quadrant three no change
-    if (pose[0] > 1.0 && pose[1] < 0.0) phi += M_PI;
+    float phi = atan2(pose[1],(1-pose[0]));  // bearing of feature from robot
     for (int i = 0; i < numBeams; i++) {
         float maxX = pose[0] + maxRange*cos(angle);
         float maxY = pose[1] + maxRange*sin(angle);
@@ -159,7 +153,6 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
         float B = 2*(m*c - 1.0);
         float C = -pow(rCone, 2) + 1.0 + pow(c,2);
         float Disc = pow(B, 2) - 4*A*C;
-        //cout << "Bearing: " << phi << " Theta: " << pose[2] << endl;
         if (Disc > 0.0 && abs(phi-pose[2]) <= M_PI/2) {
             float x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
             float x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
@@ -188,7 +181,7 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
 }
 
 
-void calcNoisyDistance(float noisyDistances[], float trueDistances[], float sigmaHitm, int numBeams) {
+void calcNoisyDistance(float noisyDistances[], float trueDistances[], float sigmaHit, int numBeams) {
     for (int i = 0; i < numBeams; i++) {
         if (trueDistances[i] < maxRange) noisyDistances[i] = trueDistances[i] + sampleDistribution(pow(sigmaHit,2));
         else noisyDistances[i] = maxRange;

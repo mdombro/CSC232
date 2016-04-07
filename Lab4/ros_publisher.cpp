@@ -36,11 +36,13 @@ int main (int argc, char* argv[]) {
 		loop_rate.sleep();
 		count++;
 	}
-	//while (ros::ok) { 
+	int t = 0;
+	while (t < 100) {
 		msg.linear.x = 0;
 		msg.angular.z = 0;
 		pub.publish(msg);
 		ros::spinOnce();
-	//}
+		t++;
+	}
 	return 0;
 }
