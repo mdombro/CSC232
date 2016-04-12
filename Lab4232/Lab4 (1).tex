@@ -1,0 +1,96 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{tabularx,amsmath,boxedminipage,graphicx}
+\usepackage[margin=1in,letterpaper]{geometry} % this shaves off default margins which are too big
+\usepackage{cite}
+\usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+\usepackage{graphicx}
+\usepackage{subfig}
+\hypersetup{
+	colorlinks=true,       % false: boxed links; true: colored links
+	linkcolor=blue,          % color of internal links
+	citecolor=blue,        % color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=blue         
+}
+
+\begin{document}
+
+\title{ECE 232 Lab 4}
+\author{Matthew Dombroski}
+\date{April 4, 2016}
+\maketitle
+
+%  Abstract: A summary of the laboratory exercise, software that was implemented, data that was gathered, and
+%  analysis that was completed.
+%  • Code Implementation: A description of the code that was implemented to complete the lab. This is to be
+%   written at the level of detail that qualitatively describes the files that were written and the purpose of the c++ functions that were implemented.
+%  • Data and Data Analysis: The tables/plots of the data collected (as per the instructions of the  laboratory) and written descriptions of the observations.
+%  • Laboratory Questions: Answers to the questions posted at the end of the laboratory.
+
+ I affirm that I have not given or received any unauthorized help on this assignment,
+and that all work is my own.
+\begin{abstract}
+The objective for this lab was to implement a basic EKF localization algorithm which predicts the robot's location based on a single feature at a known location and current velocity commands. For this lab a Localizer class was defined which handles the detection of the features in a known map and implementats the EKF algorithm. All ROS subscription and advertising functions are handled in a C++ texttt{LocalizerStart} which instantiates the Localizer class and passes to it the required information. The GUI also had to be updated for this lab due to flawed deign decision from the previous lab where the feature was not represented in a generalized way. Finally the robot's predicted and actual position were recorded over time for both the simulator and physical robot and compared against each other to assess the performance of the EKF algorithm 
+\end{abstract}
+
+
+\section{Code Implementation}
+\subsection{Feature Detection}
+Detecting what beams struck the cone and which did not and calculating the location of the cone's center with respect to the robot proved to be a rather difficult problem to solve. A filtering algorithm based on the covariance matrix St was implemented to filter out extraneuous beams based on the expected center of the cone. From the matrix St the variance for the range and bearing component of the expected cone center was extracted and used to compute the standard deviation. Then for each returned beam its range and bearing was compared to the region 4 standard deviations around the expected range and bearing. If the returned beam layed within that region the beam was considered to have struck the cone and used for the computation of the new measured cone center. All beams outside the region were rejected. After finding the set of beams that most likely struck the cone the shortest of those beams is selected and has the radius of the cone added to it, resulting in the measured range and bearing of the cone cetner with respect to the robot. 
+\\\\
+Some assumptions that were made for this filtering algoirthm were that the uncertainty of the predicted cone location does not grow substantially between sensor readings and that the predicted cone location is fairly close to the actual cone location at the time of measurement. If either of these assumptions prove to be false the actual cone location with respect to the robot may change enough to place it outside the four standard deviations of predicted location. This situation was actually observed where the robot acurately predicted the cone's location while it was in sight of the sensor and measurements from it were used to update the EKF. However, if the robot turned around in a full circle and the beams again intersected the cone, the EKF no longer had an accurate prediction of that location and so all beams returned from the cone were rejected and not used to update the algorithm. 
+\\\\
+Some improvements that could be made to the find feature algorithm would be to preform a best circle fit to the points returned from the cone after filtering. A circle fit algorithm based on triplets of points was attempted for the lab however due to some error returned the measured cone center as being some 650,000m from the robot, an obviously incorrect calculation. Either revamping the original algorithm or using a different algorithm which successfully predicted the cone center from many points would provide a much more accurate and stable prediction for the cone's center. Rather than basing the cone center on one beam return where noise can greatly influence the location, basing the calculation on several points and taking an average center would reduce the effect of noise on the final calculation and return a center that was much closer to the actual cone center. 
+
+\subsection{Beam simulation}
+For lab 3 because there was no robot motion the beam lengths were calculated in a hard coded way where it was always expected that the robot would be 1m from the cone and have a bearing of 0 degrees. These assumptions of course broke down for lab 4 and so the GUI and the beam generator in the simulator had to be reworked to provide a more generalized beam simulation. On the GUI side the robot's yaw was taken into account and added to the beams so that as the robot rotates the beams rotate around the robot's x-axis. On the simulator side much work was done to describe the cone in terms of global rather than local coordinates. Originally as the robot moved the cone would move with the robot because the cone was described in terms of the robot location. After basing the cone in global coordinates and using more general algorithms, such as a line and circle intersection algorithm to calculate if a beam struck the cone the problem of the cone moving was resolved. Given any robot orientation the beams returned correctly.
+
+\subsection{EKF}
+Perhaps the most straightforward component to implement in this lab, the EKF algorithm was transcribed from the MATLAB example given on BlackBoard and the algorithm given from the textbook. At the instantiation of the Localizer class which was written for this lab all of the vectors and matrices used in the EKF algorithm are initialized to known or expected values in order for the EKF to initialize correctly. For example, an initial predicted measurement, pose, and covariance matrices are given in the class constructer. To implement matrix operations the Eigen library was used, which is installed by default in Ubuntu in the directory \texttt{/usr/include/eigen3}. After implementation and initialization the algorithm operates identically to that described in the textbook.
+\\\\
+Some tuning was done with the initial St matrix values. The St matrix describes the variances of the measurement values and as described above is used to help filter out extraneuos beam returns. It was found during testing that if the initial varainces were too small the find feature algorithm would reject all beam returns from the cone and never produce a measurement for the cone center. By slowly increasing these variances the uncertainty was increased to the point where beams around the sides of the cone would be accepted as within tolerance. In addition the EKF implementation check if a measurment of the feature is returned. If the cone is out of sight of the beams and no measurement for the cone center is taken a dumby measurement is given to signal the EKF that no feature was found. In this case the EKF executes only the prediction step and assigns the result directly as the current predicted robot location, skipping the update step. As expected without using the update step the algorithm becomes more inaccurate as noise in the robot motion grows error. 
+
+\section{Data and Analysis}
+
+
+\section{Laboratory Questions}
+  
+
+
+
+%++++++++++++++++++++++++++++++++++++++++
+
+% References section will be created automatically 
+% with inclusion of "thebibliography" environment
+% as it shown below. See text starting with line
+% \begin{thebibliography}{99}
+
+
+
+
+% There is a fancier and in long run more convinient way to do bibliography 
+% with automatic inclusion of references from the bibliography database
+% file. See usage of "bibtex" if you are interested in it.
+% http://www.bibtex.org/
+% but for know we will go with hand formated list.
+% Note: with this approach it is YOUR responsibility to put them in order
+% of appearance.
+%\begin{thebibliography}{99}
+
+
+%\bibitem{melissinos}
+%A.~C. Melissinos and J. Napolitano, \textit{Experiments in Modern Physics},
+%(Academic Press, New York, 2003).
+
+%\bibitem{Cyr}
+%N.\ Cyr, M.\ T$\hat{e}$tu, and M.\ Breton,
+% "All-optical microwave frequency standard: a proposal,"
+%IEEE Trans.\ Instrum.\ Meas.\ \textbf{42}, 640 (1993).
+
+%\bibitem{Wiki} \emph{Expected value},  available at
+%\texttt{http://en.wikipedia.org/wiki/Expected\_value}.
+
+%\end{thebibliography}
+
+
+\end{document}
