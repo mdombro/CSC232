@@ -1,0 +1,3 @@
+package "ros_subscriber"
+version "1.0"
+purpose "To control robots"
