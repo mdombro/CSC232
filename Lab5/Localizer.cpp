@@ -11,51 +11,59 @@
 using namespace std;
 
 Localizer::Localizer() {
-        quaternion.resize(4);
-        u << 0.00000000001, 0.00000000001;        // linear velocity, angular velocity
-        mu << 0.0, 0.0, 0.0;  // x, y, theta of robot
-        z << 0.0, 0.0, 0.0;   // distance, bearing, signature
-        sigma << 0.0, 0.0, 0.0,     // covariance of robot pos
+    quaternion.resize(4);
+    u << 0.00000000001, 0.00000000001;        // linear velocity, angular velocity
+    mu << 0.0, 0.0, 0.0;  // x, y, theta of robot
+
+    z = new RowVector3f[6];
+    for (int k = 0; k < 6; k++)
+        z(k) << 0.0, 0.0, 0.0;   // distance, bearing, signature
+    MatrixXd* St = new MatrixXd[6];
+    for (int k = 0; k < 6; k++) {
+        St(k) << 0.4, 0.0, 0.0,    // covariance of beam returns - play with values
+                 0.0, 0.4, 0.0,
+                 0.0, 0.0, 0.4;
+    }
+    MatrixXd* zest = new MatrixXd[6];
+    for (int k = 0; k < 6; k++)
+        zest(k) << 1.0, 0.0, 0.0;  // predicted beam return at initialization - range bearing signature
+    MatrixXd* Ht = new MatrixXd[6];
+    for (int k = 0; k < 6; k++) {
+        Ht(k) << 0.0, 0.0, 0.0,
+                 0.0, 0.0, -1.0,
+                 0.0, 0.0, 0.0;
+    }
+    MatrixXd* Kt = new MatrixXd[6];
+    for (int k = 0; k < 6; k++) {
+        Kt(k) << 0.0, 0.0, 0.0,
                  0.0, 0.0, 0.0,
                  0.0, 0.0, 0.0;
-cout << sigma << endl;
-        St << 0.4, 0.0, 0.0,    // covariance of beam returns - play with values
-              0.0, 0.4, 0.0,
-              0.0, 0.0, 0.4;
-cout << St << endl;
-        zest << 1.0, 0.0, 0.0;  // predicted beam return at initialization - range bearing signature
-        cout << "zest: " << zest << endl;
-        Gt << 1.0, 0.0, 0.0,
-              0.0, 1.0, 0.0,
-              0.0, 0.0, 1.0;
-cout << Gt << endl;
-        Vt.resize(3,2);
-        Vt << 0.0, 0.0,
-              0.0, 0.0,
-              0.0, 0.0;
-cout << Vt << endl;
-        Mt << 0.0, 0.0,
-              0.0, 0.0;
-cout << Mt << endl;
-        projMu << 0.0,
-		  0.0,
-		  0.0;
-        projSigma << 0.0, 0.0, 0.0,
-		     0.0, 0.0, 0.0,
-		     0.0, 0.0, 0.0;
-        Qt << 0.001, 0.0, 0.0,
-              0.0, 0.001, 0.0,
-              0.0, 0.0, 0.001;
-cout << Qt << endl;
-        Ht << 0.0, 0.0, 0.0,
-              0.0, 0.0, -1.0,
-              0.0, 0.0, 0.0;
-cout << Ht << endl;
-        Kt << 0.0, 0.0, 0.0,
-              0.0, 0.0, 0.0,
-              0.0, 0.0, 0.0;
-cout << Kt << endl;
-        cout << mu << endl;
+    }
+
+    sigma << 0.0, 0.0, 0.0,     // covariance of robot pos
+             0.0, 0.0, 0.0,
+             0.0, 0.0, 0.0;
+    Gt << 1.0, 0.0, 0.0,
+          0.0, 1.0, 0.0,
+          0.0, 0.0, 1.0;
+
+    Vt.resize(3,2);
+    Vt << 0.0, 0.0,
+          0.0, 0.0,
+          0.0, 0.0;
+
+    Mt << 0.0, 0.0,
+          0.0, 0.0;
+
+    projMu << 0.0,
+	  0.0,
+	  0.0;
+    projSigma << 0.0, 0.0, 0.0,
+	     0.0, 0.0, 0.0,
+	     0.0, 0.0, 0.0;
+    Qt << 0.001, 0.0, 0.0,
+          0.0, 0.001, 0.0,
+          0.0, 0.0, 0.001;
 }
 
 void Localizer::setAlpha(float alphas) {
@@ -130,19 +138,24 @@ void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 // locate the feature from given LaserScan and update the feature vector z
 void Localizer::findFeature() {
     // filtered scans array
-    vector<float> filterScans;
+    vector<vector<float>> filterScans(6);
 
     // hold the angles of respective potential cone returns
-    vector<float> angles;
+    vector<vector<float>> angles(6);
     float beamAngle = minAngle;
     // filter out unlikely cone returns
     // find if either bearing or range are significantly outside expectation
-    for (int o = 0; o < scans.size(); o++) {
-        if (beamAngle < 4.0*sqrt(St(1,1))+zest(1) && beamAngle > -4.0*sqrt(St(1,1))+zest(1) && scans[o] < 4.0*sqrt(St(0,0))+zest(0) && scans[o] > -4.0*sqrt(St(0,0))+zest(0)) {
-            filterScans.push_back(scans[o]);
-            angles.push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
+    for (int i = 0; i < 6; i++) {
+        Matrix3f v = St[i];
+        Matrix3f zh = zest[i];
+        for (int o = 0; o < scans.size(); o++) {
+            if (beamAngle < 4.0*sqrt(v(1,1))+zh(1) && beamAngle > -4.0*sqrt(v(1,1))+zh(1) && scans[o] < 4.0*sqrt(v(0,0))+zh(0) && scans[o] > -4.0*sqrt(v(0,0))+zh(0)) {
+                filterScans(i).push_back(scans[o]);
+                angles(i).push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
+            }
+            beamAngle += angleIncrement;
         }
-        beamAngle += angleIncrement;
+        beamAngle = minAngle;
     }
     cout <<  "filter scans: " << filterScans.size() << endl;
 

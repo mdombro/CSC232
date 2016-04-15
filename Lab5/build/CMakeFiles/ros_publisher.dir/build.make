@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab4
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab5
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab4/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab5/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ros_publisher.dir/depend.make
@@ -48,17 +48,17 @@ include CMakeFiles/ros_publisher.dir/flags.make
 
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: CMakeFiles/ros_publisher.dir/flags.make
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: ../ros_publisher.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o -c /home/matthew/CSC232/Lab4/ros_publisher.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o -c /home/matthew/CSC232/Lab5/ros_publisher.cpp
 
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ros_publisher.dir/ros_publisher.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab4/ros_publisher.cpp > CMakeFiles/ros_publisher.dir/ros_publisher.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/ros_publisher.cpp > CMakeFiles/ros_publisher.dir/ros_publisher.cpp.i
 
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ros_publisher.dir/ros_publisher.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab4/ros_publisher.cpp -o CMakeFiles/ros_publisher.dir/ros_publisher.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/ros_publisher.cpp -o CMakeFiles/ros_publisher.dir/ros_publisher.cpp.s
 
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o.requires:
 .PHONY : CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o.requires
@@ -71,17 +71,17 @@ CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o.provides.build: CMakeFiles/ros_
 
 CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o: CMakeFiles/ros_publisher.dir/flags.make
 CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o: ros_publisher_cmdline.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o   -c /home/matthew/CSC232/Lab4/build/ros_publisher_cmdline.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o   -c /home/matthew/CSC232/Lab5/build/ros_publisher_cmdline.c
 
 CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab4/build/ros_publisher_cmdline.c > CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab5/build/ros_publisher_cmdline.c > CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.i
 
 CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab4/build/ros_publisher_cmdline.c -o CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab5/build/ros_publisher_cmdline.c -o CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.s
 
 CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o.requires:
 .PHONY : CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o.requires
@@ -358,6 +358,6 @@ CMakeFiles/ros_publisher.dir/clean:
 .PHONY : CMakeFiles/ros_publisher.dir/clean
 
 CMakeFiles/ros_publisher.dir/depend:
-	cd /home/matthew/CSC232/Lab4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build/CMakeFiles/ros_publisher.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/matthew/CSC232/Lab5/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build/CMakeFiles/ros_publisher.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ros_publisher.dir/depend
 

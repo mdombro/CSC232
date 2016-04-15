@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab4
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab5
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab4/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab5/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/LocalizerStart.dir/depend.make
@@ -48,17 +48,17 @@ include CMakeFiles/LocalizerStart.dir/flags.make
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o: CMakeFiles/LocalizerStart.dir/flags.make
 CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o: ../LocalizerStart.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o -c /home/matthew/CSC232/Lab4/LocalizerStart.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o -c /home/matthew/CSC232/Lab5/LocalizerStart.cpp
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab4/LocalizerStart.cpp > CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/LocalizerStart.cpp > CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.i
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab4/LocalizerStart.cpp -o CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/LocalizerStart.cpp -o CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.s
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o.requires:
 .PHONY : CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o.requires
@@ -71,17 +71,17 @@ CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o.provides.build: CMakeFiles/Lo
 
 CMakeFiles/LocalizerStart.dir/Localizer.cpp.o: CMakeFiles/LocalizerStart.dir/flags.make
 CMakeFiles/LocalizerStart.dir/Localizer.cpp.o: ../Localizer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/LocalizerStart.dir/Localizer.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/LocalizerStart.dir/Localizer.cpp.o -c /home/matthew/CSC232/Lab4/Localizer.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/LocalizerStart.dir/Localizer.cpp.o -c /home/matthew/CSC232/Lab5/Localizer.cpp
 
 CMakeFiles/LocalizerStart.dir/Localizer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/LocalizerStart.dir/Localizer.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab4/Localizer.cpp > CMakeFiles/LocalizerStart.dir/Localizer.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/Localizer.cpp > CMakeFiles/LocalizerStart.dir/Localizer.cpp.i
 
 CMakeFiles/LocalizerStart.dir/Localizer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/LocalizerStart.dir/Localizer.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab4/Localizer.cpp -o CMakeFiles/LocalizerStart.dir/Localizer.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/Localizer.cpp -o CMakeFiles/LocalizerStart.dir/Localizer.cpp.s
 
 CMakeFiles/LocalizerStart.dir/Localizer.cpp.o.requires:
 .PHONY : CMakeFiles/LocalizerStart.dir/Localizer.cpp.o.requires
@@ -94,17 +94,17 @@ CMakeFiles/LocalizerStart.dir/Localizer.cpp.o.provides.build: CMakeFiles/Localiz
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o: CMakeFiles/LocalizerStart.dir/flags.make
 CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o: LocalizerStart_cmdline.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o   -c /home/matthew/CSC232/Lab4/build/LocalizerStart_cmdline.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o   -c /home/matthew/CSC232/Lab5/build/LocalizerStart_cmdline.c
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab4/build/LocalizerStart_cmdline.c > CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab5/build/LocalizerStart_cmdline.c > CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.i
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab4/build/LocalizerStart_cmdline.c -o CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab5/build/LocalizerStart_cmdline.c -o CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.s
 
 CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o.requires:
 .PHONY : CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o.requires
@@ -384,6 +384,6 @@ CMakeFiles/LocalizerStart.dir/clean:
 .PHONY : CMakeFiles/LocalizerStart.dir/clean
 
 CMakeFiles/LocalizerStart.dir/depend:
-	cd /home/matthew/CSC232/Lab4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build/CMakeFiles/LocalizerStart.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/matthew/CSC232/Lab5/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build/CMakeFiles/LocalizerStart.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/LocalizerStart.dir/depend
 

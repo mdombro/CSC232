@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab4
+CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab5
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab4/build
+CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab5/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/gui-process.dir/depend.make
@@ -48,17 +48,17 @@ include CMakeFiles/gui-process.dir/flags.make
 
 CMakeFiles/gui-process.dir/gui_process.cpp.o: CMakeFiles/gui-process.dir/flags.make
 CMakeFiles/gui-process.dir/gui_process.cpp.o: ../gui_process.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gui-process.dir/gui_process.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gui-process.dir/gui_process.cpp.o -c /home/matthew/CSC232/Lab4/gui_process.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gui-process.dir/gui_process.cpp.o -c /home/matthew/CSC232/Lab5/gui_process.cpp
 
 CMakeFiles/gui-process.dir/gui_process.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gui-process.dir/gui_process.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab4/gui_process.cpp > CMakeFiles/gui-process.dir/gui_process.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/gui_process.cpp > CMakeFiles/gui-process.dir/gui_process.cpp.i
 
 CMakeFiles/gui-process.dir/gui_process.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gui-process.dir/gui_process.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab4/gui_process.cpp -o CMakeFiles/gui-process.dir/gui_process.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/gui_process.cpp -o CMakeFiles/gui-process.dir/gui_process.cpp.s
 
 CMakeFiles/gui-process.dir/gui_process.cpp.o.requires:
 .PHONY : CMakeFiles/gui-process.dir/gui_process.cpp.o.requires
@@ -71,17 +71,17 @@ CMakeFiles/gui-process.dir/gui_process.cpp.o.provides.build: CMakeFiles/gui-proc
 
 CMakeFiles/gui-process.dir/gui.cpp.o: CMakeFiles/gui-process.dir/flags.make
 CMakeFiles/gui-process.dir/gui.cpp.o: ../gui.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gui-process.dir/gui.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gui-process.dir/gui.cpp.o -c /home/matthew/CSC232/Lab4/gui.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gui-process.dir/gui.cpp.o -c /home/matthew/CSC232/Lab5/gui.cpp
 
 CMakeFiles/gui-process.dir/gui.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gui-process.dir/gui.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab4/gui.cpp > CMakeFiles/gui-process.dir/gui.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/gui.cpp > CMakeFiles/gui-process.dir/gui.cpp.i
 
 CMakeFiles/gui-process.dir/gui.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gui-process.dir/gui.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab4/gui.cpp -o CMakeFiles/gui-process.dir/gui.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/gui.cpp -o CMakeFiles/gui-process.dir/gui.cpp.s
 
 CMakeFiles/gui-process.dir/gui.cpp.o.requires:
 .PHONY : CMakeFiles/gui-process.dir/gui.cpp.o.requires
@@ -94,17 +94,17 @@ CMakeFiles/gui-process.dir/gui.cpp.o.provides.build: CMakeFiles/gui-process.dir/
 
 CMakeFiles/gui-process.dir/moc_gui.cxx.o: CMakeFiles/gui-process.dir/flags.make
 CMakeFiles/gui-process.dir/moc_gui.cxx.o: moc_gui.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gui-process.dir/moc_gui.cxx.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gui-process.dir/moc_gui.cxx.o -c /home/matthew/CSC232/Lab4/build/moc_gui.cxx
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gui-process.dir/moc_gui.cxx.o -c /home/matthew/CSC232/Lab5/build/moc_gui.cxx
 
 CMakeFiles/gui-process.dir/moc_gui.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gui-process.dir/moc_gui.cxx.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab4/build/moc_gui.cxx > CMakeFiles/gui-process.dir/moc_gui.cxx.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/build/moc_gui.cxx > CMakeFiles/gui-process.dir/moc_gui.cxx.i
 
 CMakeFiles/gui-process.dir/moc_gui.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gui-process.dir/moc_gui.cxx.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab4/build/moc_gui.cxx -o CMakeFiles/gui-process.dir/moc_gui.cxx.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/build/moc_gui.cxx -o CMakeFiles/gui-process.dir/moc_gui.cxx.s
 
 CMakeFiles/gui-process.dir/moc_gui.cxx.o.requires:
 .PHONY : CMakeFiles/gui-process.dir/moc_gui.cxx.o.requires
@@ -117,17 +117,17 @@ CMakeFiles/gui-process.dir/moc_gui.cxx.o.provides.build: CMakeFiles/gui-process.
 
 CMakeFiles/gui-process.dir/gui_process_cmdline.c.o: CMakeFiles/gui-process.dir/flags.make
 CMakeFiles/gui-process.dir/gui_process_cmdline.c.o: gui_process_cmdline.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/gui-process.dir/gui_process_cmdline.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/gui-process.dir/gui_process_cmdline.c.o   -c /home/matthew/CSC232/Lab4/build/gui_process_cmdline.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/gui-process.dir/gui_process_cmdline.c.o   -c /home/matthew/CSC232/Lab5/build/gui_process_cmdline.c
 
 CMakeFiles/gui-process.dir/gui_process_cmdline.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/gui-process.dir/gui_process_cmdline.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab4/build/gui_process_cmdline.c > CMakeFiles/gui-process.dir/gui_process_cmdline.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/matthew/CSC232/Lab5/build/gui_process_cmdline.c > CMakeFiles/gui-process.dir/gui_process_cmdline.c.i
 
 CMakeFiles/gui-process.dir/gui_process_cmdline.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/gui-process.dir/gui_process_cmdline.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab4/build/gui_process_cmdline.c -o CMakeFiles/gui-process.dir/gui_process_cmdline.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/matthew/CSC232/Lab5/build/gui_process_cmdline.c -o CMakeFiles/gui-process.dir/gui_process_cmdline.c.s
 
 CMakeFiles/gui-process.dir/gui_process_cmdline.c.o.requires:
 .PHONY : CMakeFiles/gui-process.dir/gui_process_cmdline.c.o.requires
@@ -140,9 +140,9 @@ CMakeFiles/gui-process.dir/gui_process_cmdline.c.o.provides.build: CMakeFiles/gu
 
 moc_gui.cxx: /usr/bin/moc-qt4
 moc_gui.cxx: ../gui.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab4/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Qt Wrapped File"
-	/usr/bin/moc-qt4 -o /home/matthew/CSC232/Lab4/build/moc_gui.cxx /home/matthew/CSC232/Lab4/gui.h
+	/usr/bin/moc-qt4 -o /home/matthew/CSC232/Lab5/build/moc_gui.cxx /home/matthew/CSC232/Lab5/gui.h
 
 # Object files for target gui-process
 gui__process_OBJECTS = \
@@ -425,6 +425,6 @@ CMakeFiles/gui-process.dir/clean:
 .PHONY : CMakeFiles/gui-process.dir/clean
 
 CMakeFiles/gui-process.dir/depend: moc_gui.cxx
-	cd /home/matthew/CSC232/Lab4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4 /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build /home/matthew/CSC232/Lab4/build/CMakeFiles/gui-process.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/matthew/CSC232/Lab5/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build/CMakeFiles/gui-process.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/gui-process.dir/depend
 
