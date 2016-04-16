@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab4/ros_publisher.cpp
+/home/matthew/CSC232/Lab5/ros_publisher.cpp
 iostream
 -
 ros/ros.h
 -
 geometry_msgs/Twist.h
-/home/matthew/CSC232/Lab4/geometry_msgs/Twist.h
+/home/matthew/CSC232/Lab5/geometry_msgs/Twist.h
 ros_publisher_cmdline.h
-/home/matthew/CSC232/Lab4/ros_publisher_cmdline.h
+/home/matthew/CSC232/Lab5/ros_publisher_cmdline.h
 math.h
 -
 

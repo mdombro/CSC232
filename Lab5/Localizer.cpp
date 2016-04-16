@@ -11,31 +11,47 @@
 using namespace std;
 
 Localizer::Localizer() {
+    Mx.resize(6);
+    Mx[0] = 1.0;
+    Mx[1] = 2.0;
+    Mx[2] = 3.0;
+    Mx[3] = 5.0;
+    Mx[4] = 6.0;
+    Mx[5] = 7.0;
+    My.resize(6);
+    My[0] = 0;
+    My[1] = 0;
+    My[2] = 0;
+    My[3] = 0;
+    My[4] = 0;
+    My[5] = 0;
+
+
     quaternion.resize(4);
     u << 0.00000000001, 0.00000000001;        // linear velocity, angular velocity
     mu << 0.0, 0.0, 0.0;  // x, y, theta of robot
 
-    z = new RowVector3f[6];
+    z.resize(6);
     for (int k = 0; k < 6; k++)
-        z(k) << 0.0, 0.0, 0.0;   // distance, bearing, signature
-    MatrixXd* St = new MatrixXd[6];
+        z[k] << 0.0, 0.0, 0.0;   // distance, bearing, signature
+    St.resize(6);
     for (int k = 0; k < 6; k++) {
-        St(k) << 0.4, 0.0, 0.0,    // covariance of beam returns - play with values
+        St[k] << 0.4, 0.0, 0.0,    // covariance of beam returns - play with values
                  0.0, 0.4, 0.0,
                  0.0, 0.0, 0.4;
     }
-    MatrixXd* zest = new MatrixXd[6];
+    zest.resize(6);
     for (int k = 0; k < 6; k++)
-        zest(k) << 1.0, 0.0, 0.0;  // predicted beam return at initialization - range bearing signature
-    MatrixXd* Ht = new MatrixXd[6];
+        zest[0] << Mx[k], My[k], 0.0;  // predicted beam return at initialization - range bearing signature
+    Ht.resize(6);
     for (int k = 0; k < 6; k++) {
-        Ht(k) << 0.0, 0.0, 0.0,
+        Ht[k] << 0.0, 0.0, 0.0,
                  0.0, 0.0, -1.0,
                  0.0, 0.0, 0.0;
     }
-    MatrixXd* Kt = new MatrixXd[6];
+    Kt.resize(6);
     for (int k = 0; k < 6; k++) {
-        Kt(k) << 0.0, 0.0, 0.0,
+        Kt[k] << 0.0, 0.0, 0.0,
                  0.0, 0.0, 0.0,
                  0.0, 0.0, 0.0;
     }
@@ -56,8 +72,8 @@ Localizer::Localizer() {
           0.0, 0.0;
 
     projMu << 0.0,
-	  0.0,
-	  0.0;
+	          0.0,
+	          0.0;
     projSigma << 0.0, 0.0, 0.0,
 	     0.0, 0.0, 0.0,
 	     0.0, 0.0, 0.0;
@@ -72,52 +88,56 @@ void Localizer::setAlpha(float alphas) {
 
 void Localizer::EKF() {
 
-    if (u(1) != 0.0 && u(0) != 0.0) {
-        float theta = mu(2);
-
-        float spr = u(0)/u(1);
-
-        // Gt
-        Gt(0,2) = (-spr*cos(theta))+(spr*cos(theta+u(1)*0.1));
-        Gt(1,2) = (-spr*sin(theta))+(spr*sin(theta+u(1)*0.1));
-        // Vt
-        Vt(0,0) = (-sin(theta)+sin(theta+u(1)*0.1))/u(1);
-        Vt(1,0) = (cos(theta)-cos(theta+u(1)*0.1))/u(1);
-        Vt(0,1) = ( (u(0)*(sin(theta)-sin(theta+u(1)*0.1)))/pow(u(1),2) ) + (u(0)*cos(theta+u(1)*0.1)*0.1)/u(1);
-        Vt(1,1) = -( (u(0)*(cos(theta)-cos(theta+u(1)*0.1)))/pow(u(1),2) ) + (u(0)*sin(theta+u(1)*0.1)*0.1)/u(1);
-        Vt(2,1) = 0.1;
-        Mt(0,0) = alpha*pow(u(0),2); + alpha*pow(u(1),2);
-        Mt(1,1) = alpha*pow(u(0),2); + alpha*pow(u(1),2);
-        projMu(0) = mu(0) + (-spr*sin(theta))+(spr*sin(theta+u(1)*0.1));
-        projMu(1) = mu(1) + (spr*cos(theta))-(spr*cos(theta+u(1)*0.1));
-        projMu(2) = mu(2) + u(1)*0.1;
-        projSigma = Gt*sigma*Gt.transpose() + Vt*Mt*Vt.transpose();
-        float q = pow(1.0 - projMu(0), 2) + pow(-projMu(1), 2);
-        zest(0) = sqrt(q);
-        zest(1) = atan2(-projMu(1), 1.0-projMu(0)) - projMu(2);
-        zest(2) = 0;
-        Ht(0,0) = -(1.0-projMu(0))/sqrt(q);
-        Ht(0,1) = -(-projMu(1))/sqrt(q);
-        Ht(1,0) = (-projMu(1))/q;
-        Ht(1,1) = -(1.0-projMu(0))/q;
-        St = Ht*projSigma*Ht.transpose() + Qt;
-        Kt = projSigma*Ht.transpose()*St.inverse();
-        if(z(0) != -1000) mu = projMu + Kt*((z-zest).transpose());
-        else mu = projMu;
-        quaternion[0] = cos(mu(2)/2);
-        quaternion[1] = 0;
-        quaternion[2] = 0;
-        quaternion[3] = sin(mu(2)/2);
-        Eigen::Matrix3f I;
-        I << 1.0, 0.0, 0.0,
-             0.0, 1.0, 0.0,
-             0.0, 0.0, 1.0;
-        sigma = (I-Kt*Ht)*projSigma;
+    if (u(1) == 0.0) {
+        u(1) = 0.0000001;
     }
-    else {
-        mu = mu;
-    }
+    float theta = mu(2);
 
+    float spr = u(0)/u(1);
+
+    // Gt
+    Gt(0,2) = (-spr*cos(theta))+(spr*cos(theta+u(1)*0.1));
+    Gt(1,2) = (-spr*sin(theta))+(spr*sin(theta+u(1)*0.1));
+    // Vt
+    Vt(0,0) = (-sin(theta)+sin(theta+u(1)*0.1))/u(1);
+    Vt(1,0) = (cos(theta)-cos(theta+u(1)*0.1))/u(1);
+    Vt(0,1) = ( (u(0)*(sin(theta)-sin(theta+u(1)*0.1)))/pow(u(1),2) ) + (u(0)*cos(theta+u(1)*0.1)*0.1)/u(1);
+    Vt(1,1) = -( (u(0)*(cos(theta)-cos(theta+u(1)*0.1)))/pow(u(1),2) ) + (u(0)*sin(theta+u(1)*0.1)*0.1)/u(1);
+    Vt(2,1) = 0.1;
+    Mt(0,0) = alpha*pow(u(0),2); + alpha*pow(u(1),2);
+    Mt(1,1) = alpha*pow(u(0),2); + alpha*pow(u(1),2);
+    projMu(0) = mu(0) + (-spr*sin(theta))+(spr*sin(theta+u(1)*0.1));
+    projMu(1) = mu(1) + (spr*cos(theta))-(spr*cos(theta+u(1)*0.1));
+    projMu(2) = mu(2) + u(1)*0.1;
+    projSigma = Gt*sigma*Gt.transpose() + Vt*Mt*Vt.transpose();
+    for (int i = 0; i < 6; i++) {
+        if (z[i](0) != -1000) {
+            float q = pow(Mx[i] - projMu(0), 2) + pow(My[i] - projMu(1), 2);
+            zest[i](0) = sqrt(q);
+            zest[i](1) = atan2(My[i] - projMu(1), Mx[i] - projMu(0)) - projMu(2);
+            zest[i](2) = 0;
+            Ht[i](0,0) = -(Mx[i]-projMu(0))/sqrt(q);
+            Ht[i](0,1) = -(My[i]-projMu(1))/sqrt(q);
+            Ht[i](1,0) = (My[i]-projMu(1))/q;
+            Ht[i](1,1) = -(Mx[i]-projMu(0))/q;
+            St[i] = Ht[i]*projSigma*Ht[i].transpose() + Qt;
+            Kt[i] = projSigma*Ht[i].transpose()*St[i].inverse();
+            //if(z[i](0) != -1000) projMu = projMu + Kt[i]*((z[i]-zest[i]).transpose());
+            //else projMu = projMu;
+            projMu = projMu + Kt[i]*((z[i]-zest[i]).transpose());
+            quaternion[0] = cos(mu(2)/2);
+            quaternion[1] = 0;
+            quaternion[2] = 0;
+            quaternion[3] = sin(mu(2)/2);
+            Eigen::Matrix3f I;
+            I << 1.0, 0.0, 0.0,
+                 0.0, 1.0, 0.0,
+                 0.0, 0.0, 1.0;
+            projSigma = (I-Kt[i]*Ht[i])*projSigma;
+        }
+    }
+    mu = projMu;
+    sigma = projSigma;
 }
 
 void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
@@ -138,47 +158,56 @@ void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 // locate the feature from given LaserScan and update the feature vector z
 void Localizer::findFeature() {
     // filtered scans array
-    vector<vector<float>> filterScans(6);
+    vector<vector<float> > filterScans(6);
 
     // hold the angles of respective potential cone returns
-    vector<vector<float>> angles(6);
+    vector<vector<float> > angles(6);
     float beamAngle = minAngle;
     // filter out unlikely cone returns
     // find if either bearing or range are significantly outside expectation
     for (int i = 0; i < 6; i++) {
-        Matrix3f v = St[i];
-        Matrix3f zh = zest[i];
+        //Eigen::Matrix3f st = St[i];
+        //Eigen::Matrix3f Zest = zest[i];
+
         for (int o = 0; o < scans.size(); o++) {
-            if (beamAngle < 4.0*sqrt(v(1,1))+zh(1) && beamAngle > -4.0*sqrt(v(1,1))+zh(1) && scans[o] < 4.0*sqrt(v(0,0))+zh(0) && scans[o] > -4.0*sqrt(v(0,0))+zh(0)) {
-                filterScans(i).push_back(scans[o]);
-                angles(i).push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
+            if (beamAngle < 3.0*sqrt(St[i](1,1))+zest[i](1) && beamAngle > -3.0*sqrt(St[i](1,1))+zest[i](1) && scans[o] < 4.0*sqrt(St[i](0,0))+zest[i](0) && scans[o] > -4.0*sqrt(St[i](0,0))+zest[i](0)) {
+                if (i == 2) {cout << scans[o] << " " << beamAngle << endl;}
+                filterScans[i].push_back(scans[o]);
+                angles[i].push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
             }
             beamAngle += angleIncrement;
         }
         beamAngle = minAngle;
     }
-    cout <<  "filter scans: " << filterScans.size() << endl;
+    cout << "Filtered Scans: ";
+    for (int j = 0; j < 6; j++) {
+        cout << filterScans[j].size() << " ";
+    }
+    cout << endl;
 
     // find center point of feature by taking minimum point of possible cone returns
     //float angle = minAngle;
-    if (filterScans.size() != 0) {
-        float min[2] = {filterScans[0], minAngle};
-            for (int i = 0; i < filterScans.size(); i++) {
-                if (filterScans[i] < min[0]) {
-                    min[0] = filterScans[i];
-                    min[1] = angles[i];
+    float min[2] = {0,0};
+    for (int g = 0; g < 6; g++) {
+        if (filterScans[g].size() != 0) {
+            min[0] = filterScans[g][0];
+            min[1] = minAngle;
+            for (int i = 0; i < filterScans[g].size(); i++) {
+                if (filterScans[g][i] < min[0]) {
+                    min[0] = filterScans[g][i];
+                    min[1] = angles[g][i];
                 }
             }
-            z(0) = min[0] + coneRadii;
-            z(1) = min[1];
+            z[g](0) = min[0] + coneRadii;
+            z[g](1) = min[1];
         }
-    else {
-        z(0) = -1000;
-        z(1) = -1000;
+        else {
+            z[g](0) = -1000;
+            z[g](1) = -1000;
+        }
     }
-    cout << "Estimated cone: " << z(0) << " " << z(1) << endl;
-    filterScans.clear();
-    angles.clear();
+    //cout << "Estimated cone: " << z(0) << " " << z(1) << endl;
+    for (int h = 0; h < 6; h++) { filterScans[h].clear(); angles[h].clear(); }
 }
 
 void Localizer::setConeRadii(double r) {

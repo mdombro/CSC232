@@ -28,16 +28,16 @@ class Localizer {
     std::vector<float> quaternion;
 
     // holds range, bearing, and signature of feature
-    Eigen::RowVector3f* z;
+    std::vector<Eigen::RowVector3f> z;
 
     // Estimated beam range, bearing, and signature
-    Eigen::RowVector3f zest;
+    std::vector<Eigen::RowVector3f> zest;
 
     // Covariance matrix for robot pos
     Eigen::Matrix3f sigma;
 
     // Covariance matrix of predicted beam returns
-    Eigen::Matrix3f St;
+    std::vector<Eigen::Matrix3f> St;
 
     // Other EKF matrices
     Eigen::Matrix3f Gt;
@@ -46,8 +46,12 @@ class Localizer {
     Eigen::Vector3f projMu;
     Eigen::Matrix3f projSigma;
     Eigen::Matrix3f Qt;
-    Eigen::Matrix3f Ht;
-    Eigen::Matrix3f Kt;
+    std::vector<Eigen::Matrix3f> Ht;
+    std::vector<Eigen::Matrix3f> Kt;
+
+    // Map from the executive
+    std::vector<float> Mx;
+    std::vector<float> My;
 
 
 public:

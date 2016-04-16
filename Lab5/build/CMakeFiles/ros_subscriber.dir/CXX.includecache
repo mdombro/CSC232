@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab4/ros_subscriber.cpp
+/home/matthew/CSC232/Lab5/ros_subscriber.cpp
 iostream
 -
 fstream
@@ -14,11 +14,11 @@ fstream
 ros/ros.h
 -
 nav_msgs/Odometry.h
-/home/matthew/CSC232/Lab4/nav_msgs/Odometry.h
+/home/matthew/CSC232/Lab5/nav_msgs/Odometry.h
 sensor_msgs/LaserScan.h
-/home/matthew/CSC232/Lab4/sensor_msgs/LaserScan.h
+/home/matthew/CSC232/Lab5/sensor_msgs/LaserScan.h
 geometry_msgs/PoseWithCovariance.h
-/home/matthew/CSC232/Lab4/geometry_msgs/PoseWithCovariance.h
+/home/matthew/CSC232/Lab5/geometry_msgs/PoseWithCovariance.h
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h
