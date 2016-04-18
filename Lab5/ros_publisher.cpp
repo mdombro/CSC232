@@ -30,7 +30,7 @@ int main (int argc, char* argv[]) {
 
 	while (ros::ok() && count < (int)time*10) {
 		//msg.angular.z = sin(count/10);   // uncomment to preform sin(t) movement
-		msg.linear.x = -0.5*sin(2*(count/10.0));
+		//msg.linear.x = -0.5*sin(2*(count/10.0));
 		ros::spinOnce();
 		pub.publish(msg);
 		loop_rate.sleep();

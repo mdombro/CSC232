@@ -3,6 +3,8 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/naviSub.dir/naviSub_cmdline.c.o"
   "naviSub.pdb"
   "naviSub"
+  "naviSub.pdb"
+  "CMakeFiles/CMakeRelink.dir/naviSub"
 )
 
 # Per-language clean rules from dependency scanning.

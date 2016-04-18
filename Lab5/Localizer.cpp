@@ -36,13 +36,13 @@ Localizer::Localizer() {
         z[k] << 0.0, 0.0, 0.0;   // distance, bearing, signature
     St.resize(6);
     for (int k = 0; k < 6; k++) {
-        St[k] << 0.4, 0.0, 0.0,    // covariance of beam returns - play with values
-                 0.0, 0.4, 0.0,
-                 0.0, 0.0, 0.4;
+        St[k] << 0.2, 0.0, 0.0,    // covariance of beam returns - play with values
+                 0.0, 0.2, 0.0,
+                 0.0, 0.0, 0.2;
     }
     zest.resize(6);
     for (int k = 0; k < 6; k++)
-        zest[0] << Mx[k], My[k], 0.0;  // predicted beam return at initialization - range bearing signature
+        zest[k] << Mx[k], My[k], 0.0;  // predicted beam return at initialization - range bearing signature
     Ht.resize(6);
     for (int k = 0; k < 6; k++) {
         Ht[k] << 0.0, 0.0, 0.0,
@@ -165,12 +165,10 @@ void Localizer::findFeature() {
     float beamAngle = minAngle;
     // filter out unlikely cone returns
     // find if either bearing or range are significantly outside expectation
+    cout << St[2] << " " << zest[2][0] << endl;
     for (int i = 0; i < 6; i++) {
-        //Eigen::Matrix3f st = St[i];
-        //Eigen::Matrix3f Zest = zest[i];
-
         for (int o = 0; o < scans.size(); o++) {
-            if (beamAngle < 3.0*sqrt(St[i](1,1))+zest[i](1) && beamAngle > -3.0*sqrt(St[i](1,1))+zest[i](1) && scans[o] < 4.0*sqrt(St[i](0,0))+zest[i](0) && scans[o] > -4.0*sqrt(St[i](0,0))+zest[i](0)) {
+            if (beamAngle < 3.5*sqrt(St[i](1,1))+zest[i](1) && beamAngle > -3.5*sqrt(St[i](1,1))+zest[i](1) && scans[o] < 4.0*sqrt(St[i](0,0))+zest[i](0) && scans[o] > -4.0*sqrt(St[i](0,0))+zest[i](0)) {
                 if (i == 2) {cout << scans[o] << " " << beamAngle << endl;}
                 filterScans[i].push_back(scans[o]);
                 angles[i].push_back(minAngle+(angleIncrement*o));  // calulate and add current angle

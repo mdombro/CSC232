@@ -10,6 +10,7 @@
 #include "std_msgs/Empty.h"
 #include "geometry_msgs/Twist.h"
 #include "odomPub_cmdline.h"
+#include <vector>
 
 
 using namespace ros;
@@ -36,10 +37,11 @@ float maxRange = 3.0f;
 //float dWall = 2.0;
 float rCone = 0.1;
 
+
 void cmmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
     command[0] = msg->linear.x;
     command[1] = msg->angular.z;
-    cout << "Commands: " << command[0] << " " << command[1] << endl;
+    //cout << "Commands: " << command[0] << " " << command[1] << endl;
 }
 
 void reset(const std_msgs::Empty::ConstPtr& msg) {
@@ -141,6 +143,22 @@ float sgn(float x) {
 }
 
 void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
+    std::vector<float> Mx;
+    Mx.resize(6);
+    Mx[0] = 1.0;
+    Mx[1] = 2.0;
+    Mx[2] = 3.0;
+    Mx[3] = 5.0;
+    Mx[4] = 6.0;
+    Mx[5] = 7.0;
+    std::vector<float> My;
+    My.resize(6);
+    My[0] = 0;
+    My[1] = 0;
+    My[2] = 0;
+    My[3] = 0;
+    My[4] = 0;
+    My[5] = 0;
     float angle = angleMin + pose[2];  // find the starting angle beam
     dCone = sqrt( pow(pose[0]-1.0,2) + pow(pose[1],2 ) );
     float phi = atan2(pose[1],(1-pose[0]));  // bearing of feature from robot
@@ -149,32 +167,47 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
         float maxY = pose[1] + maxRange*sin(angle);
         float m = (pose[1] - maxY)/(pose[0]-maxX);
         float c = pose[1] - m*pose[0];
-        float A = pow(m,2)+1;
-        float B = 2*(m*c - 1.0);
-        float C = -pow(rCone, 2) + 1.0 + pow(c,2);
-        float Disc = pow(B, 2) - 4*A*C;
-        if (Disc > 0.0 && abs(phi-pose[2]) <= M_PI/2) {
-            float x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
-            float x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
-            float y1 = m*((-B + sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
-            float y2 = m*((-B - sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
-            float range1 = sqrt( pow(pose[0] - x1, 2) + pow(pose[1] - y1, 2) );
-            float range2 = sqrt( pow(pose[0] - x2, 2) + pow(pose[1] - y2, 2) );
-            if (range1 < range2) {
-                if (range1 < maxRange)
-                    trueDistances[i] = range1;
-                else
-                    trueDistances[i] = maxRange;
+
+        //vector<float> range1(6);
+        //vector<float> range2(6);
+        for (int g = 0; g < 6; g++) {
+            float A = pow(m,2)+1;
+            float B = 2*(m*c - m*My[g] - Mx[g]);
+            float C = pow(My[g],2) - pow(rCone, 2) + pow(Mx[g],2) - 2.0*c*My[g] + pow(c,2);
+            float Disc = pow(B, 2) - 4.0*A*C;
+            if (Disc > 0.0 && abs(phi-pose[2]) <= M_PI/2) {
+                float x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
+                float x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
+                float y1 = m*((-B + sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
+                float y2 = m*((-B - sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
+                float range1 = sqrt( pow(pose[0] - x1, 2) + pow(pose[1] - y1, 2) );
+                float range2 = sqrt( pow(pose[0] - x2, 2) + pow(pose[1] - y2, 2) );
+                cout << "range1: " << range1 << " range2: " << range2 << " g: " << g << endl;
+                if (range1 < range2) {
+                    if (range1 < maxRange) {
+                        if (g > 0 && range1 < trueDistances[i])  // pick only shortest beam if cones are in a line
+                            trueDistances[i] = range1;
+                        else if (g == 0)
+                            trueDistances[i] = range1;  // if this is the first intersect processed
+                        else
+                            trueDistances[i] = trueDistances[i];
+                    } else if (g != 0 && trueDistances[i] != maxRange)
+                        trueDistances[i] = maxRange;
+                } else {
+                    if (range2 < maxRange) {
+                        if (g > 0 && range2 < trueDistances[i])
+                            trueDistances[i] = range2;
+                        else if (g == 0)
+                            trueDistances[i] = range2;
+                        else
+                            trueDistances[i] = trueDistances[i];
+                    }
+                    else if (g != 0 && trueDistances[i] != maxRange)
+                        trueDistances[i] = maxRange;
+                }
+            } else {
+                trueDistances[i] = maxRange;
             }
-            else {
-                if (range2 < maxRange)
-                    trueDistances[i] = range2;
-                else
-                    trueDistances[i] = maxRange;
-            }
-        }
-        else {
-            trueDistances[i] = maxRange;
         }
         angle += inc;
     }
