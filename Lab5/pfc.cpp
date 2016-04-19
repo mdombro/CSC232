@@ -64,24 +64,24 @@ float distance(Point A, Point B) {
 }
 
 Point findClosestPoint(vector<float> path_x, vector<float> path_y, Point mu) {
-    if (mu.x < path_x[0]){
-        Point start(path_x[0], path_y[0]);
-        return start;
-    }
-    else {
-        Point prev;
-        Point next;
-        for (int i = 0; i < path_x.size()-1; i++) {
-            if (path_x[i] < mu.x && path_x[i+1] > mu.x) {
-                prev.setx(path_x[i]);
-                prev.sety(path_y[i]);
-                next.setx(path_x[i+1]);
-                next.sety(path_y[i+1]);
-            }
+    // if (mu.x < path_x[0]){
+    //     Point start(path_x[0], path_y[0]);
+    //     return start;
+    // }
+    // else {
+    Point prev;
+    Point next;
+    for (int i = 0; i < path_x.size()-1; i++) {
+        if (path_x[i] < mu.x && path_x[i+1] > mu.x) {
+            prev.setx(path_x[i]);
+            prev.sety(path_y[i]);
+            next.setx(path_x[i+1]);
+            next.sety(path_y[i+1]);
         }
-        Point closest = closestPoint(prev, next, mu);
-        return closest;
     }
+    Point closest = closestPoint(prev, next, mu);
+    return closest;
+    //}
 }
 
 
