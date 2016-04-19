@@ -19,6 +19,7 @@ Point lookAheadPoint(Point closest, vector<float> path_x, vector<float> path_y) 
     //   Would need to test which point is forward of the robot
     // -
     Point closest = findClosestPoint(path_x, path_y, mu);
+    float x1,x2,y1,y2;
     for (int i = 0; i < path_x.size()-1; i++) {
         if (path_x[i] != path_x[i+1]) {
             float m = (path_y[i]-path_y[i+1])/(path_x[i]-path_x[i+1]);
@@ -42,7 +43,7 @@ Point lookAheadPoint(Point closest, vector<float> path_x, vector<float> path_y) 
         }
         else {
             x1 = path_x[i];
-            y1 = sqrt(pow(lookAheadDistance,2) - pow(path_x[i]-closest.x,2));
+            y1 = closest.y + sqrt(pow(lookAheadDistance,2) - pow(path_x[i]-closest.x,2));
             x2 = path_x[i];
             y2 = -y1;
         }
@@ -71,15 +72,25 @@ Point findClosestPoint(vector<float> path_x, vector<float> path_y, Point mu) {
     // else {
     Point prev;
     Point next;
+    Point a;
+    vector<Point> candidates;  // will hold the closes point from the robot to each segment
     for (int i = 0; i < path_x.size()-1; i++) {
-        if (path_x[i] < mu.x && path_x[i+1] > mu.x) {
-            prev.setx(path_x[i]);
-            prev.sety(path_y[i]);
-            next.setx(path_x[i+1]);
-            next.sety(path_y[i+1]);
+        prev.setx(path_x[i]);
+        prev.sety(path_y[i]);
+        next.setx(path_x[i+1]);
+        next.sety(path_y[i+1]);
+        a = closestPoint(prev,next,mu);
+        if (distance(prev,a) + distance(a, next) == distance(prev,next)) // point is on the segment
+            candidates.push_back(a);                                     // Otherwise reject the point
+    }
+    Point closest = candidates[0];
+    for (int f = 0; i < candidates.size(); f++) {
+        if ( (pow(candidates[f].x-mu.x,2)+pow(candidates[f].y-mu.y,2)) < (pow(closest.x-mu.x,2)+pow(closest.y-mu.y,2)) ) {
+            closest.setx(candidates[f].x);
+            closest.sety(candidates[f].y);
         }
     }
-    Point closest = closestPoint(prev, next, mu);
+    //Point closest = closestPoint(prev, next, mu);
     return closest;
     //}
 }

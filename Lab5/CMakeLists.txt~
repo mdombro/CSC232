@@ -46,7 +46,7 @@ install(TARGETS ros_publisher DESTINATION bin)
 install(TARGETS ros_subscriber DESTINATION bin)
 #install(TARGETS Localizer DESTINATION bin)
 install(TARGETS LocalizerStart DESTINATION bin)
-install(TARGETS Point DESTINATION bin)
+#install(TARGETS Point DESTINATION bin)
 install(TARGETS pfc DESTINATION bin)
 
 #find Eigen libraries

@@ -3,8 +3,6 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o"
   "ros_publisher.pdb"
   "ros_publisher"
-  "ros_publisher.pdb"
-  "CMakeFiles/CMakeRelink.dir/ros_publisher"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -3,8 +3,6 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/pfc.dir/point.cpp.o"
   "pfc.pdb"
   "pfc"
-  "pfc.pdb"
-  "CMakeFiles/CMakeRelink.dir/pfc"
 )
 
 # Per-language clean rules from dependency scanning.
