@@ -4,12 +4,15 @@
 
 using namespace std;
 
+float Wthresh = 0.1;
+lookAheadDistance = 0.5;
+
 int main(int argc, char** argv) {
 
 
 }
 
-Point lookAheadPoint(Point closest, vector<float> path_x, vector<float> path_y) {
+Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y) {
     // go over all segmesnt in current path_x
     // Use lookahead distance as the radius of a circle with the closest path point as the center
     // find the intersection points of each segment with this circle
@@ -18,44 +21,49 @@ Point lookAheadPoint(Point closest, vector<float> path_x, vector<float> path_y) 
     // - path segment larger than the circle drawn by lookahead distance
     //   Would need to test which point is forward of the robot
     // -
-    Point closest = findClosestPoint(path_x, path_y, mu);
-    float x1,x2,y1,y2;
-    for (int i = 0; i < path_x.size()-1; i++) {
-        if (path_x[i] != path_x[i+1]) {
-            float m = (path_y[i]-path_y[i+1])/(path_x[i]-path_x[i+1]);
-            float c = path_y[i] - m*path_x[i];
-            float A = pow(m,2)+1;
-            float B = 2*(m*c - m*closest.y - closest.x);
-            float C = pow(closest.y,2) - pow(lookAheadDistance, 2) + pow(closest.x,2) - 2.0*c*closest.y + pow(c,2);
-            float Disc = pow(B, 2) - 4.0*A*C;
-            if (Disc > 0.0) {
-                x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
-                x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
-                y1 = m*((-B + sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
-                y2 = m*((-B - sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
+    if (distance(mu, Point(path_x[path_x.size()-1], path_y[path_y.size()-1])) < lookAheadDistance ){
+        return Point(path_x[path_x.size()-1], path_y[path_y.size()-1]);
+    }
+    else {
+        Point closest = findClosestPoint(path_x, path_y, mu);
+        float x1,x2,y1,y2;
+        for (int i = 0; i < path_x.size()-1; i++) {
+            if (path_x[i] != path_x[i+1]) {
+                float m = (path_y[i]-path_y[i+1])/(path_x[i]-path_x[i+1]);
+                float c = path_y[i] - m*path_x[i];
+                float A = pow(m,2)+1;
+                float B = 2*(m*c - m*closest.y - closest.x);
+                float C = pow(closest.y,2) - pow(lookAheadDistance, 2) + pow(closest.x,2) - 2.0*c*closest.y + pow(c,2);
+                float Disc = pow(B, 2) - 4.0*A*C;
+                if (Disc > 0.0) {
+                    x1 = (-B + sqrt(pow(B, 2) - 4*A*C))/(2*A);
+                    x2 = (-B - sqrt(pow(B, 2) - 4*A*C))/(2*A);
+                    y1 = m*((-B + sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
+                    y2 = m*((-B - sqrt(pow(B, 2) - 4*A*C))/(2*A))+c;
+                }
+                else {
+                    x1 = -1000;
+                    y1 = -1000;
+                    x2 = -900;
+                    y2 = -900;
+                }
             }
             else {
-                x1 = -1000;
-                y1 = -1000;
-                x2 = -900;
-                y2 = -900;
+                x1 = path_x[i];
+                y1 = closest.y + sqrt(pow(lookAheadDistance,2) - pow(path_x[i]-closest.x,2));
+                x2 = path_x[i];
+                y2 = -y1;
             }
-        }
-        else {
-            x1 = path_x[i];
-            y1 = closest.y + sqrt(pow(lookAheadDistance,2) - pow(path_x[i]-closest.x,2));
-            x2 = path_x[i];
-            y2 = -y1;
-        }
-        Point candidate1(x1,y1);
-        Point candidate2(x2,y2);
-        Point a(path_x[i], path_y[i]);
-        Point b(path_x[i+1], path_y[i+1]);
-        if (distance(a,candidate1) + distance(candidate1,b) == distance(a,b)) {
-            return candidate1
-        }
-        else if (distance(a,candidate2) + distance(candidate2,b) == distance(a,b)) {
-            return candidate2;
+            Point candidate1(x1,y1);
+            Point candidate2(x2,y2);
+            Point a(path_x[i], path_y[i]);
+            Point b(path_x[i+1], path_y[i+1]);
+            if (distance(a,candidate1) + distance(candidate1,b) == distance(a,b)) {
+                return candidate1
+            }
+            else if (distance(a,candidate2) + distance(candidate2,b) == distance(a,b)) {
+                return candidate2;
+            }
         }
     }
 }
