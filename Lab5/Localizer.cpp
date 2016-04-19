@@ -33,7 +33,7 @@ Localizer::Localizer() {
 
     z.resize(6);
     for (int k = 0; k < 6; k++)
-        z[k] << 0.0, 0.0, 0.0;   // distance, bearing, signature
+        z[k] << 0.0, 0.0, k;   // distance, bearing, signature
     St.resize(6);
     for (int k = 0; k < 6; k++) {
         St[k] << 0.2, 0.0, 0.0,    // covariance of beam returns - play with values
@@ -115,7 +115,7 @@ void Localizer::EKF() {
             float q = pow(Mx[i] - projMu(0), 2) + pow(My[i] - projMu(1), 2);
             zest[i](0) = sqrt(q);
             zest[i](1) = atan2(My[i] - projMu(1), Mx[i] - projMu(0)) - projMu(2);
-            zest[i](2) = 0;
+            zest[i](2) = i;
             Ht[i](0,0) = -(Mx[i]-projMu(0))/sqrt(q);
             Ht[i](0,1) = -(My[i]-projMu(1))/sqrt(q);
             Ht[i](1,0) = (My[i]-projMu(1))/q;
@@ -169,6 +169,7 @@ void Localizer::findFeature() {
     for (int i = 0; i < 6; i++) {
         for (int o = 0; o < scans.size(); o++) {
             if (beamAngle < 3.5*sqrt(St[i](1,1))+zest[i](1) && beamAngle > -3.5*sqrt(St[i](1,1))+zest[i](1) && scans[o] < 4.0*sqrt(St[i](0,0))+zest[i](0) && scans[o] > -4.0*sqrt(St[i](0,0))+zest[i](0)) {
+            //if (scans[o] < 4.0*sqrt(St[i](0,0))+zest[i](0) && scans[o] > -4.0*sqrt(St[i](0,0))+zest[i](0)) {
                 if (i == 2) {cout << scans[o] << " " << beamAngle << endl;}
                 filterScans[i].push_back(scans[o]);
                 angles[i].push_back(minAngle+(angleIncrement*o));  // calulate and add current angle
@@ -198,10 +199,12 @@ void Localizer::findFeature() {
             }
             z[g](0) = min[0] + coneRadii;
             z[g](1) = min[1];
+            z[g](2) = g;
         }
         else {
             z[g](0) = -1000;
             z[g](1) = -1000;
+            z[g](2) = g;
         }
     }
     //cout << "Estimated cone: " << z(0) << " " << z(1) << endl;

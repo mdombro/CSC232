@@ -229,13 +229,57 @@ clean: CMakeFiles/odomPub.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/pfc.dir
+
+# All Build rule for target.
+CMakeFiles/pfc.dir/all:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/depend
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  13 14
+	@echo "Built target pfc"
+.PHONY : CMakeFiles/pfc.dir/all
+
+# Include target in all.
+all: CMakeFiles/pfc.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/pfc.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab5/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/pfc.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab5/build/CMakeFiles 0
+.PHONY : CMakeFiles/pfc.dir/rule
+
+# Convenience name for target.
+pfc: CMakeFiles/pfc.dir/rule
+.PHONY : pfc
+
+# Pre-install relink rule for target.
+CMakeFiles/pfc.dir/preinstall:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/preinstall
+.PHONY : CMakeFiles/pfc.dir/preinstall
+
+# Prepare target for install.
+preinstall: CMakeFiles/pfc.dir/preinstall
+.PHONY : preinstall
+
+# clean rule for target.
+CMakeFiles/pfc.dir/clean:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/clean
+.PHONY : CMakeFiles/pfc.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/pfc.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/ros_publisher.dir
 
 # All Build rule for target.
 CMakeFiles/ros_publisher.dir/all:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/depend
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  13 14
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  15 16
 	@echo "Built target ros_publisher"
 .PHONY : CMakeFiles/ros_publisher.dir/all
 
@@ -279,7 +323,7 @@ clean: CMakeFiles/ros_publisher.dir/clean
 CMakeFiles/ros_subscriber.dir/all:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/depend
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  15 16
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  17 18
 	@echo "Built target ros_subscriber"
 .PHONY : CMakeFiles/ros_subscriber.dir/all
 

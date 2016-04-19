@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/matthew/CSC232/Lab5/pfc.cpp
+point.h
+/home/matthew/CSC232/Lab5/point.h
+math.h
+-
+vector
+-
+
+/home/matthew/CSC232/Lab5/point.cpp
+point.h
+/home/matthew/CSC232/Lab5/point.h
+
+/home/matthew/CSC232/Lab5/point.h
+

@@ -202,6 +202,24 @@ odomPub/preinstall:
 .PHONY : odomPub/preinstall
 
 #=============================================================================
+# Target rules for targets named pfc
+
+# Build rule for target.
+pfc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pfc
+.PHONY : pfc
+
+# fast build rule for target.
+pfc/fast:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/build
+.PHONY : pfc/fast
+
+# Manual pre-install relink rule for target.
+pfc/preinstall:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/preinstall
+.PHONY : pfc/preinstall
+
+#=============================================================================
 # Target rules for targets named ros_publisher
 
 # Build rule for target.
@@ -501,6 +519,54 @@ odomPub_cmdline.c.s:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/odomPub_cmdline.c.s
 .PHONY : odomPub_cmdline.c.s
 
+pfc.o: pfc.cpp.o
+.PHONY : pfc.o
+
+# target to build an object file
+pfc.cpp.o:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/pfc.cpp.o
+.PHONY : pfc.cpp.o
+
+pfc.i: pfc.cpp.i
+.PHONY : pfc.i
+
+# target to preprocess a source file
+pfc.cpp.i:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/pfc.cpp.i
+.PHONY : pfc.cpp.i
+
+pfc.s: pfc.cpp.s
+.PHONY : pfc.s
+
+# target to generate assembly for a file
+pfc.cpp.s:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/pfc.cpp.s
+.PHONY : pfc.cpp.s
+
+point.o: point.cpp.o
+.PHONY : point.o
+
+# target to build an object file
+point.cpp.o:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.o
+.PHONY : point.cpp.o
+
+point.i: point.cpp.i
+.PHONY : point.i
+
+# target to preprocess a source file
+point.cpp.i:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.i
+.PHONY : point.cpp.i
+
+point.s: point.cpp.s
+.PHONY : point.s
+
+# target to generate assembly for a file
+point.cpp.s:
+	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.s
+.PHONY : point.cpp.s
+
 ros_publisher.o: ros_publisher.cpp.o
 .PHONY : ros_publisher.o
 
@@ -611,6 +677,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... naviSub"
 	@echo "... odomPub"
+	@echo "... pfc"
 	@echo "... rebuild_cache"
 	@echo "... ros_publisher"
 	@echo "... ros_subscriber"
@@ -647,6 +714,12 @@ help:
 	@echo "... odomPub_cmdline.o"
 	@echo "... odomPub_cmdline.i"
 	@echo "... odomPub_cmdline.s"
+	@echo "... pfc.o"
+	@echo "... pfc.i"
+	@echo "... pfc.s"
+	@echo "... point.o"
+	@echo "... point.i"
+	@echo "... point.s"
 	@echo "... ros_publisher.o"
 	@echo "... ros_publisher.i"
 	@echo "... ros_publisher.s"
