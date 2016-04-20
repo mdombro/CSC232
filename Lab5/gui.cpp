@@ -102,7 +102,6 @@ void GUI::paintGL(){
 
     // Laser Scan Drawing
     tf::Quaternion q(GUI::quaternion[1], GUI::quaternion[2], GUI::quaternion[3], GUI::quaternion[0]);
-    //std::cout << quaternion[1] << " " << quaternion[2] << " " << quaternion[3] << " " << quaternion[0] << " " << endl;
     tf::Matrix3x3 m(q);
     double roll, pitch, yaw;
     m.getRPY(roll, pitch, yaw);
