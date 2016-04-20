@@ -15,7 +15,7 @@ execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_subscrib
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/LocalizerStart.ggo --file-name LocalizerStart_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
-set(ROS_PATH_PREFIX /opt/ros/indigo)
+set(ROS_PATH_PREFIX /opt/ros/hydro)
 find_path(ROS_INCLUDE_DIR NAMES ros/ros.h HINTS CMAKE_INSTALL_PREFIX/include)
 
 include_directories(${ROS_INCLUDE_DIR} ${PROJECT_BINARY_DIR})
@@ -69,7 +69,7 @@ qt_wrap_cpp(gui MOC_SRCS gui.h)
 # generate the header and source files from the gengetopt file
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/gui_process.ggo --file-name gui_process_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 # generate the executable and link the libraries
-add_executable(gui-process gui_process.cpp gui.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/gui_process_cmdline.c) 
+add_executable(gui-process gui_process.cpp gui.cpp point.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/gui_process_cmdline.c) 
 target_link_libraries(gui-process ${ROS_LIBRARIES} ${QT_LIBRARIES} ${OPENGL_LIBRARIES} )
 install( TARGETS gui-process DESTINATION bin )
 

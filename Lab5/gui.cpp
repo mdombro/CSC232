@@ -8,19 +8,31 @@
 #include <tf/LinearMath/Quaternion.h>
 #include <tf/LinearMath/Matrix3x3.h>
 #include "geometry_msgs/PoseWithCovariance.h"
+//#include "point.h"
 
-GUI::GUI( QWidget * parent ) : QGLWidget( parent ), timer() {
+GUI::GUI( QWidget * parent ) : QGLWidget( parent ), timer(), lookahead(0,0) {
     setMinimumSize( 600, 600 );
     timer = new QTimer( this );
     connect( timer, SIGNAL( timeout() ), this, SLOT( timer_callback() ) );
     timer->start( 100 ); // call timer_callback at 0.1 Hz (period is 100 ms)
     GUI::quaternion.resize(4);
+    //GUI::lookahead = new Point(0,0);
     //ector<float> quaternion(4);
 }
 
 GUI::
 ~GUI() {
 
+}
+
+void GUI::handle_path(const geometry_msgs::Polygon::ConstPtr& msg) {
+    GUI::lookahead.setx(msg->points[0].x);
+    GUI::lookahead.sety(msg->points[0].y);
+    GUI::path.clear(); // so we dont continually increase path size
+    for (int i = 1; i < msg->points.size()-1; i++) {
+        Point w(msg->points[i].x, msg->points[i].y);
+        GUI::path.push_back(w);
+    }
 }
 
 void GUI::handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg ){
@@ -142,6 +154,27 @@ void GUI::paintGL(){
 		float y = r * sinf(theta);//calculate the y component
 
         glColor4f(0.2, 1.0, 0.1, 1.0);
+		glVertex3f(x + cx, y + cy, 0.0);//output vertex
+	}
+    glEnd();
+
+
+    // lookahead location
+    glBegin(GL_LINE_LOOP);
+    cy = lookahead.y;
+    cx = lookahead.x;
+    r = 0.08;
+    num_segments = 20;
+    x = 0.0;
+    y = 0.0;
+	for(int f = 0; f < num_segments; f++)
+	{
+		float theta = 2.0f * 3.1415926f * float(f) / float(num_segments);//get the current angle
+
+		float x = r * cosf(theta);//calculate the x component
+		float y = r * sinf(theta);//calculate the y component
+
+        glColor4f(0.3, 0.6, 0.1, 1.0);
 		glVertex3f(x + cx, y + cy, 0.0);//output vertex
 	}
     glEnd();

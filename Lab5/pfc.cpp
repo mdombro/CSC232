@@ -4,6 +4,8 @@
 #include <iostream>
 #include <ros/ros.h>
 #include "geometry_msgs/Twist.h"
+#include "geometry_msgs/Polygon.h"
+#include "geometry_msgs/Point32.h"
 #include "nav_msgs/Odometry.h"
 #include <tf/LinearMath/Quaternion.h>
 #include <tf/LinearMath/Matrix3x3.h>
@@ -21,7 +23,7 @@ Point findClosestPoint(Point A, Point B, Point mu);
 float Wthresh = 0.1;
 float maxAngularVelocity = 2;
 float lookAheadDistance = 0.5;
-float linearVelocity = 0.1;
+float linearVelocity = 0.2;
 float angularVelocity;
 Point lookahead(0,0);
 Point Mu(0,0);
@@ -30,9 +32,12 @@ float quaternion[4] = {0,0,0,1};
 int main(int argc, char** argv) {
     init(argc, argv, "pfc");
     geometry_msgs::Twist msg;
+    geometry_msgs::Point32 p;
+    geometry_msgs::Polygon path_and_lookahead;
 
     NodeHandle n;
 	Publisher pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/navi", 1000);
+    Publisher path = n.advertise<geometry_msgs::Polygon>("path_and_lookahead", 1000);
     Subscriber sub = n.subscribe("/odom",1000, handle_odom);
 	ros::Rate loop_rate(10);
 
@@ -49,6 +54,11 @@ int main(int argc, char** argv) {
 
     Point goal(path_x[2], path_y[2]);
     while (ros::ok()) {
+        tf::Quaternion q(quaternion[1], quaternion[2], quaternion[3], quaternion[0]);
+        tf::Matrix3x3 m(q);
+        double roll, pitch, yaw;
+        m.getRPY(roll, pitch, yaw);
+        float theta = (atan2(lookahead.y - Mu.y, lookahead.x - Mu.x) - yaw);
         for (int i = 0; i < path_x.size(); i++) {
             Point waypoint(path_x[i],path_y[i]);
             if (distanceP(Mu, waypoint) < Wthresh) {
@@ -86,27 +96,48 @@ int main(int argc, char** argv) {
             //cout << prev.x << " " << prev.y << " " << next.x << " " << next.y << endl;
             //cout << Mu.x << " " << Mu.y << endl;
             lookahead = lookAheadPoint(Mu, path_x, path_y, prev, next);
-            cout << lookahead.x << " " << lookahead.y << endl;
-            tf::Quaternion q(quaternion[1], quaternion[2], quaternion[3], quaternion[0]);
-            tf::Matrix3x3 m(q);
-            double roll, pitch, yaw;
-            m.getRPY(roll, pitch, yaw);
+            //cout << "Lookahead: " << lookahead.x << " " << lookahead.y << endl;
             //cout << yaw << endl;
-            float theta = atan2(lookahead.y - Mu.y, lookahead.x - Mu.x) - yaw;
+            //cout << "Pos: " << Mu.x << " " << Mu.y << " " << yaw << endl;
+
             //cout << theta << endl;
-            float x_offset = lookAheadDistance*cos(theta);
-            //cout << x_offset << endl;
-            float lambda = (2*(x_offset)/pow(lookAheadDistance,2));
+            float y_offset = lookAheadDistance*sin(theta);
+            //cout << "X offset: " << x_offset << endl;
+            float lambda = (2*(y_offset))/pow(lookAheadDistance,2);
             angularVelocity = linearVelocity*lambda;
         }
         if (angularVelocity > maxAngularVelocity) {
             angularVelocity = maxAngularVelocity;
+        }
+        cout << "yaw: " << yaw << " theta: " << theta << endl;
+        if (yaw-theta > M_PI/4) {
+            linearVelocity = 0;
+            angularVelocity = 1.0;
+        }
+        else if (yaw-theta > -M_PI/4) {
+            linearVelocity = 0;
+            angularVelocity = 1.0;
+        }
+        else {
+            linearVelocity = 0.1;
+        }
+        path_and_lookahead.points.clear();
+        p.x = lookahead.x;
+        p.y = lookahead.y;
+        p.z = 0;
+        path_and_lookahead.points.push_back(p);
+        for (int g = 0; g < path_x.size(); g++) {
+            p.x = path_x[g];
+            p.y = path_y[g];
+            p.z = 0;
+            path_and_lookahead.points.push_back(p);
         }
         msg.linear.x = linearVelocity;
         msg.angular.z = angularVelocity;
         //cout << angularVelocity << endl;
         ros::spinOnce();
 		pub.publish(msg);
+        path.publish(path_and_lookahead);
 		loop_rate.sleep();
 		//count++;
 	}

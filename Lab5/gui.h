@@ -9,6 +9,9 @@
 #include <QTimer>
 #include <GL/glu.h>
 #include <vector>
+#include "point.h"
+#include "geometry_msgs/Polygon.h"
+
 class GUI: public QGLWidget {
     Q_OBJECT
     float posx, posy;
@@ -16,12 +19,15 @@ class GUI: public QGLWidget {
     std::vector<float> scans;
     float angleMin, angleIncrement;
     std::vector<float> quaternion;
+    Point lookahead;
+    std::vector<Point> path;
     public:
         GUI( QWidget * parent = NULL );
         virtual ~GUI();
         void handle_laserscan( const sensor_msgs::LaserScan::ConstPtr& msg );
         void handle_odom( const nav_msgs::Odometry::ConstPtr& msg );
         void handle_robot_mu( const geometry_msgs::PoseWithCovariance::ConstPtr& msg);
+        void handle_path(const geometry_msgs::Polygon::ConstPtr& msg);
         QTimer* timer;
         protected slots:
         void timer_callback( void );
