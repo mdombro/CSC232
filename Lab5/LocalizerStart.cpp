@@ -21,8 +21,10 @@ int main(int argc, char* argv[]) {
     ros::Subscriber beams = n.subscribe("/scan", 1000, &Localizer::handleScans, &localizer);
     ros::Rate loop_rate(10);
     while (ros::ok()) {
-        localizer.findFeature();
-        localizer.EKF();
+        if (localizer.scans.size() != 0) {
+            localizer.findFeature();
+            localizer.EKF();
+        }
         msg.pose.position.x = localizer.getx();
         msg.pose.position.y = localizer.gety();
         msg.pose.orientation.x = localizer.getQuatx();

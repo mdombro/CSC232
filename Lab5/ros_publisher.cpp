@@ -37,11 +37,12 @@ int main (int argc, char* argv[]) {
 		count++;
 	}
 	int t = 0;
-	while (t < 100) {
+	while (t < 10) {
 		msg.linear.x = 0;
 		msg.angular.z = 0;
 		pub.publish(msg);
 		ros::spinOnce();
+		loop_rate.sleep();
 		t++;
 	}
 	return 0;
