@@ -15,7 +15,7 @@ execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_subscrib
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/LocalizerStart.ggo --file-name LocalizerStart_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
-set(ROS_PATH_PREFIX /opt/ros/hydro)
+set(ROS_PATH_PREFIX /opt/ros/indigo)
 find_path(ROS_INCLUDE_DIR NAMES ros/ros.h HINTS CMAKE_INSTALL_PREFIX/include)
 
 include_directories(${ROS_INCLUDE_DIR} ${PROJECT_BINARY_DIR})
@@ -27,7 +27,7 @@ add_executable(ros_subscriber ros_subscriber.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros
 #add_executable(Localizer Localizer.cpp ${CMAKE_CURRENT_BINARY_DIR}/Localizer_cmdline.c)
 add_executable(LocalizerStart LocalizerStart.cpp Localizer.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/LocalizerStart_cmdline.c)
 add_executable(pfc pfc.cpp point.cpp ${MOC_SRCS})
-#add_executable(executive executive.cpp ${MOC_SRCS})
+add_executable(executive executive.cpp ${MOC_SRCS})
 #add_executable(pfc pfc.cpp ${MOC_SRCS})
 
 
@@ -39,7 +39,7 @@ target_link_libraries(ros_subscriber ${ROS_LIBRARIES})
 target_link_libraries(LocalizerStart ${ROS_LIBRARIES})
 #target_link_libraries(Point ${ROS_LIBRARIES})
 target_link_libraries(pfc ${ROS_LIBRARIES})
-#target_link_libraries(executive ${ROS_LIBRARIES})
+target_link_libraries(executive ${ROS_LIBRARIES})
 
 
 install(TARGETS odomPub DESTINATION bin)
@@ -50,7 +50,7 @@ install(TARGETS ros_subscriber DESTINATION bin)
 install(TARGETS LocalizerStart DESTINATION bin)
 #install(TARGETS Point DESTINATION bin)
 install(TARGETS pfc DESTINATION bin)
-#install(TARGETS executive DESTINATION bin)
+install(TARGETS executive DESTINATION bin)
 
 #find Eigen libraries
 SET(ENV{EIGEN3_INCLUDE_DIR} "/usr/include/eigen3")
