@@ -35,9 +35,6 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab5
 
@@ -151,19 +148,6 @@ LocalizerStart: cmake_check_build_system
 LocalizerStart/fast:
 	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/build
 .PHONY : LocalizerStart/fast
-
-#=============================================================================
-# Target rules for targets named executive
-
-# Build rule for target.
-executive: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 executive
-.PHONY : executive
-
-# fast build rule for target.
-executive/fast:
-	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/build
-.PHONY : executive/fast
 
 #=============================================================================
 # Target rules for targets named gui-process
@@ -314,30 +298,6 @@ LocalizerStart_cmdline.s: LocalizerStart_cmdline.c.s
 LocalizerStart_cmdline.c.s:
 	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.s
 .PHONY : LocalizerStart_cmdline.c.s
-
-executive.o: executive.cpp.o
-.PHONY : executive.o
-
-# target to build an object file
-executive.cpp.o:
-	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/executive.cpp.o
-.PHONY : executive.cpp.o
-
-executive.i: executive.cpp.i
-.PHONY : executive.i
-
-# target to preprocess a source file
-executive.cpp.i:
-	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/executive.cpp.i
-.PHONY : executive.cpp.i
-
-executive.s: executive.cpp.s
-.PHONY : executive.s
-
-# target to generate assembly for a file
-executive.cpp.s:
-	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/executive.cpp.s
-.PHONY : executive.cpp.s
 
 gui.o: gui.cpp.o
 .PHONY : gui.o
@@ -686,7 +646,6 @@ help:
 	@echo "... depend"
 	@echo "... LocalizerStart"
 	@echo "... edit_cache"
-	@echo "... executive"
 	@echo "... gui-process"
 	@echo "... install"
 	@echo "... install/local"
@@ -707,9 +666,6 @@ help:
 	@echo "... LocalizerStart_cmdline.o"
 	@echo "... LocalizerStart_cmdline.i"
 	@echo "... LocalizerStart_cmdline.s"
-	@echo "... executive.o"
-	@echo "... executive.i"
-	@echo "... executive.s"
 	@echo "... gui.o"
 	@echo "... gui.i"
 	@echo "... gui.s"

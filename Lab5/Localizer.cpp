@@ -43,7 +43,7 @@ Localizer::Localizer() {
     }
     zest.resize(6);
     for (int k = 0; k < 6; k++)
-        zest[k] << Mx[k], My[k], 0.0;  // predicted beam return at initialization - range bearing signature
+        zest[k] << Mx[k], My[k], k;  // predicted beam return at initialization - range bearing signature
     Ht.resize(6);
     for (int k = 0; k < 6; k++) {
         Ht[k] << 0.0, 0.0, 0.0,
@@ -134,16 +134,18 @@ void Localizer::EKF() {
             //      0.0, 1.0, 0.0,
             //      0.0, 0.0, 1.0;
             // projSigma = (I-Kt[i]*Ht[i])*projSigma;
-            float q = pow(Mx[z(2)] - projMu(0), 2) + pow(My[z(2)] - projMu(1), 2);
-            zest[z(2)](0) = sqrt(q);
-            zest[z(2)](1) = atan2(My[z(2)] - projMu(1), Mx[z(2)] - projMu(0)) - projMu(2);
-            zest[z(2)](2) = z(2);
-            Ht[z(2)](0,0) = -(Mx[z(2)]-projMu(0))/sqrt(q);
-            Ht[z(2)](0,1) = -(My[z(2)]-projMu(1))/sqrt(q);
-            Ht[z(2)](1,0) = (My[z(2)]-projMu(1))/q;
-            Ht[z(2)](1,1) = -(Mx[z(2)]-projMu(0))/q;
-            St[z(2)] = Ht[z(2)]*projSigma*Ht[z(2)].transpose() + Qt;
-            Kt[z(2)] = projSigma*Ht[z(2)].transpose()*St[z(2)].inverse();
+            for (int i = 0; i < 6; i++) {
+                float q = pow(Mx[i] - projMu(0), 2) + pow(My[i] - projMu(1), 2);
+                zest[i](0) = sqrt(q);
+                zest[i](1) = atan2(My[i] - projMu(1), Mx[i] - projMu(0)) - projMu(2);
+                zest[i](2) = i;
+                Ht[i](0,0) = -(Mx[i]-projMu(0))/sqrt(q);
+                Ht[i](0,1) = -(My[i]-projMu(1))/sqrt(q);
+                Ht[i](1,0) = (My[i]-projMu(1))/q;
+                Ht[i](1,1) = -(Mx[i]-projMu(0))/q;
+                St[i] = Ht[i]*projSigma*Ht[i].transpose() + Qt;
+                Kt[i] = projSigma*Ht[i].transpose()*St[i].inverse();
+            }
             if(z(0) != -1000) projMu = projMu + Kt[z(2)]*((z-zest[z(2)]).transpose());
             else projMu = projMu;
             //projMu = projMu + Kt[z(2)]*((z-zest[z(2)]).transpose());
@@ -175,7 +177,7 @@ void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
 
 void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 	u(0) = msg->linear.x;
-	u(1) = msg->angular.z;
+	u(1) = msg->angular.z + 0.00001;
 }
 
 // locate the feature from given LaserScan and update the feature vector z
@@ -202,11 +204,16 @@ void Localizer::findFeature() {
         beamAngle += angleIncrement;
     }
 
+    //cout << "min beam: " << min[0] << " " << min[1] << endl;
+
     for (int o = 0; o < 6; o++) {
-        if (min[1] < 3.5*sqrt(St[o](1,1))+zest[o](1) && min[1] > -3.5*sqrt(St[o](1,1))+zest[o](1) && min[0] < 4.0*sqrt(St[o](0,0))+zest[o](0) && min[0] > -4.0*sqrt(St[o](0,0))+zest[o](0)) {
+        //cout << "Predicted cone: " << zest[o](0) << endl;
+        if (min[1] < 4.0*sqrt(St[o](1,1))+zest[o](1) && min[1] > -4.0*sqrt(St[o](1,1))+zest[o](1) && min[0] < 4.0*sqrt(St[o](0,0))+zest[o](0) && min[0] > -4.0*sqrt(St[o](0,0))+zest[o](0)) {
             z(0) = min[0];
             z(1) = min[1];
             z(2) = o;
+            cout << "Signature of detected cone: " << z(2) << endl;
+            break;
         }
         else {
             z(0) = -1000;
@@ -266,7 +273,7 @@ void Localizer::findFeature() {
     // z(0) = zm[min2](0);
     // z(1) = zm[min2](1);
     // z(2) = zm[min2](2);
-    cout << "Estimated cone: " << z(0) << " " << z(1) << " " << z(2) << endl;
+    //cout << "Estimated cone: " << z(0) << " " << z(1) << " " << z(2) << endl;
     //for (int h = 0; h < 6; h++) { filterScans[h].clear(); angles[h].clear(); }
 }
 
