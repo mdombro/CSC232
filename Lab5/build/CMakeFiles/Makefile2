@@ -43,6 +43,9 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# Escaping for special characters.
+EQUALS = =
+
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab5
 
@@ -85,13 +88,48 @@ clean: CMakeFiles/LocalizerStart.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/executive.dir
+
+# All Build rule for target.
+CMakeFiles/executive.dir/all:
+	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/depend
+	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  4
+	@echo "Built target executive"
+.PHONY : CMakeFiles/executive.dir/all
+
+# Include target in all.
+all: CMakeFiles/executive.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/executive.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab5/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/executive.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matthew/CSC232/Lab5/build/CMakeFiles 0
+.PHONY : CMakeFiles/executive.dir/rule
+
+# Convenience name for target.
+executive: CMakeFiles/executive.dir/rule
+.PHONY : executive
+
+# clean rule for target.
+CMakeFiles/executive.dir/clean:
+	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/clean
+.PHONY : CMakeFiles/executive.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/executive.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/gui-process.dir
 
 # All Build rule for target.
 CMakeFiles/gui-process.dir/all:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/depend
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  4 5 6 7 8 9
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  5 6 7 8 9 10
 	@echo "Built target gui-process"
 .PHONY : CMakeFiles/gui-process.dir/all
 
@@ -126,7 +164,7 @@ clean: CMakeFiles/gui-process.dir/clean
 CMakeFiles/naviSub.dir/all:
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/depend
 	$(MAKE) -f CMakeFiles/naviSub.dir/build.make CMakeFiles/naviSub.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  10 11
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  11 12
 	@echo "Built target naviSub"
 .PHONY : CMakeFiles/naviSub.dir/all
 
@@ -161,7 +199,7 @@ clean: CMakeFiles/naviSub.dir/clean
 CMakeFiles/odomPub.dir/all:
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/depend
 	$(MAKE) -f CMakeFiles/odomPub.dir/build.make CMakeFiles/odomPub.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  12 13
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  13 14
 	@echo "Built target odomPub"
 .PHONY : CMakeFiles/odomPub.dir/all
 
@@ -196,7 +234,7 @@ clean: CMakeFiles/odomPub.dir/clean
 CMakeFiles/pfc.dir/all:
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/depend
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  14 15
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  15 16
 	@echo "Built target pfc"
 .PHONY : CMakeFiles/pfc.dir/all
 
@@ -231,7 +269,7 @@ clean: CMakeFiles/pfc.dir/clean
 CMakeFiles/ros_publisher.dir/all:
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/depend
 	$(MAKE) -f CMakeFiles/ros_publisher.dir/build.make CMakeFiles/ros_publisher.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  16 17
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  17 18
 	@echo "Built target ros_publisher"
 .PHONY : CMakeFiles/ros_publisher.dir/all
 
@@ -266,7 +304,7 @@ clean: CMakeFiles/ros_publisher.dir/clean
 CMakeFiles/ros_subscriber.dir/all:
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/depend
 	$(MAKE) -f CMakeFiles/ros_subscriber.dir/build.make CMakeFiles/ros_subscriber.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  18 19
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles  19 20
 	@echo "Built target ros_subscriber"
 .PHONY : CMakeFiles/ros_subscriber.dir/all
 

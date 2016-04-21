@@ -31,9 +31,10 @@ Localizer::Localizer() {
     u << 0.00000000001, 0.00000000001;        // linear velocity, angular velocity
     mu << 0.0, 0.0, 0.0;  // x, y, theta of robot
 
-    z.resize(6);
-    for (int k = 0; k < 6; k++)
-        z[k] << 0.0, 0.0, k;   // distance, bearing, signature
+    // z.resize(6);
+    // for (int k = 0; k < 6; k++)
+    //     z[k] << 0.0, 0.0, k;   // distance, bearing, signature
+    z << 0.0, 0.0, 0.0;
     St.resize(6);
     for (int k = 0; k < 6; k++) {
         St[k] << 0.2, 0.0, 0.0,    // covariance of beam returns - play with values
@@ -110,21 +111,43 @@ void Localizer::EKF() {
     projMu(1) = mu(1) + (spr*cos(theta))-(spr*cos(theta+u(1)*0.1));
     projMu(2) = mu(2) + u(1)*0.1;
     projSigma = Gt*sigma*Gt.transpose() + Vt*Mt*Vt.transpose();
-    for (int i = 0; i < 6; i++) {
-        if (z[i](0) != -1000) {
-            float q = pow(Mx[i] - projMu(0), 2) + pow(My[i] - projMu(1), 2);
-            zest[i](0) = sqrt(q);
-            zest[i](1) = atan2(My[i] - projMu(1), Mx[i] - projMu(0)) - projMu(2);
-            zest[i](2) = i;
-            Ht[i](0,0) = -(Mx[i]-projMu(0))/sqrt(q);
-            Ht[i](0,1) = -(My[i]-projMu(1))/sqrt(q);
-            Ht[i](1,0) = (My[i]-projMu(1))/q;
-            Ht[i](1,1) = -(Mx[i]-projMu(0))/q;
-            St[i] = Ht[i]*projSigma*Ht[i].transpose() + Qt;
-            Kt[i] = projSigma*Ht[i].transpose()*St[i].inverse();
+    // for (int i = 0; i < 6; i++) {
+        //if (z[i](0) != -1000) {
+            // float q = pow(Mx[i] - projMu(0), 2) + pow(My[i] - projMu(1), 2);
+            // zest[i](0) = sqrt(q);
+            // zest[i](1) = atan2(My[i] - projMu(1), Mx[i] - projMu(0)) - projMu(2);
+            // zest[i](2) = i;
+            // Ht[i](0,0) = -(Mx[i]-projMu(0))/sqrt(q);
+            // Ht[i](0,1) = -(My[i]-projMu(1))/sqrt(q);
+            // Ht[i](1,0) = (My[i]-projMu(1))/q;
+            // Ht[i](1,1) = -(Mx[i]-projMu(0))/q;
+            // St[i] = Ht[i]*projSigma*Ht[i].transpose() + Qt;
+            // Kt[i] = projSigma*Ht[i].transpose()*St[i].inverse();
+            // //if(z[i](0) != -1000) projMu = projMu + Kt[i]*((z[i]-zest[i]).transpose());
+            // //else projMu = projMu;
+            // projMu = projMu + Kt[i]*((z[i]-zest[i]).transpose());
+            // quaternion[0] = cos(mu(2)/2);
+            // quaternion[1] = 0;
+            // quaternion[2] = 0;
+            // quaternion[3] = sin(mu(2)/2);
+            // Eigen::Matrix3f I;
+            // I << 1.0, 0.0, 0.0,
+            //      0.0, 1.0, 0.0,
+            //      0.0, 0.0, 1.0;
+            // projSigma = (I-Kt[i]*Ht[i])*projSigma;
+            float q = pow(Mx[z(2)] - projMu(0), 2) + pow(My[z(2)] - projMu(1), 2);
+            zest[z(2)](0) = sqrt(q);
+            zest[z(2)](1) = atan2(My[z(2)] - projMu(1), Mx[z(2)] - projMu(0)) - projMu(2);
+            zest[z(2)](2) = z(2);
+            Ht[z(2)](0,0) = -(Mx[z(2)]-projMu(0))/sqrt(q);
+            Ht[z(2)](0,1) = -(My[z(2)]-projMu(1))/sqrt(q);
+            Ht[z(2)](1,0) = (My[z(2)]-projMu(1))/q;
+            Ht[z(2)](1,1) = -(Mx[z(2)]-projMu(0))/q;
+            St[z(2)] = Ht[z(2)]*projSigma*Ht[z(2)].transpose() + Qt;
+            Kt[z(2)] = projSigma*Ht[z(2)].transpose()*St[z(2)].inverse();
             //if(z[i](0) != -1000) projMu = projMu + Kt[i]*((z[i]-zest[i]).transpose());
             //else projMu = projMu;
-            projMu = projMu + Kt[i]*((z[i]-zest[i]).transpose());
+            projMu = projMu + Kt[z(2)]*((z-zest[z(2)]).transpose());
             quaternion[0] = cos(mu(2)/2);
             quaternion[1] = 0;
             quaternion[2] = 0;
@@ -133,9 +156,9 @@ void Localizer::EKF() {
             I << 1.0, 0.0, 0.0,
                  0.0, 1.0, 0.0,
                  0.0, 0.0, 1.0;
-            projSigma = (I-Kt[i]*Ht[i])*projSigma;
-        }
-    }
+            projSigma = (I-Kt[z(2)]*Ht[z(2)])*projSigma;
+        //}
+    //}
     mu = projMu;
     sigma = projSigma;
 }
@@ -159,7 +182,8 @@ void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 void Localizer::findFeature() {
     // filtered scans array
     vector<vector<float> > filterScans(6);
-
+    vector<Eigen::RowVector3f> zm;
+    zm.resize(6);
     // hold the angles of respective potential cone returns
     vector<vector<float> > angles(6);
     float beamAngle = minAngle;
@@ -197,16 +221,25 @@ void Localizer::findFeature() {
                     min[1] = angles[g][i];
                 }
             }
-            z[g](0) = min[0] + coneRadii;
-            z[g](1) = min[1];
-            z[g](2) = g;
+            zm[g](0) = min[0] + coneRadii;
+            zm[g](1) = min[1];
+            zm[g](2) = g;
         }
         else {
-            z[g](0) = -1000;
-            z[g](1) = -1000;
-            z[g](2) = g;
+            zm[g](0) = -1000;
+            zm[g](1) = -1000;
+            zm[g](2) = g;
         }
     }
+    int min2 = zm[0](2);
+    for (int v = 0; v < 6; v++) {
+        if (zm[v](0) < zm[min2](0) ) {
+            min2 = v;
+        }
+    }
+    z(0) = zm[min2](0);
+    z(1) = zm[min2](1);
+    z(2) = zm[min2](2);
     //cout << "Estimated cone: " << z(0) << " " << z(1) << endl;
     for (int h = 0; h < 6; h++) { filterScans[h].clear(); angles[h].clear(); }
 }
@@ -224,19 +257,19 @@ float Localizer::gety() {
 }
 
 float Localizer::getQuatx() {
-    return quaternion[0];
-}
-
-float Localizer::getQuaty() {
     return quaternion[1];
 }
 
-float Localizer::getQuatz() {
+float Localizer::getQuaty() {
     return quaternion[2];
 }
 
-float Localizer::getQuatw() {
+float Localizer::getQuatz() {
     return quaternion[3];
+}
+
+float Localizer::getQuatw() {
+    return quaternion[0];
 }
 
 Eigen::Matrix3f Localizer::getSigma() {

@@ -29,7 +29,7 @@ void GUI::handle_path(const geometry_msgs::Polygon::ConstPtr& msg) {
     GUI::lookahead.setx(msg->points[0].x);
     GUI::lookahead.sety(msg->points[0].y);
     GUI::path.clear(); // so we dont continually increase path size
-    for (int i = 1; i < msg->points.size()-1; i++) {
+    for (int i = 1; i < msg->points.size(); i++) {
         Point w(msg->points[i].x, msg->points[i].y);
         GUI::path.push_back(w);
     }
@@ -71,7 +71,7 @@ void GUI::initializeGL(){
     glClearColor( 1.0, 1.0, 1.0, 1.0 );
     //gluOrtho2D(-5,5,-5,5);
     glMatrixMode( GL_PROJECTION );
-    gluOrtho2D( -5, 5, -5, 5 );
+    gluOrtho2D( -1, 10, -4, 4 );
     glMatrixMode( GL_MODELVIEW );
     return;
 }
@@ -96,7 +96,7 @@ void GUI::paintGL(){
     glBegin(GL_LINE_LOOP);
     float cy = posy;
     float cx = posx;
-    float r = 0.4;
+    float r = 0.177;  // roughly the size of the actual robot
     float num_segments = 20;
     float x = 0.0;
     float y = 0.0;
@@ -158,6 +158,31 @@ void GUI::paintGL(){
 	}
     glEnd();
 
+    // Cone drawing
+    float mx[] = {1.0, 2.0, 3.0, 5.0, 6.0, 7.0};
+    float my[] = {0,0,0,0,0,0};
+    for (int q = 0; q < 6; q++) {
+        glBegin(GL_LINE_LOOP);
+        glColor4f(0.0, 0.0, 0.0, 1.0);
+        cy = my[q];
+        cx = mx[q];
+        r = 0.1;
+        num_segments = 10;
+        x = 0.0;
+        y = 0.0;
+        for(int f = 0; f < num_segments; f++)
+        {
+            float theta = 2.0f * 3.1415926f * float(f) / float(num_segments);//get the current angle
+
+            float x = r * cosf(theta);//calculate the x component
+            float y = r * sinf(theta);//calculate the y component
+
+            glColor4f(0.2, 1.0, 0.1, 1.0);
+            glVertex3f(x + cx, y + cy, 0.0);//output vertex
+        }
+        glEnd();
+    }
+
 
     // lookahead location
     glBegin(GL_LINE_LOOP);
@@ -178,6 +203,18 @@ void GUI::paintGL(){
 		glVertex3f(x + cx, y + cy, 0.0);//output vertex
 	}
     glEnd();
+
+    // Path drawing
+    glColor4f(0.0,0.1,0.3, 1.0);
+    if (path.size() != 0) {
+        for (int i = 0; i < path.size()-1; i++) {
+            glBegin(GL_LINES);
+            glVertex3f(path[i].x, path[i].y, 0.0);
+            glVertex3f(path[i+1].x, path[i+1].y, 0.0);
+            glEnd();
+        }
+    }
+
 
     return;
 }

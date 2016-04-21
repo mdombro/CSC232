@@ -1,4 +1,5 @@
 /home/matthew/CSC232/Lab5/build/CMakeFiles/LocalizerStart.dir
+/home/matthew/CSC232/Lab5/build/CMakeFiles/executive.dir
 /home/matthew/CSC232/Lab5/build/CMakeFiles/gui-process.dir
 /home/matthew/CSC232/Lab5/build/CMakeFiles/naviSub.dir
 /home/matthew/CSC232/Lab5/build/CMakeFiles/odomPub.dir

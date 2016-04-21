@@ -170,7 +170,7 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
 
         vector<float> range;
         //vector<float> range2(6);
-        for (int g = 0; g < 1; g++) {
+        for (int g = 0; g < 6; g++) {
             float phi = atan2(My[g] - pose[1],(Mx[g] - pose[0]));  // bearing of feature from robot
             float A = pow(m,2)+1;
             float B = 2*(m*c - m*My[g] - Mx[g]);
@@ -190,7 +190,7 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
             }
         }
         float min = range[0];
-        for (int h = 0; h < 1; h++) {
+        for (int h = 0; h < 6; h++) {
             if (range[h] < min)
                 min = range[h];
         }

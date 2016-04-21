@@ -28,7 +28,8 @@ class Localizer {
     std::vector<float> quaternion;
 
     // holds range, bearing, and signature of feature
-    std::vector<Eigen::RowVector3f> z;
+    // std::vector<Eigen::RowVector3f> z;
+    Eigen::RowVector3f z;
 
     // Estimated beam range, bearing, and signature
     std::vector<Eigen::RowVector3f> zest;
