@@ -37,9 +37,9 @@ Localizer::Localizer() {
     z << 0.0, 0.0, 0.0;
     St.resize(6);
     for (int k = 0; k < 6; k++) {
-        St[k] << 0.2, 0.0, 0.0,    // covariance of beam returns - play with values
-                 0.0, 0.2, 0.0,
-                 0.0, 0.0, 0.2;
+        St[k] << 0.1, 0.0, 0.0,    // covariance of beam returns - play with values
+                 0.0, 0.1, 0.0,
+                 0.0, 0.0, 0.1;
     }
     zest.resize(6);
     for (int k = 0; k < 6; k++)
@@ -206,22 +206,41 @@ void Localizer::findFeature() {
 
     //cout << "min beam: " << min[0] << " " << min[1] << endl;
 
+    int bestCorrelation = 0;
+    int changed = 0;
     for (int o = 0; o < 6; o++) {
         //cout << "Predicted cone: " << zest[o](0) << endl;
-        if (min[1] < 4.0*sqrt(St[o](1,1))+zest[o](1) && min[1] > -4.0*sqrt(St[o](1,1))+zest[o](1) && min[0] < 4.0*sqrt(St[o](0,0))+zest[o](0) && min[0] > -4.0*sqrt(St[o](0,0))+zest[o](0)) {
-            z(0) = min[0];
-            z(1) = min[1];
-            z(2) = o;
-            cout << "Signature of detected cone: " << z(2) << endl;
-            break;
-        }
-        else {
-            z(0) = -1000;
-            z(1) = -1000;
-            z(2) = -1000;
-        }
-    }
 
+        // find closest in range and sanity check bearing
+        cout << "Comp: " << abs(min[0]-zest[bestCorrelation](0)) << " " << abs(min[0]-zest[o](0)) << endl;
+        if (abs(min[0]-zest[bestCorrelation](0)) < abs(min[0]-zest[o](0)) && abs(min[1]-zest[o](1)) < 2.0*sqrt(St[o](1,1)) ) {
+            bestCorrelation = o; // hopefully the index of the closest cone
+            changed = 1;
+        }
+        // if (abs(min[1]-zest[o](1)) < 4.0*sqrt(St[o](1,1)) && abs(min[0]-zest[o](0)) < 4.0*sqrt(St[o](0,0)) ) {
+        //     z(0) = min[0];
+        //     z(1) = min[1];
+        //     z(2) = o;
+        //     cout << "Signature of detected cone: " << z(2) << endl;
+        //     break;
+        // }
+        // else {
+        //     z(0) = -1000;
+        //     z(1) = -1000;
+        //     z(2) = -1000;
+        // }
+    }
+    if (changed) {
+        z(0) = min[0];
+        z(1) = min[1];
+        z(2) = bestCorrelation;
+    }
+    else {
+        z(0) = -1000;
+        z(1) = -1000;
+        z(2) = -1000;
+    }
+    //cout << "Signature of detected cone: " << z(2) << endl;
 
     // for (int i = 0; i < 6; i++) {
     //     for (int o = 0; o < scans.size(); o++) {
