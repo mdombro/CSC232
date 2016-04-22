@@ -28,6 +28,7 @@ add_executable(ros_subscriber ros_subscriber.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros
 add_executable(LocalizerStart LocalizerStart.cpp Localizer.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/LocalizerStart_cmdline.c)
 add_executable(pfc pfc.cpp point.cpp ${MOC_SRCS})
 add_executable(executive executive.cpp ${MOC_SRCS})
+add_executable(planner planner.cpp point.cpp node.h ${MOC_SRCS})
 #add_executable(pfc pfc.cpp ${MOC_SRCS})
 
 
@@ -40,6 +41,7 @@ target_link_libraries(LocalizerStart ${ROS_LIBRARIES})
 #target_link_libraries(Point ${ROS_LIBRARIES})
 target_link_libraries(pfc ${ROS_LIBRARIES})
 target_link_libraries(executive ${ROS_LIBRARIES})
+target_link_libraries(planner ${ROS_LIBRARIES})
 
 
 install(TARGETS odomPub DESTINATION bin)
@@ -51,6 +53,7 @@ install(TARGETS LocalizerStart DESTINATION bin)
 #install(TARGETS Point DESTINATION bin)
 install(TARGETS pfc DESTINATION bin)
 install(TARGETS executive DESTINATION bin)
+install(TARGETS planner DESTINATION bin)
 
 #find Eigen libraries
 SET(ENV{EIGEN3_INCLUDE_DIR} "/usr/include/eigen3")

@@ -6,26 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab5/Localizer.cpp
-iostream
--
-ros/ros.h
--
-math.h
--
-vector
--
-sensor_msgs/LaserScan.h
-/home/matthew/CSC232/Lab5/sensor_msgs/LaserScan.h
-geometry_msgs/PoseWithCovariance.h
-/home/matthew/CSC232/Lab5/geometry_msgs/PoseWithCovariance.h
-geometry_msgs/Twist.h
-/home/matthew/CSC232/Lab5/geometry_msgs/Twist.h
-Localizer.h
-/home/matthew/CSC232/Lab5/Localizer.h
-Eigen/Dense
--
-
 /home/matthew/CSC232/Lab5/Localizer.h
 iostream
 -

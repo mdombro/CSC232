@@ -133,11 +133,6 @@ void GUI::paintGL(){
     glBegin(GL_LINES);
     glColor4f( 0.7, 0.2, 0.0, 1.0 );
 
-    // Line from robot to cone
-    glVertex3f(posx, posy, 0.0);
-    glVertex3f(1.0,0.0,0.0);
-    glEnd();
-
     // predicted robot location
     glBegin(GL_LINE_LOOP);
     cy = robot_y;

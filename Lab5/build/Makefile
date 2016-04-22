@@ -218,6 +218,19 @@ pfc/fast:
 .PHONY : pfc/fast
 
 #=============================================================================
+# Target rules for targets named planner
+
+# Build rule for target.
+planner: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 planner
+.PHONY : planner
+
+# fast build rule for target.
+planner/fast:
+	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/build
+.PHONY : planner/fast
+
+#=============================================================================
 # Target rules for targets named ros_publisher
 
 # Build rule for target.
@@ -555,6 +568,30 @@ pfc.cpp.s:
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/pfc.cpp.s
 .PHONY : pfc.cpp.s
 
+planner.o: planner.cpp.o
+.PHONY : planner.o
+
+# target to build an object file
+planner.cpp.o:
+	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/planner.cpp.o
+.PHONY : planner.cpp.o
+
+planner.i: planner.cpp.i
+.PHONY : planner.i
+
+# target to preprocess a source file
+planner.cpp.i:
+	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/planner.cpp.i
+.PHONY : planner.cpp.i
+
+planner.s: planner.cpp.s
+.PHONY : planner.s
+
+# target to generate assembly for a file
+planner.cpp.s:
+	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/planner.cpp.s
+.PHONY : planner.cpp.s
+
 point.o: point.cpp.o
 .PHONY : point.o
 
@@ -562,6 +599,7 @@ point.o: point.cpp.o
 point.cpp.o:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/point.cpp.o
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.o
+	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/point.cpp.o
 .PHONY : point.cpp.o
 
 point.i: point.cpp.i
@@ -571,6 +609,7 @@ point.i: point.cpp.i
 point.cpp.i:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/point.cpp.i
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.i
+	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/point.cpp.i
 .PHONY : point.cpp.i
 
 point.s: point.cpp.s
@@ -580,6 +619,7 @@ point.s: point.cpp.s
 point.cpp.s:
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/point.cpp.s
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.s
+	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/point.cpp.s
 .PHONY : point.cpp.s
 
 ros_publisher.o: ros_publisher.cpp.o
@@ -695,6 +735,7 @@ help:
 	@echo "... naviSub"
 	@echo "... odomPub"
 	@echo "... pfc"
+	@echo "... planner"
 	@echo "... rebuild_cache"
 	@echo "... ros_publisher"
 	@echo "... ros_subscriber"
@@ -737,6 +778,9 @@ help:
 	@echo "... pfc.o"
 	@echo "... pfc.i"
 	@echo "... pfc.s"
+	@echo "... planner.o"
+	@echo "... planner.i"
+	@echo "... planner.s"
 	@echo "... point.o"
 	@echo "... point.i"
 	@echo "... point.s"

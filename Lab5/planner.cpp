@@ -3,7 +3,6 @@
 #include "actionlib_msgs/GoalStatus.h"
 #include "point.h"
 #include "node.h"
-#include <priority_que>
 #include <iostream>
 #include <ros/ros.h>
 
@@ -19,6 +18,7 @@ bool inSet(Node neighbor, vector<Node> closed);
 void sort(vector<Node> q);
 int computeCost(Point from, Point to, int goalNum)
 Point getLoc(Point from, int i);
+float distanceP(Point & A, Point & B)
 
 
 int flag = 0;
@@ -68,6 +68,7 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
     vector<Node> openList;
     openList.push_back(startN);
     vector<Node> closedList;
+    bool updateNeighbor = false;
     int cost;
     while (openList.size() != 0) {
         Node current;
@@ -80,17 +81,22 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
             Node neighbor;
             neighbor.location = getLoc(current.location, i);
             cost = current.cost + computeCost(current, neighbor, goalNum);  // goal needed to extract orientation
-            if (inSet(neighbor, closedList)) continue;
-            if (!inSet(neighbor, openList)) {
+            if (inSet(neighbor, closedList) != NULL) continue;
+            else if (inSet(neighbor, openList) != NULL) {
+                Node n = inSet(neighbor, openList);
+                if (cost < n.cost) {
+                    updateNeighbor = true;
+                }
+                else
+                    updateNeighbor = false;
+            }
+            else if (inSet(neighbor, openList) == NULL || updateNeighbor == true) { // if neighbor isnt in open or if a better path is found
                 neighbor.from = curent;
                 neighbor.cost = cost;
                 neighbor.priority = cost + heuristic(neighbor, goal);
                 openList.push_back(neighbor);
                 sort(openList);
             }
-            else if (cost >= neighbor.cost)  // if in openList and this path is greater cost
-                continue;                    // ignore this path
-
         }
     }
     vector<Point> path;
@@ -113,13 +119,13 @@ int min(int a, int b) {
     return (a < b) ? a : b;
 }
 
-bool inSet(Node neighbor, vector<Node> closed) {
-    for (int i = 0; i < closed.size(); i++) {
-        if (neighbor.location.x == closed[i].location.x && neighbor.location.y == closed[i].location.y)
-            return true;
+Node* inSet(Node neighbor, vector<Node> set) {
+    for (int i = 0; i < set.size(); i++) {
+        if (neighbor.location.x == set[i].location.x && neighbor.location.y == set[i].location.y)
+            return set[i];
     }
     else
-        return false;
+        return NULL;
 }
 
 void sort(vector<Node> q) {  // hopefully there is never many nodes....
@@ -156,11 +162,15 @@ int computeCost(Point from, Point to, int goalNum) {
     }
     float Mx[] = {1.0, 2.0, 3.0, 5.0, 6.0, 7.0};
     for (int i = 0; i < 6; i++) {
-        if (distanceP(to, Point(Mx[i], 0.0) < coneExpansion) {
+        if (distanceP(to, Point(Mx[i], 0.0)) < coneExpansion) {
             cost += 50;
         }
     }
     return cost;
+}
+
+float distanceP(Point & A, Point & B) {
+    return sqrt(pow(A.x-B.x,2) + pow(A.y-B.y,2));
 }
 
 Point getLoc(Point from, int i) {
