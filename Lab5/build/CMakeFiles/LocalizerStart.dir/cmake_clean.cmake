@@ -1,6 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/LocalizerStart.dir/LocalizerStart.cpp.o"
   "CMakeFiles/LocalizerStart.dir/Localizer.cpp.o"
+  "CMakeFiles/LocalizerStart.dir/point.cpp.o"
   "CMakeFiles/LocalizerStart.dir/LocalizerStart_cmdline.c.o"
   "LocalizerStart.pdb"
   "LocalizerStart"

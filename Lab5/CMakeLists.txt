@@ -15,7 +15,7 @@ execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/ros_subscrib
 
 execute_process(COMMAND ${GENGETOPT} -i ${CMAKE_CURRENT_SOURCE_DIR}/LocalizerStart.ggo --file-name LocalizerStart_cmdline --output-dir=${CMAKE_CURRENT_BINARY_DIR} --unamed-opts)
 
-set(ROS_PATH_PREFIX /opt/ros/indigo)
+set(ROS_PATH_PREFIX /opt/ros/hydro)
 find_path(ROS_INCLUDE_DIR NAMES ros/ros.h HINTS CMAKE_INSTALL_PREFIX/include)
 
 include_directories(${ROS_INCLUDE_DIR} ${PROJECT_BINARY_DIR})
@@ -25,10 +25,10 @@ add_executable(naviSub naviSub.cpp ${CMAKE_CURRENT_BINARY_DIR}/naviSub_cmdline.c
 add_executable(ros_publisher ros_publisher.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_publisher_cmdline.c)
 add_executable(ros_subscriber ros_subscriber.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros_subscriber_cmdline.c)
 #add_executable(Localizer Localizer.cpp ${CMAKE_CURRENT_BINARY_DIR}/Localizer_cmdline.c)
-add_executable(LocalizerStart LocalizerStart.cpp Localizer.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/LocalizerStart_cmdline.c)
+add_executable(LocalizerStart LocalizerStart.cpp Localizer.cpp point.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/LocalizerStart_cmdline.c)
 add_executable(pfc pfc.cpp point.cpp ${MOC_SRCS})
 add_executable(executive executive.cpp ${MOC_SRCS})
-add_executable(planner planner.cpp point.cpp node.h ${MOC_SRCS})
+add_executable(planner planner.cpp point.cpp ${MOC_SRCS})
 #add_executable(pfc pfc.cpp ${MOC_SRCS})
 
 

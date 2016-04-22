@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
     ros::Publisher posWCov = n.advertise<geometry_msgs::PoseWithCovariance>("/pos", 1);
     ros::Subscriber cntrl = n.subscribe("/cmd_vel_mux/input/navi", 1000, &Localizer::cmdUpdate, &localizer);  // update the command velocities
     ros::Subscriber beams = n.subscribe("/scan", 1000, &Localizer::handleScans, &localizer);
-    ros::Rate loop_rate(10);
+    ros::Rate loop_rate(60);
     while (ros::ok()) {
         if (localizer.scans.size() != 0) {
             localizer.findFeature();

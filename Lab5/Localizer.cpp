@@ -115,7 +115,7 @@ void Localizer::EKF() {
         zest[i](0) = sqrt(q);
         zest[i](1) = atan2(My[i] - projMu(1), Mx[i] - projMu(0)) - projMu(2);
         zest[i](2) = i;
-        cout << "Estimates: " << zest[i](0) <<  " " << zest[i](1) << endl;
+        //cout << "Estimates: " << zest[i](0) <<  " " << zest[i](1) << endl;
         Ht[i](0,0) = -(Mx[i]-projMu(0))/sqrt(q);
         Ht[i](0,1) = -(My[i]-projMu(1))/sqrt(q);
         Ht[i](1,0) = (My[i]-projMu(1))/q;
@@ -195,7 +195,7 @@ void Localizer::findFeature() {
         }
     }
     //cout << "Min: " << min[0] << endl;
-    //cout << "Signature of detected cone: " << z(2) << endl;
+    cout << "Signature of detected cone: " << z(2) << endl;
 }
 
 void Localizer::setConeRadii(double r) {
