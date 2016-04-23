@@ -162,7 +162,7 @@ void GUI::paintGL(){
         glColor4f(0.0, 0.0, 0.0, 1.0);
         cy = my[q];
         cx = mx[q];
-        r = 0.1;
+        r = 0.176;
         num_segments = 10;
         x = 0.0;
         y = 0.0;

@@ -10,6 +10,9 @@
 #include <Eigen/Dense>
 
 class Localizer {
+    // update rate
+    float dt;
+
     /*** Odometry command vector  ***/
     Eigen::RowVector2f u;  // [lv, av]
 
@@ -63,6 +66,7 @@ public:
     void cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg);
     void setConeRadii(double radii);
     void setAlpha(float alphas);
+    void setUpdateRate(float freq);
     float getQuatx();
     float getQuaty();
     float getQuatz();

@@ -1,5 +1,5 @@
 #include "geometry_msgs/Polygon.h"
-#include "geometry_msgs/Point32.h"
+#include "geometry_msgs/Point.h"
 #include "actionlib_msgs/GoalStatus.h"
 #include "point.h"
 #include "node.h"
@@ -10,7 +10,7 @@ using namespace std;
 //using namespace ros;
 
 void path_dispatch(const actionlib_msgs::GoalStatus::ConstPtr& msg);
-void get_goal(const geometry_msgs::Point32::ConstPtr& msg);
+void get_goal(const geometry_msgs::Point::ConstPtr& msg);
 vector<Point> Astar(Point& start, Point& goal, int goalNum);
 int heuristic(Node neighbor, Point goal);
 int min(int a, int b);
@@ -22,7 +22,7 @@ float distanceP(Point & A, Point & B);
 Node* inSet(Node neighbor, vector<Node> set);
 
 
-int flag = 0;
+int pathFlag = 0;
 int halt = 0;
 vector<Point> pathAstar;
 float coneExpansion = 0.3;
@@ -31,7 +31,7 @@ Point goal(0,0);  // set by exec
 Point start(0,0);  // set by exec
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "exec");
+    ros::init(argc, argv, "planner");
 
     geometry_msgs::Point32 p;
     geometry_msgs::Polygon path;
@@ -40,14 +40,13 @@ int main(int argc, char** argv) {
     ros::NodeHandle n;
     ros::Publisher npath = n.advertise<geometry_msgs::Polygon>("next_path", 1000, true);
     ros::Publisher Halt = n.advertise<actionlib_msgs::GoalStatus>("halt", 1000);
-    ros::Subscriber sub = n.subscribe("next_pathFlag",1000, path_dispatch);
+    ros::Subscriber sub = n.subscribe("plannerFlag",1000, path_dispatch);
     ros::Subscriber nGoal = n.subscribe("next_goal",1000, get_goal);
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(1);
 
     while (ros::ok()) {
-
-        pathAstar = Astar(start, goal, goalNum);
-        h.status = halt;
+        cout << "Inputs: " << start.x << ", " << start.y << "  " << goal.x << ", " << goal.y << "   " << goalNum << endl;
+        if (pathFlag) {goalNum++; pathAstar = Astar(start, goal, goalNum);}
         ros::spinOnce();
         npath.publish(path);
         Halt.publish(h);
@@ -58,11 +57,14 @@ int main(int argc, char** argv) {
 void path_dispatch(const actionlib_msgs::GoalStatus::ConstPtr& msg) {
     if (msg->status == 3) {
         cout << "Requested" << endl;
-        flag = 1;
+        pathFlag = 1;
+    }
+    else {
+        pathFlag = 0;
     }
 }
 
-void get_goal(const geometry_msgs::Point32::ConstPtr& msg) {
+void get_goal(const geometry_msgs::Point::ConstPtr& msg) {
     goal.setx(msg->x);
     goal.sety(msg->y);
 }
@@ -76,6 +78,7 @@ vector<Point> Astar(Point& start, Point& goal, int goalNum) {
     bool updateNeighbor = false;
     int cost;
     while (openList.size() != 0) {
+        cout << "OpenList size: " << openList.size() << endl;
         Node *current;
         current = & openList[0];
         if ((*current).location.x == goal.x && (*current).location.y == goal.y) break;

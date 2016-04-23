@@ -35,6 +35,9 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# Escaping for special characters.
+EQUALS = =
+
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab5
 
@@ -595,6 +598,7 @@ point.o: point.cpp.o
 # target to build an object file
 point.cpp.o:
 	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/point.cpp.o
+	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/point.cpp.o
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/point.cpp.o
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.o
 	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/point.cpp.o
@@ -606,6 +610,7 @@ point.i: point.cpp.i
 # target to preprocess a source file
 point.cpp.i:
 	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/point.cpp.i
+	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/point.cpp.i
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/point.cpp.i
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.i
 	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/point.cpp.i
@@ -617,6 +622,7 @@ point.s: point.cpp.s
 # target to generate assembly for a file
 point.cpp.s:
 	$(MAKE) -f CMakeFiles/LocalizerStart.dir/build.make CMakeFiles/LocalizerStart.dir/point.cpp.s
+	$(MAKE) -f CMakeFiles/executive.dir/build.make CMakeFiles/executive.dir/point.cpp.s
 	$(MAKE) -f CMakeFiles/gui-process.dir/build.make CMakeFiles/gui-process.dir/point.cpp.s
 	$(MAKE) -f CMakeFiles/pfc.dir/build.make CMakeFiles/pfc.dir/point.cpp.s
 	$(MAKE) -f CMakeFiles/planner.dir/build.make CMakeFiles/planner.dir/point.cpp.s

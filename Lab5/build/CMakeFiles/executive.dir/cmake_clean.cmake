@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/executive.dir/executive.cpp.o"
+  "CMakeFiles/executive.dir/point.cpp.o"
   "executive.pdb"
   "executive"
 )

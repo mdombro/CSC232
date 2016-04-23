@@ -19,16 +19,16 @@ using namespace ros;
 void handle_odom( const geometry_msgs::PoseWithCovariance::ConstPtr& msg);
 Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y, float prev, float next);
 float distanceP(Point & A, Point & B);  // distance is in the std namespace
-//Point findClosestPoint(vector<float> path_x, vector<float> path_y, Point mu);
 Point findClosestPoint(Point A, Point B, Point mu);
 void handle_path(const geometry_msgs::Polygon::ConstPtr& msg);
 void stopGo(const actionlib_msgs::GoalStatus::ConstPtr& msg);
-//Point closestPoint(Point A, Point B, Point P);
+float runPurePursuit();
 
 float Wthresh = 0.1;
 float maxAngularVelocity = M_PI;
 float lookAheadDistance = 0.15;
 float linearVelocity = 0.1;
+float linVel;
 float angularVelocity;
 Point lookahead(0,0);
 Point Mu(0,0);
@@ -36,18 +36,17 @@ float quaternion[4] = {0,0,0,1};
 float discResolution = 40.0;
 float lookAheadThresh = 0.05;
 
-int currentWaypoint = 0;
+int currentWaypoint = 1;
 int prevWaypoint = 0;
 
 vector<float> path_x;
 vector<float> path_y;
 vector<int> passed;
-int oldPathSize = 0;
 int halt = 1;   // 1 is halt 0 is go - for holding the robot while getting path
 
 int main(int argc, char** argv) {
     init(argc, argv, "pfc");
-    geometry_msgs::Twist msg;
+    geometry_msgs::Twist cmd;
     geometry_msgs::Point32 p;
     geometry_msgs::Polygon path_and_lookahead;
     geometry_msgs::Polygon next_path;
@@ -59,163 +58,109 @@ int main(int argc, char** argv) {
     Publisher goals = n.advertise<actionlib_msgs::GoalStatus>("next_pathFlag" ,1000);
     Subscriber sub = n.subscribe("/pos",1000, handle_odom);
     Subscriber np = n.subscribe("next_path",1000, handle_path);
-    Subscriber ready = n.subscribe("stop_and_go", 1000, stopGo);
-	ros::Rate loop_rate(10);
+    //Subscriber ready = n.subscribe("stop_and_go", 1000, stopGo);
+	ros::Rate loop_rate(20);
 
-    // while (path_x.size() == 0) {
-    //     // pass
-    // }
-
-    path_x.resize(1,0);  // give it something so there are no errors on init
-    path_y.resize(1,0);
-    passed.resize(1, 0);
-
-    //Duration(0.5).sleep();
-
-
-    // vector<float> path_x;
-    // path_x.push_back(0.0);
-    // path_x.push_back(0.5);
-    // path_x.push_back(0.75);
-    // path_x.push_back(1.25);
-    // path_x.push_back(1.5);;
-    // vector<float> path_y;
-    // path_y.push_back(0.0);
-    // path_y.push_back(0.0);
-    // path_y.push_back(0.5);
-    // path_y.push_back(0.5);
-    // path_y.push_back(0.0);
-
-
-    //vector<int> passed(path_x.size(), 0);
-    //passed[0] = 1;
-    // ros::spinOnce();
-    // ros::spinOnce();
-    // ros::spinOnce();
-    // ros::spinOnce();
-    // ros::spinOnce();
-    // ros::spinOnce();
-    // Point goal(path_x[path_x.size()-1], path_y[path_y.size()-1]);
-    // int currentWaypoint = 1;
-    // int prevWaypoint = 0;
-    //Point currentWaypoint(path_x[1], path_y[1]);
-    //Point prevWaypoint(path_x[0], path_y[0]);
-
+    // path_x.resize(1,0);  // give it something so there are no errors on init
+    // path_y.resize(1,0);
+    // passed.resize(1, 0);
 
     while (ros::ok()) {
-        //cout << path_x.size() << endl;
-        // while (path_x.size() == 1) {
-        //     // pass
-        // }
-        //cout << path_x.size() << endl;
-        Point goal(path_x[path_x.size()-1], path_y[path_y.size()-1]);
-
-        cout << prevWaypoint << " " << currentWaypoint << endl;
         goal_stat.status = 1;
-        cout << "request: " << currentWaypoint << " " << path_x.size() << endl;
-        if (currentWaypoint == path_x.size()) {
-            cout << "new path" << endl;
-            // set some flag to start computing path
-            goal_stat.status = 3;
-        }
-        // if (currentWaypoint == path_x.size()) {
-        //     //currentWaypoint = 1;
-        //     //prevWaypoint = 0;
-        //     passed.resize(path_x.size(), 0);
-        //     //for (int w = 0; w < passed.resize()
-        //     //linearVelocity = 0;
-        //     //angularVelocity = 0;
-        // }
-
-        tf::Quaternion q(quaternion[1], quaternion[2], quaternion[3], quaternion[0]);
-        tf::Matrix3x3 m(q);
-        double roll, pitch, yaw;
-        m.getRPY(roll, pitch, yaw);
-        //float theta = (atan2(lookahead.y - Mu.y, lookahead.x - Mu.x) - yaw);
-
-        Point waypoint(path_x[currentWaypoint], path_y[currentWaypoint]);
-        if (distanceP(Mu, waypoint) < Wthresh) {
-            passed[currentWaypoint] = 1;
-            prevWaypoint = currentWaypoint;
-            currentWaypoint += 1;
-        }
-        lookahead = lookAheadPoint(Mu, path_x, path_y, prevWaypoint, currentWaypoint);
-        //cout << "Lookahead: " << lookahead.x << " " << lookahead.y << endl;
-        //cout << yaw << endl;
-        //cout << "Pos: " << Mu.x << " " << Mu.y << " " << yaw << endl;
-
-        //cout << theta << endl;
-
-        float y_offset = (lookahead.x-Mu.x)*sin(-yaw)+(lookahead.y-Mu.y)*cos(-yaw);
-        //float y_offset = lookAheadDistance*sin(theta);
-
-
-        //cout << "Y offset: " << y_offset << endl;
-        float lambda = (2*(y_offset))/pow(lookAheadDistance,2);
-        angularVelocity = linearVelocity*lambda;
-        //}
-        if (angularVelocity > maxAngularVelocity) {
-            angularVelocity = maxAngularVelocity;
-        }
-
-        //cout << "yaw: " << yaw << " theta: " << theta << endl;
-        // if (yaw-theta > M_PI/4) {
-        //     linearVelocity = 0;
-        //     angularVelocity = 1.0;
-        // }
-        // else if (yaw-theta > -M_PI/4) {
-        //     linearVelocity = 0;
-        //     angularVelocity = 1.0;
-        // }
-        // else {
-        //     linearVelocity = 0.1;
-        // }
-
-        path_and_lookahead.points.clear();
-        p.x = lookahead.x;
-        p.y = lookahead.y;
-        p.z = 0;
+        p.x = Mu.x;
+        p.y = Mu.y;
         path_and_lookahead.points.push_back(p);
-        for (int g = 0; g < path_x.size(); g++) {
-            p.x = path_x[g];
-            p.y = path_y[g];
+        cout << "Path size: " << path_x.size() << endl;
+        if (path_x.size() != 0) {
+            if (currentWaypoint == path_x.size()) {
+                cout << "new path" << endl;
+                // set some flag to start computing path
+                goal_stat.status = 3;
+                path_x.clear();
+                path_y.clear();
+                passed.clear();
+                prevWaypoint = 0;
+                currentWaypoint = 1;
+            }
+            Point waypoint(path_x[currentWaypoint], path_y[currentWaypoint]);
+            if (distanceP(Mu, waypoint) < Wthresh) {
+                passed[currentWaypoint] = 1;
+                prevWaypoint = currentWaypoint;
+                currentWaypoint += 1;
+            }
+            cout << "WPs: " << prevWaypoint << " " << currentWaypoint << endl;
+
+            angularVelocity = runPurePursuit();
+            linVel = linearVelocity;
+            path_and_lookahead.points.clear();
+            p.x = lookahead.x;
+            p.y = lookahead.y;
             p.z = 0;
             path_and_lookahead.points.push_back(p);
+            for (int g = 0; g < path_x.size(); g++) {
+                p.x = path_x[g];
+                p.y = path_y[g];
+                p.z = 0;
+                path_and_lookahead.points.push_back(p);
+            }
         }
-        float linVel, angVel;
-        if (halt == 1) {linVel = 0; angVel = 0; currentWaypoint = 0; prevWaypoint = 0;}
-        else {linVel = linearVelocity; angVel = angularVelocity;}
-        if (path_x.size() == 1) {linVel = 0; angVel = 0; currentWaypoint = 0; prevWaypoint = 0;}
-        else {linVel = linearVelocity; angVel = angularVelocity;}
-        msg.linear.x = linVel;
-        msg.angular.z = angVel;
-        //cout << angularVelocity << endl;
+        else {
+            angularVelocity = 0;
+            linVel = 0;
+            goal_stat.status = 3;
+        }
+        //if (halt == 1) {linVel = 0; angVel = 0; currentWaypoint = 0; prevWaypoint = 0;}
+        //else {linVel = linearVelocity; angVel = angularVelocity;}
+        //if (path_x.size() == 1) {linVel = 0; angVel = 0; currentWaypoint = 0; prevWaypoint = 0;}
+        //else {linVel = linearVelocity; angVel = angularVelocity;}
+        cmd.linear.x = linVel;
+        cmd.angular.z = angularVelocity;
         ros::spinOnce();
-		pub.publish(msg);
+		pub.publish(cmd);
         path.publish(path_and_lookahead);
+        cout << "Goal req: " << goal_stat.status << endl;
         goals.publish(goal_stat);
 		loop_rate.sleep();
-		//count++;
 	}
 }
 
-void stopGo(const actionlib_msgs::GoalStatus::ConstPtr& msg) {
-    halt = msg->status; // 1 is halt, 0 is go
+float runPurePursuit() {
+    float angVelocity;
+    tf::Quaternion q(quaternion[1], quaternion[2], quaternion[3], quaternion[0]);
+    tf::Matrix3x3 m(q);
+    double roll, pitch, yaw;
+    m.getRPY(roll, pitch, yaw);
+
+    lookahead = lookAheadPoint(Mu, path_x, path_y, prevWaypoint, currentWaypoint);
+
+    float y_offset = (lookahead.x-Mu.x)*sin(-yaw)+(lookahead.y-Mu.y)*cos(-yaw);
+
+    float lambda = (2*(y_offset))/pow(lookAheadDistance,2);
+    angVelocity = linearVelocity*lambda;
+    if (angVelocity > maxAngularVelocity) {
+        angVelocity = maxAngularVelocity;
+    }
+    return angVelocity;
 }
 
+// void stopGo(const actionlib_msgs::GoalStatus::ConstPtr& msg) {
+//     halt = msg->status; // 1 is halt, 0 is go
+// }
+
 void handle_path(const geometry_msgs::Polygon::ConstPtr& msg) {
-    oldPathSize = msg->points.size();
-    //if (msg->points.size() != oldPathSize) {
+    if (msg->points.size() != 0) {
         path_x.resize(msg->points.size());
         path_y.resize(msg->points.size());
         for (int i = 0; i < msg->points.size(); i++) {
             path_x[i] = msg->points[i].x;
             path_y[i] = msg->points[i].y;
         }
+        //prevWaypoint = 0;
+        //currentWaypoint = 1; // no real need to go to the first waypoint
         passed.resize(msg->points.size(), 0);
-
-    //}
-    //cout << oldPathSize << endl;
+        passed[0] = 1;  // not exactly neccesary
+                        // Ideally
+    }
 }
 
 // listen to odometry for tuning

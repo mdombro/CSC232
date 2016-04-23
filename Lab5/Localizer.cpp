@@ -87,6 +87,10 @@ void Localizer::setAlpha(float alphas) {
     alpha = alphas;
 }
 
+void Localizer::setUpdateRate(float freq) {
+    dt = 1.0/freq;
+}
+
 void Localizer::EKF() {
     if (u(1) == 0.0) {
         u(1) = 0.0000001;
@@ -96,19 +100,19 @@ void Localizer::EKF() {
     float spr = u(0)/u(1);
 
     // Gt
-    Gt(0,2) = (-spr*cos(theta))+(spr*cos(theta+u(1)*0.1));
-    Gt(1,2) = (-spr*sin(theta))+(spr*sin(theta+u(1)*0.1));
+    Gt(0,2) = (-spr*cos(theta))+(spr*cos(theta+u(1)*dt));
+    Gt(1,2) = (-spr*sin(theta))+(spr*sin(theta+u(1)*dt));
     // Vt
-    Vt(0,0) = (-sin(theta)+sin(theta+u(1)*0.1))/u(1);
-    Vt(1,0) = (cos(theta)-cos(theta+u(1)*0.1))/u(1);
-    Vt(0,1) = ( (u(0)*(sin(theta)-sin(theta+u(1)*0.1)))/pow(u(1),2) ) + (u(0)*cos(theta+u(1)*0.1)*0.1)/u(1);
-    Vt(1,1) = -( (u(0)*(cos(theta)-cos(theta+u(1)*0.1)))/pow(u(1),2) ) + (u(0)*sin(theta+u(1)*0.1)*0.1)/u(1);
-    Vt(2,1) = 0.1;
+    Vt(0,0) = (-sin(theta)+sin(theta+u(1)*dt))/u(1);
+    Vt(1,0) = (cos(theta)-cos(theta+u(1)*dt))/u(1);
+    Vt(0,1) = ( (u(0)*(sin(theta)-sin(theta+u(1)*dt)))/pow(u(1),2) ) + (u(0)*cos(theta+u(1)*dt)*dt)/u(1);
+    Vt(1,1) = -( (u(0)*(cos(theta)-cos(theta+u(1)*dt)))/pow(u(1),2) ) + (u(0)*sin(theta+u(1)*dt)*dt)/u(1);
+    Vt(2,1) = dt;
     Mt(0,0) = alpha*pow(u(0),2); + alpha*pow(u(1),2);
     Mt(1,1) = alpha*pow(u(0),2); + alpha*pow(u(1),2);
-    projMu(0) = mu(0) + (-spr*sin(theta))+(spr*sin(theta+u(1)*0.1));
-    projMu(1) = mu(1) + (spr*cos(theta))-(spr*cos(theta+u(1)*0.1));
-    projMu(2) = mu(2) + u(1)*0.1;
+    projMu(0) = mu(0) + (-spr*sin(theta))+(spr*sin(theta+u(1)*dt));
+    projMu(1) = mu(1) + (spr*cos(theta))-(spr*cos(theta+u(1)*dt));
+    projMu(2) = mu(2) + u(1)*dt;
     projSigma = Gt*sigma*Gt.transpose() + Vt*Mt*Vt.transpose();
     for (int i = 0; i < 6; i++) {
         float q = pow(Mx[i] - projMu(0), 2) + pow(My[i] - projMu(1), 2);
@@ -167,7 +171,7 @@ void Localizer::findFeature() {
         }
         beamAngle += angleIncrement;
     }
-    if (min[0] > 1.0) {  // skip if past 1 meter threshold
+    if (min[0] > 1.5) {  // skip if past 1 meter threshold
         z(0) = -1000;
         z(1) = -1000;
         z(2) = -1000;
@@ -184,7 +188,7 @@ void Localizer::findFeature() {
             }
         }
         if (abs(min[1]-zest[bestCorrelation](1)) < 2.0*sqrt(St[bestCorrelation](1,1))) {  // is the bearing as expected - filter out random objects
-            z(0) = min[0];
+            z(0) = min[0]+0.1;
             z(1) = min[1];
             z(2) = bestCorrelation;
         }
