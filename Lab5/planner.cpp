@@ -11,11 +11,12 @@ using namespace std;
 
 void path_dispatch(const actionlib_msgs::GoalStatus::ConstPtr& msg);
 void get_goal(const geometry_msgs::Point::ConstPtr& msg);
-vector<Point> Astar(Point& start, Point& goal, int goalNum);
+vector<Point> Astar(Point start, Point goal, int goalNum);
 int heuristic(Node neighbor, Point goal);
 int min(int a, int b);
 //bool inSet(Node neighbor, vector<Node> closed);
 void sort(vector<Node> q);
+bool sort2(Node a, Node b);
 int computeCost(Point from, Point to, int goalNum);
 Point getLoc(Point from, int i);
 float distanceP(Point & A, Point & B);
@@ -29,6 +30,7 @@ float coneExpansion = 0.3;
 int goalNum = 0;
 Point goal(0,0);  // set by exec
 Point start(0,0);  // set by exec
+float goalThresh = 0.001;
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "planner");
@@ -43,6 +45,16 @@ int main(int argc, char** argv) {
     ros::Subscriber sub = n.subscribe("plannerFlag",1000, path_dispatch);
     ros::Subscriber nGoal = n.subscribe("next_goal",1000, get_goal);
 	ros::Rate loop_rate(1);
+
+    Point a(0,0);
+    Point b(0,1.5);
+    cout << "We in it" << endl;
+    pathAstar = Astar(a, b, 1);
+    cout << "Path size: " << pathAstar.size() << endl;
+    for (int t = 0; t < pathAstar.size(); t++) {
+        cout << pathAstar[t].x << " " << pathAstar[t].y << endl;
+    }
+    cout << "Out of it" << endl;
 
     while (ros::ok()) {
         cout << "Inputs: " << start.x << ", " << start.y << "  " << goal.x << ", " << goal.y << "   " << goalNum << endl;
@@ -69,45 +81,42 @@ void get_goal(const geometry_msgs::Point::ConstPtr& msg) {
     goal.sety(msg->y);
 }
 
-vector<Point> Astar(Point& start, Point& goal, int goalNum) {
-    Node startN(0, NULL, start);
+vector<Point> Astar(Point start, Point goal, int goalNum) {
+    Node startN(start);
     //priority_que<Node, vector<Node>, Compare> openList;
-    vector<Node> openList;
-    openList.push_back(startN);
-    vector<Node> closedList;
+    vector<Node*> openList;
+    openList.push_back(&startN);
+    vector<Node*> closedList;
     bool updateNeighbor = false;
     int cost;
     while (openList.size() != 0) {
-        cout << "OpenList size: " << openList.size() << endl;
-        Node *current;
-        current = & openList[0];
-        openList.erase(current.begin());
-        if ((*current).location.x == goal.x && (*current).location.y == goal.y) break;
-        closedList.push_back(*current);
+        //cout << "OpenList size: " << openList.size() << endl;
+        Node *current = openList[0];
+        //current = & openList[0];
+        openList.erase(openList.begin());
+        if ( abs((*current).location.x - goal.x) < goalThresh && abs((*current).location.y - goal.y) < goalThresh) break;
+        closedList.push_back(current);
         for (int i = 0; i < 8; i++) {
-            Node neighbor;
-            neighbor.location = getLoc((*current).location, i);
-            cost = (*current).cost + computeCost((*current).location, neighbor.location, goalNum);  // goal needed to extract orientation
-            if (inSet(neighbor, closedList) != NULL) continue;
-            else if (inSet(neighbor, openList) != NULL) {
-                Node *n = inSet(neighbor, openList);
-                if (cost < (*n).cost) {
-                    updateNeighbor = true;
+            //cout << (*current).location.x << " " << (*current).location.y << endl;
+            Node* neighbor = new Node(getLoc((*current).location, i)); //getLoc((*current).location, i);
+            //cout << "neighbor loc: " << neighbor->location.x << " " << neighbor->location.y << endl;
+            //cost = (*current).cost + computeCost((*current).location, (*neighbor).location, goalNum);  // goal needed to extract orientation
+            //cout << "Cost to neighbor: " << cost << endl;
+            if (!(*neighbor).visited) {   //inSet(neighbor, closedList) != NULL
+                if (cost < (*neighbor).cost) {
+                    (*neighbor).priority = cost + heuristic(*neighbor, goal);
+                    (*neighbor).cost = cost;
+                    (*neighbor).from = current;
+                    openList.push_back(neighbor);
+                    cout << "Open List new size: " << openList.size() << endl;
+                    //sort(openList);
+                    std::sort(*openList.begin(), *openList.end(), sort2);
                 }
-                else
-                    updateNeighbor = false;
-            }
-            else if (inSet(neighbor, openList) == NULL || updateNeighbor == true) { // if neighbor isnt in open or if a better path is found
-                neighbor.from = current;
-                neighbor.cost = cost;
-                neighbor.priority = cost + heuristic(neighbor, goal);
-                openList.push_back(neighbor);
-                sort(openList);
             }
         }
     }
     vector<Point> path;
-    Node* travel = &closedList[closedList.size()-1];
+    Node* travel = closedList[closedList.size()-1];
     while ((*travel).from != NULL) {
         path.push_back((*travel).location);
         travel = (*travel).from;
@@ -128,20 +137,26 @@ int min(int a, int b) {
 
 Node* inSet(Node neighbor, vector<Node> set) {
     for (int i = 0; i < set.size(); i++) {
-        if (neighbor.location.x == set[i].location.x && neighbor.location.y == set[i].location.y)
+        if (abs(neighbor.location.x - set[i].location.x) < goalThresh && abs(neighbor.location.y - set[i].location.y) < goalThresh)
             return &set[i];
     }
     return NULL;
 }
 
-void sort(vector<Node> q) {  // hopefully there is never many nodes....
-    Node* swap;
-    for (int c = 0 ; c < ( q.size() - 1 ); c++) {
+bool sort2(Node a, Node b) {
+    return a.priority < b.priority;
+}
+
+void sort(vector<Node>& q) {  // hopefully there is never many nodes....
+    Node swap;
+    //vector<Node> tmp;
+    for (int c = 0 ; c < (q.size() - 1 ); c++) {
         for (int d = 0 ; d < q.size() - c - 1; d++) {
+            //tmp = *q;
             if (q[d].priority < q[d+1].priority) {
-                swap = &q[d];
+                swap = q[d];
                 q[d] = q[d+1];
-                q[d+1] = *swap;
+                q[d+1] = swap;
             }
         }
     }
@@ -179,6 +194,27 @@ int computeCost(Point from, Point to, int goalNum) {
 float distanceP(Point & A, Point & B) {
     return sqrt(pow(A.x-B.x,2) + pow(A.y-B.y,2));
 }
+
+// Node getLoc(Point from, int i) {
+//     switch (i) {  // going in a ccw fashion from r to l
+//         case 0:
+//             return Node(Point(from.x, from.y-0.25));
+//         case 1:
+//             return Node(Point(from.x+0.25, from.y-0.25));
+//         case 2:
+//             return Node(Point(from.x+0.25, from.y));
+//         case 3:
+//             return Node(Point(from.x+0.25, from.y+0.25));
+//         case 4:
+//             return Node(Point(from.x, from.y+0.25));
+//         case 5:
+//             return Node(Point(from.x-0.25, from.y+0.25));
+//         case 6:
+//             return Node(Point(from.x-0.25, from.y));
+//         case 7:
+//             return Node(Point(from.x-0.25, from.y-0.25));
+//     }
+// }
 
 Point getLoc(Point from, int i) {
     switch (i) {  // going in a ccw fashion from r to l

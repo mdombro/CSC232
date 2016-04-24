@@ -27,7 +27,7 @@ add_executable(ros_subscriber ros_subscriber.cpp ${CMAKE_CURRENT_BINARY_DIR}/ros
 #add_executable(Localizer Localizer.cpp ${CMAKE_CURRENT_BINARY_DIR}/Localizer_cmdline.c)
 add_executable(LocalizerStart LocalizerStart.cpp Localizer.cpp point.cpp ${MOC_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/LocalizerStart_cmdline.c)
 add_executable(pfc pfc.cpp point.cpp ${MOC_SRCS})
-add_executable(executive executive.cpp ${MOC_SRCS})
+add_executable(executive executive.cpp point.cpp ${MOC_SRCS})
 add_executable(planner planner.cpp point.cpp ${MOC_SRCS})
 #add_executable(pfc pfc.cpp ${MOC_SRCS})
 
