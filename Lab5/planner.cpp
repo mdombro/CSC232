@@ -81,6 +81,7 @@ vector<Point> Astar(Point& start, Point& goal, int goalNum) {
         cout << "OpenList size: " << openList.size() << endl;
         Node *current;
         current = & openList[0];
+        openList.erase(current.begin());
         if ((*current).location.x == goal.x && (*current).location.y == goal.y) break;
         closedList.push_back(*current);
         for (int i = 0; i < 8; i++) {
