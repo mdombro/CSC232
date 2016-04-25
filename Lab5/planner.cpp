@@ -5,6 +5,7 @@
 #include "node.h"
 #include <iostream>
 #include <ros/ros.h>
+#include "geometry_msgs/PoseWithCovariance.h"
 
 using namespace std;
 //using namespace ros;
@@ -17,10 +18,14 @@ int min(int a, int b);
 //bool inSet(Node neighbor, vector<Node> closed);
 void sort(vector<Node> q);
 bool sort2(Node* a, Node* b);
-int computeCost(Point from, Point to, int goalNum);
+int computeCost(Point from, Point to, int goalNum, int cmd);
 Point getLoc(Point from, int i);
 float distanceP(Point & A, Point & B);
 Node* inSet(Node neighbor, vector<Node> set);
+void handle_local(const geometry_msgs::PoseWithCovariance::ConstPtr& msg);
+float distanceP(Point & A, Point & B);
+
+Point mu(0,0);
 
 
 int pathFlag = 0;
@@ -31,6 +36,7 @@ int goalNum = 0;
 Point goal(0,0);  // set by exec
 Point start(0,0);  // set by exec
 float goalThresh = 0.001;
+float GoalThresh = 0.4;
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "planner");
@@ -40,6 +46,7 @@ int main(int argc, char** argv) {
     actionlib_msgs::GoalStatus h;
 
     vector<Point> goals;
+    goals.push_back(Point(0.0, 0.0));
     goals.push_back(Point(1.5, 0.0));
     goals.push_back(Point(2.5, 0.0));
     goals.push_back(Point(4.0, 0.0));
@@ -57,8 +64,9 @@ int main(int argc, char** argv) {
     ros::Publisher npath = n.advertise<geometry_msgs::Polygon>("next_path", 1000, true);
     //ros::Publisher Halt = n.advertise<actionlib_msgs::GoalStatus>("halt", 1000);
     ros::Subscriber sub = n.subscribe("plannerFlag",1000, path_dispatch);
+    ros::Subscriber local = n.subscribe("/pos", 1000, handle_local);
     //ros::Subscriber nGoal = n.subscribe("next_goal",1000, get_goal);
-	ros::Rate loop_rate(1);
+	ros::Rate loop_rate(20);
 
     // Point a(0,0);
     // Point b(1.5,0);
@@ -72,11 +80,12 @@ int main(int argc, char** argv) {
 
     while (ros::ok()) {
         cout << "Inputs: " << start.x << ", " << start.y << "  " << goal.x << ", " << goal.y << "   " << goalNum << endl;
-        if (pathFlag) {
-            path.points.clear();
+        if (distanceP(mu, goals[goalNum]) < GoalThresh) {
+            //path.points.clear();
+            start = goals[goalNum];
             goalNum++;
             pathFlag = 0;
-            pathAstar = Astar(start, goals[goalNum-1], goalNum);
+            pathAstar = Astar(start, goals[goalNum], goalNum);
             for (int i = 0; i < pathAstar.size(); i++) {
                 p.x = pathAstar[i].x;
                 p.y = pathAstar[i].y;
@@ -84,11 +93,33 @@ int main(int argc, char** argv) {
                 path.points.push_back(p);
             }
         }
+
+        // if (pathFlag) {
+        //     path.points.clear();
+        //     goalNum++;
+        //     pathFlag = 0;
+        //     pathAstar = Astar(start, goals[goalNum-1], goalNum);
+        //     for (int i = 0; i < pathAstar.size(); i++) {
+        //         p.x = pathAstar[i].x;
+        //         p.y = pathAstar[i].y;
+        //         cout << "Path: " << p.x << " " << p.y << endl;
+        //         path.points.push_back(p);
+        //     }
+        // }
         ros::spinOnce();
         npath.publish(path);
         //Halt.publish(h);
         loop_rate.sleep();
     }
+}
+
+void handle_local(const geometry_msgs::PoseWithCovariance::ConstPtr& msg) {
+    mu.x = msg->pose.position.x;
+    mu.y = msg->pose.position.y;
+}
+
+float distanceP(Point & A, Point & B) {
+    return sqrt(pow(A.x-B.x,2) + pow(A.y-B.y,2));
 }
 
 void path_dispatch(const actionlib_msgs::GoalStatus::ConstPtr& msg) {
@@ -125,7 +156,7 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
             //cout << (*current).location.x << " " << (*current).location.y << endl;
             Node* neighbor = new Node(getLoc((*current).location, i)); //getLoc((*current).location, i);
             //cout << "neighbor loc: " << neighbor->location.x << " " << neighbor->location.y << endl;
-            cost = (*current).cost + computeCost((*current).location, (*neighbor).location, goalNum);  // goal needed to extract orientation
+            cost = (*current).cost + computeCost((*current).location, (*neighbor).location, goalNum, i);  // goal needed to extract orientation
             //cout << "Cost to neighbor: " << cost << endl;
             if (!(*neighbor).visited) {   //inSet(neighbor, closedList) != NULL
                 if (cost < (*neighbor).cost) {
@@ -146,17 +177,22 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
     vector<Point> path;
     Node* travel = closedList[closedList.size()-1];
     while ((*travel).from != NULL) {
+        cout << "Path reconstruct: " << (*travel).location.x << " " << (*travel).location.y << endl;
         path.push_back((*travel).location);
         travel = (*travel).from;
     }
+    path.push_back(start);
     reverse(path.begin(), path.end());
     return path;
 }
 
 int heuristic(Node neighbor, Point goal) {
+    float h;
     int dx = (int)(abs(neighbor.location.x - goal.x)/0.25);
     int dy = (int)(abs(neighbor.location.y - goal.y)/0.25);
-    return (dx +dy)+(-1)*min(dx, dy);
+    h = (dx +dy)+(sqrt(2)-2)*min(dx, dy);
+    h *= (1.0 + 1.0/100.0);
+    return h;
 }
 
 int min(int a, int b) {
@@ -190,8 +226,23 @@ void sort(vector<Node>& q) {  // hopefully there is never many nodes....
     }
 }
 
-int computeCost(Point from, Point to, int goalNum) {
-    int cost = 1;  // base transition cost of 1 - this includes diagonals, will monitor performance
+int computeCost(Point from, Point to, int goalNum, int cmd) {
+    int cost;  // base transition cost of 1 - this includes diagonals, will monitor performance
+    switch (cmd) {
+        case 0:
+        case 2:
+        case 4:
+        case 6:
+            cost = 1;
+            break;
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+            cost = sqrt(2);
+            break;
+    }
+
     switch (goalNum) {
         case 1:
         case 3:
@@ -219,9 +270,9 @@ int computeCost(Point from, Point to, int goalNum) {
     return cost;
 }
 
-float distanceP(Point & A, Point & B) {
-    return sqrt(pow(A.x-B.x,2) + pow(A.y-B.y,2));
-}
+// float distanceP(Point A, Point & B) {
+//     return sqrt(pow(A.x-B.x,2) + pow(A.y-B.y,2));
+// }
 
 // Node getLoc(Point from, int i) {
 //     switch (i) {  // going in a ccw fashion from r to l

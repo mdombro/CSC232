@@ -17,7 +17,7 @@ using namespace std;
 using namespace ros;
 
 void handle_odom( const geometry_msgs::PoseWithCovariance::ConstPtr& msg);
-Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y, float prev, float next);
+Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y);
 float distanceP(Point & A, Point & B);  // distance is in the std namespace
 Point findClosestPoint(Point A, Point B, Point mu);
 void handle_path(const geometry_msgs::Polygon::ConstPtr& msg);
@@ -35,10 +35,15 @@ Point Mu(0,0);
 float quaternion[4] = {0,0,0,1};
 float discResolution = 40.0;
 float lookAheadThresh = 0.05;
+bool gotPath = false;
+geometry_msgs::Polygon oldMsg;
+
+int segment = 1;
 
 int currentWaypoint = 1;
 int prevWaypoint = 0;
 
+vector<float> oldPath_x;
 vector<float> path_x;
 vector<float> path_y;
 vector<int> passed;
@@ -51,13 +56,20 @@ int main(int argc, char** argv) {
     geometry_msgs::Polygon path_and_lookahead;
     geometry_msgs::Polygon next_path;
     actionlib_msgs::GoalStatus goal_stat;
+    //geometry_msgs::Polygon oldMsg;
+
+    //oldPath_x.push_back(0.0);
+    //path_x.push_back(0.0);
+    //path_y.push_back(0.0);
+    //path_x.push_back(0.0);
+    //path_y.push_back(0.0);
 
     NodeHandle n;
 	Publisher pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/navi", 1000);
     Publisher path = n.advertise<geometry_msgs::Polygon>("path_and_lookahead", 1000);
     Publisher goals = n.advertise<actionlib_msgs::GoalStatus>("plannerFlag" ,1000);
     Subscriber sub = n.subscribe("/pos",1000, handle_odom);
-    Subscriber np = n.subscribe("next_path",1000, handle_path);
+    Subscriber np = n.subscribe("next_path",100, handle_path);
     //Subscriber ready = n.subscribe("stop_and_go", 1000, stopGo);
 	ros::Rate loop_rate(20);
 
@@ -70,26 +82,16 @@ int main(int argc, char** argv) {
         p.x = Mu.x;
         p.y = Mu.y;
         path_and_lookahead.points.push_back(p);
-        cout << "Path size: " << path_x.size() << endl;
-        if (path_x.size() != 0) {
-            if (currentWaypoint == path_x.size()) {
-                cout << "new path" << endl;
-                // set some flag to start computing path
-                goal_stat.status = 3;
-                path_x.clear();
-                path_y.clear();
-                passed.clear();
-                prevWaypoint = 0;
-                currentWaypoint = 1;
-            }
-            Point waypoint(path_x[currentWaypoint], path_y[currentWaypoint]);
-            if (distanceP(Mu, waypoint) < Wthresh) {
-                passed[currentWaypoint] = 1;
-                prevWaypoint = currentWaypoint;
-                currentWaypoint += 1;
-            }
-            cout << "WPs: " << prevWaypoint << " " << currentWaypoint << endl;
+        //cout << "Path size: " << path_x.size() << endl;
+        //cout << "Path dif: " <<  oldPath_x[oldPath_x.size()-1] << " " << path_x[path_x.size()-1] << endl;
+        //if (oldPath_x[oldPath_x.size()-1] != path_x[path_x.size()-1])
+        //    gotPath = true;
+        //else
+        //    gotPath = false
+        gotPath = false;
 
+        //cout << "WPs: " << prevWaypoint << " " << currentWaypoint << endl;
+        if (path_x.size() != 0) {
             angularVelocity = runPurePursuit();
             linVel = linearVelocity;
             path_and_lookahead.points.clear();
@@ -104,19 +106,47 @@ int main(int argc, char** argv) {
                 path_and_lookahead.points.push_back(p);
             }
         }
-        else {
-            cout << "Are we in this" << endl;
-            angularVelocity = 0;
-            linVel = 0;
-            goal_stat.status = 3;
+        // else {
+        //     //cout << "Are we in this" << endl;
+        //     angularVelocity = 0;
+        //     linVel = 0;
+        //     goal_stat.status = 3;
+        //     gotPath = false;
+        // }
+        // if (segment == path_x.size()) {
+        //     cout << "new path" << endl;
+        //     // set some flag to start computing path
+        //     goal_stat.status = 3;
+        //     path_x.clear();
+        //     path_y.clear();
+        //     passed.clear();
+        //     segment = 0;
+        //     //prevWaypoint = 0;
+        //     //currentWaypoint = 1;
+        // }
+        //Point waypoint(path_x[currentWaypoint], path_y[currentWaypoint]);
+        if (path_x.size() != 0) {
+            Point waypoint(path_x[segment], path_y[segment]);
+            if (distanceP(Mu, waypoint) < Wthresh) {
+                segment++;
+                //passed[currentWaypoint] = 1;
+                //prevWaypoint = currentWaypoint;
+                //currentWaypoint += 1;
+            }
+            Point Goal(path_x[path_x.size()-1], path_y[path_y.size()-1]);
+            if (distanceP(Mu, Goal) < Wthresh) {
+                linVel = 0;
+                angularVelocity = 0;
+            }
         }
         //if (halt == 1) {linVel = 0; angVel = 0; currentWaypoint = 0; prevWaypoint = 0;}
         //else {linVel = linearVelocity; angVel = angularVelocity;}
         //if (path_x.size() == 1) {linVel = 0; angVel = 0; currentWaypoint = 0; prevWaypoint = 0;}
         //else {linVel = linearVelocity; angVel = angularVelocity;}
+        //oldPath_x = path_x;
         cmd.linear.x = linVel;
         cmd.angular.z = angularVelocity;
-        cout << "Goal req: " << goal_stat.status << endl;
+        //cout << "Goal req: " << goal_stat.status << endl;
         ros::spinOnce();
 		pub.publish(cmd);
         path.publish(path_and_lookahead);
@@ -132,7 +162,7 @@ float runPurePursuit() {
     double roll, pitch, yaw;
     m.getRPY(roll, pitch, yaw);
 
-    lookahead = lookAheadPoint(Mu, path_x, path_y, prevWaypoint, currentWaypoint);
+    lookahead = lookAheadPoint(Mu, path_x, path_y);
 
     float y_offset = (lookahead.x-Mu.x)*sin(-yaw)+(lookahead.y-Mu.y)*cos(-yaw);
 
@@ -149,19 +179,23 @@ float runPurePursuit() {
 // }
 
 void handle_path(const geometry_msgs::Polygon::ConstPtr& msg) {
-    if (msg->points.size() != 0) {
-        path_x.resize(msg->points.size());
-        path_y.resize(msg->points.size());
+    //if (msg->points[msg->points.size()-1].x != oldMsg.points[oldMsg.points.size()-1].x && msg->points[msg->points.size()-1].y != oldMsg.points[oldMsg.points.size()-1].y) {
+    //if (msg->points.size() != 0) {
+    ///if () {
+        path_x.clear();
+        path_y.clear();
         for (int i = 0; i < msg->points.size(); i++) {
-            path_x[i] = msg->points[i].x;
-            path_y[i] = msg->points[i].y;
+            path_x.push_back(msg->points[i].x);
+            path_y.push_back(msg->points[i].y);
         }
+        gotPath = true;
+    //}
         //prevWaypoint = 0;
         //currentWaypoint = 1; // no real need to go to the first waypoint
         //passed.resize(msg->points.size(), 0);
         //passed[0] = 1;  // not exactly neccesary
                         // Ideally
-    }
+    //}
 }
 
 // listen to odometry for tuning
@@ -177,10 +211,12 @@ void handle_odom( const geometry_msgs::PoseWithCovariance::ConstPtr& msg) {
     //return;
 }
 
-Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y, float prev, float next) {
+Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y) {
     Point goal(path_x[path_x.size()-1], path_y[path_y.size()-1]);
-    Point p(path_x[prev], path_y[prev]);
-    Point n(path_x[next], path_y[next]);
+    //cout << "Goal: " << goal.x << " " << goal.y << endl;
+    Point p(path_x[segment-1], path_y[segment-1]);
+    Point n(path_x[segment], path_y[segment]);
+    cout << "P: " << p.x << " " << p.y << " N: " << n.x << " " << n.y << endl;
     Point closest = findClosestPoint(p, n, mu);
     //cout << closest.x << " " << closest.y << endl;
     if (distanceP(mu, goal) < lookAheadDistance ){
@@ -194,9 +230,9 @@ Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y, float
     vector<Point> discPath;
     float xd, yd, xInc, yInc;
     Point start(0,0);
-    for (int i = prev; i < path_x.size()-1; i++) {
+    for (int i = segment-1; i < path_x.size()-1; i++) {
         float nextWp = i + 1; // keep next one waypoint ahead of prev
-        if (i == prev) {
+        if (i == segment-1) {
             start.setx(closest.x);
             start.sety(closest.y);
         }
@@ -217,6 +253,7 @@ Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y, float
     for (int h = 0; h < discPath.size(); h++) {
         //cout << abs(distanceP(closest, discPath[h])) - lookAheadDistance << endl;
         if (abs(distanceP(closest, discPath[h]) - lookAheadDistance) < lookAheadThresh ) {
+            //cout << "lookahead: " << discPath[h].x << " " << discPath[h].y << endl;
             return discPath[h];
         }
     }
@@ -228,6 +265,9 @@ float distanceP(Point & A, Point & B) {
 
 
 Point findClosestPoint(Point A, Point B, Point P) {
+    if (A.x == B.x && A.y == B.y) {
+        return Point(A.x, P.x);
+    }
     vector<float> a_to_p;
     a_to_p.push_back(P.x - A.x);
     a_to_p.push_back(P.y - A.y);
