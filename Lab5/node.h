@@ -17,15 +17,15 @@ public:
 //     visited = false;
 // }
 Node::Node() {
-    cost = 0;
-    priority = 0;
+    cost = 10000;
+    priority = 10000;
     from = NULL;
     visited = false;
 }
 
 Node::Node(Point loc) {
-    cost = 0;
-    priority = 0;
+    cost = 10000;
+    priority = 10000;
     from = NULL;
     location = loc;
     visited = false;

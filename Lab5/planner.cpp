@@ -83,6 +83,8 @@ void get_goal(const geometry_msgs::Point::ConstPtr& msg) {
 
 vector<Point> Astar(Point start, Point goal, int goalNum) {
     Node startN(start);
+    startN.cost = 0;
+    startN.priority = 0;
     //priority_que<Node, vector<Node>, Compare> openList;
     vector<Node*> openList;
     openList.push_back(&startN);
@@ -92,16 +94,16 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
     while (openList.size() != 0) {
         //cout << "OpenList size: " << openList.size() << endl;
         Node *current = openList[0];
-        //current = & openList[0];
         openList.erase(openList.begin());
+        (*current).visited = true;
         if ( abs((*current).location.x - goal.x) < goalThresh && abs((*current).location.y - goal.y) < goalThresh) break;
         closedList.push_back(current);
         for (int i = 0; i < 8; i++) {
             //cout << (*current).location.x << " " << (*current).location.y << endl;
             Node* neighbor = new Node(getLoc((*current).location, i)); //getLoc((*current).location, i);
             //cout << "neighbor loc: " << neighbor->location.x << " " << neighbor->location.y << endl;
-            //cost = (*current).cost + computeCost((*current).location, (*neighbor).location, goalNum);  // goal needed to extract orientation
-            //cout << "Cost to neighbor: " << cost << endl;
+            cost = (*current).cost + computeCost((*current).location, (*neighbor).location, goalNum);  // goal needed to extract orientation
+            cout << "Cost to neighbor: " << cost << endl;
             if (!(*neighbor).visited) {   //inSet(neighbor, closedList) != NULL
                 if (cost < (*neighbor).cost) {
                     (*neighbor).priority = cost + heuristic(*neighbor, goal);
