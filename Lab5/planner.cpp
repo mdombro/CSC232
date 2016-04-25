@@ -16,7 +16,7 @@ int heuristic(Node neighbor, Point goal);
 int min(int a, int b);
 //bool inSet(Node neighbor, vector<Node> closed);
 void sort(vector<Node> q);
-bool sort2(Node a, Node b);
+bool sort2(Node* a, Node* b);
 int computeCost(Point from, Point to, int goalNum);
 Point getLoc(Point from, int i);
 float distanceP(Point & A, Point & B);
@@ -39,40 +39,63 @@ int main(int argc, char** argv) {
     geometry_msgs::Polygon path;
     actionlib_msgs::GoalStatus h;
 
+    vector<Point> goals;
+    goals.push_back(Point(1.5, 0.0));
+    goals.push_back(Point(2.5, 0.0));
+    goals.push_back(Point(4.0, 0.0));
+    goals.push_back(Point(5.5, 0.0));
+    goals.push_back(Point(6.5, 0.0));
+    goals.push_back(Point(7.5, 0.0));
+    goals.push_back(Point(6.5, 0.0));
+    goals.push_back(Point(5.5, 0.0));
+    goals.push_back(Point(4.0, 0.0));
+    goals.push_back(Point(2.5, 0.0));
+    goals.push_back(Point(1.5, 0.0));
+    goals.push_back(Point(0.5, 0.0));
+
     ros::NodeHandle n;
     ros::Publisher npath = n.advertise<geometry_msgs::Polygon>("next_path", 1000, true);
-    ros::Publisher Halt = n.advertise<actionlib_msgs::GoalStatus>("halt", 1000);
+    //ros::Publisher Halt = n.advertise<actionlib_msgs::GoalStatus>("halt", 1000);
     ros::Subscriber sub = n.subscribe("plannerFlag",1000, path_dispatch);
-    ros::Subscriber nGoal = n.subscribe("next_goal",1000, get_goal);
+    //ros::Subscriber nGoal = n.subscribe("next_goal",1000, get_goal);
 	ros::Rate loop_rate(1);
 
-    Point a(0,0);
-    Point b(0,1.5);
-    cout << "We in it" << endl;
-    pathAstar = Astar(a, b, 1);
-    cout << "Path size: " << pathAstar.size() << endl;
-    for (int t = 0; t < pathAstar.size(); t++) {
-        cout << pathAstar[t].x << " " << pathAstar[t].y << endl;
-    }
-    cout << "Out of it" << endl;
+    // Point a(0,0);
+    // Point b(1.5,0);
+    // cout << "We in it" << endl;
+    // pathAstar = Astar(a, b, 1);
+    // cout << "Path size: " << pathAstar.size() << endl;
+    // for (int t = 0; t < pathAstar.size(); t++) {
+    //     cout << pathAstar[t].x << " " << pathAstar[t].y << endl;
+    // }
+    // cout << "Out of it" << endl;
 
     while (ros::ok()) {
         cout << "Inputs: " << start.x << ", " << start.y << "  " << goal.x << ", " << goal.y << "   " << goalNum << endl;
-        if (pathFlag) {goalNum++; pathAstar = Astar(start, goal, goalNum);}
+        if (pathFlag) {
+            path.points.clear();
+            goalNum++;
+            pathFlag = 0;
+            pathAstar = Astar(start, goals[goalNum-1], goalNum);
+            for (int i = 0; i < pathAstar.size(); i++) {
+                p.x = pathAstar[i].x;
+                p.y = pathAstar[i].y;
+                cout << "Path: " << p.x << " " << p.y << endl;
+                path.points.push_back(p);
+            }
+        }
         ros::spinOnce();
         npath.publish(path);
-        Halt.publish(h);
+        //Halt.publish(h);
         loop_rate.sleep();
     }
 }
 
 void path_dispatch(const actionlib_msgs::GoalStatus::ConstPtr& msg) {
+    cout << msg->status << endl;
     if (msg->status == 3) {
         cout << "Requested" << endl;
         pathFlag = 1;
-    }
-    else {
-        pathFlag = 0;
     }
 }
 
@@ -96,27 +119,30 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
         Node *current = openList[0];
         openList.erase(openList.begin());
         (*current).visited = true;
-        if ( abs((*current).location.x - goal.x) < goalThresh && abs((*current).location.y - goal.y) < goalThresh) break;
         closedList.push_back(current);
+        if ( abs((*current).location.x - goal.x) < goalThresh && abs((*current).location.y - goal.y) < goalThresh) break;
         for (int i = 0; i < 8; i++) {
             //cout << (*current).location.x << " " << (*current).location.y << endl;
             Node* neighbor = new Node(getLoc((*current).location, i)); //getLoc((*current).location, i);
             //cout << "neighbor loc: " << neighbor->location.x << " " << neighbor->location.y << endl;
             cost = (*current).cost + computeCost((*current).location, (*neighbor).location, goalNum);  // goal needed to extract orientation
-            cout << "Cost to neighbor: " << cost << endl;
+            //cout << "Cost to neighbor: " << cost << endl;
             if (!(*neighbor).visited) {   //inSet(neighbor, closedList) != NULL
                 if (cost < (*neighbor).cost) {
                     (*neighbor).priority = cost + heuristic(*neighbor, goal);
                     (*neighbor).cost = cost;
+            //        cout << "Cost for neighbor " << i << " Heuristic: " << heuristic(*neighbor, goal) << endl;
                     (*neighbor).from = current;
                     openList.push_back(neighbor);
-                    cout << "Open List new size: " << openList.size() << endl;
+            //        cout << "Open List new size: " << openList.size() << endl;
                     //sort(openList);
-                    std::sort(*openList.begin(), *openList.end(), sort2);
+                    std::sort(openList.begin(), openList.end(), sort2);
+            //        cout << "Did we sort" << endl;
                 }
             }
         }
     }
+    cout << "Does A* exit" << endl;
     vector<Point> path;
     Node* travel = closedList[closedList.size()-1];
     while ((*travel).from != NULL) {
@@ -145,8 +171,8 @@ Node* inSet(Node neighbor, vector<Node> set) {
     return NULL;
 }
 
-bool sort2(Node a, Node b) {
-    return a.priority < b.priority;
+bool sort2(Node* a, Node* b) {
+    return (*a).priority < (*b).priority;
 }
 
 void sort(vector<Node>& q) {  // hopefully there is never many nodes....

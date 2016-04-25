@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
     NodeHandle n;
 	Publisher pub = n.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/navi", 1000);
     Publisher path = n.advertise<geometry_msgs::Polygon>("path_and_lookahead", 1000);
-    Publisher goals = n.advertise<actionlib_msgs::GoalStatus>("next_pathFlag" ,1000);
+    Publisher goals = n.advertise<actionlib_msgs::GoalStatus>("plannerFlag" ,1000);
     Subscriber sub = n.subscribe("/pos",1000, handle_odom);
     Subscriber np = n.subscribe("next_path",1000, handle_path);
     //Subscriber ready = n.subscribe("stop_and_go", 1000, stopGo);
@@ -105,6 +105,7 @@ int main(int argc, char** argv) {
             }
         }
         else {
+            cout << "Are we in this" << endl;
             angularVelocity = 0;
             linVel = 0;
             goal_stat.status = 3;
@@ -115,10 +116,10 @@ int main(int argc, char** argv) {
         //else {linVel = linearVelocity; angVel = angularVelocity;}
         cmd.linear.x = linVel;
         cmd.angular.z = angularVelocity;
+        cout << "Goal req: " << goal_stat.status << endl;
         ros::spinOnce();
 		pub.publish(cmd);
         path.publish(path_and_lookahead);
-        cout << "Goal req: " << goal_stat.status << endl;
         goals.publish(goal_stat);
 		loop_rate.sleep();
 	}
@@ -157,8 +158,8 @@ void handle_path(const geometry_msgs::Polygon::ConstPtr& msg) {
         }
         //prevWaypoint = 0;
         //currentWaypoint = 1; // no real need to go to the first waypoint
-        passed.resize(msg->points.size(), 0);
-        passed[0] = 1;  // not exactly neccesary
+        //passed.resize(msg->points.size(), 0);
+        //passed[0] = 1;  // not exactly neccesary
                         // Ideally
     }
 }

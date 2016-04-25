@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     actionlib_msgs::GoalStatus h;
 
     NodeHandle n;
-    Publisher npath = n.advertise<geometry_msgs::Point>("next_goal", 1000, true);
+    Publisher npath = n.advertise<geometry_msgs::Point>("next_goal", 1000);
     //Publisher halt = n.advertise<actionlib_msgs::GoalStatus>("stop_and_go", 1000);
     Publisher reqPath = n.advertise<actionlib_msgs::GoalStatus>("plannerFlag",1000, true);
     Subscriber reqGoal = n.subscribe("next_pathFlag", 1000, path_dispatch);
@@ -90,8 +90,9 @@ int main(int argc, char** argv) {
             cout << "Goal release: " << endl;
             goal.x = goals.back().x;
             goal.y = goals.back().y;
+            cout << "Goal Coords: " << goal.x << " " << goal.y << endl;
             goals.pop_back();
-            goals.pop_back();
+            //goals.pop_back();
             h.status = 3;
             flag = 0;
             // vector<float> pxt = px.back();
