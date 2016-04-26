@@ -92,6 +92,10 @@ int main(int argc, char** argv) {
 
         //cout << "WPs: " << prevWaypoint << " " << currentWaypoint << endl;
         if (path_x.size() != 0) {
+            Point waypoint(path_x[segment], path_y[segment]);
+            if (distanceP(Mu, waypoint) < Wthresh) {
+                segment++;
+            }
             angularVelocity = runPurePursuit();
             linVel = linearVelocity;
             path_and_lookahead.points.clear();
@@ -126,13 +130,11 @@ int main(int argc, char** argv) {
         // }
         //Point waypoint(path_x[currentWaypoint], path_y[currentWaypoint]);
         if (path_x.size() != 0) {
-            Point waypoint(path_x[segment], path_y[segment]);
-            if (distanceP(Mu, waypoint) < Wthresh) {
-                segment++;
+
                 //passed[currentWaypoint] = 1;
                 //prevWaypoint = currentWaypoint;
                 //currentWaypoint += 1;
-            }
+            //}
             Point Goal(path_x[path_x.size()-1], path_y[path_y.size()-1]);
             if (distanceP(Mu, Goal) < Wthresh) {
                 linVel = 0;
