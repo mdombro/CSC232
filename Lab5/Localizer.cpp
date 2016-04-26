@@ -171,7 +171,7 @@ void Localizer::findFeature() {
         }
         beamAngle += angleIncrement;
     }
-    if (min[0] > 1.5) {  // skip if past 1 meter threshold
+    if (min[0] > 2.5) {  // skip if past 2.5 meter threshold
         z(0) = -1000;
         z(1) = -1000;
         z(2) = -1000;
@@ -187,7 +187,7 @@ void Localizer::findFeature() {
                 changed = 1;
             }
         }
-        if (abs(min[1]-zest[bestCorrelation](1)) < 2.0*sqrt(St[bestCorrelation](1,1))) {  // is the bearing as expected - filter out random objects
+        if (abs(min[1]-zest[bestCorrelation](1)) < 4.0*sqrt(St[bestCorrelation](1,1))) {  // is the bearing as expected - filter out random objects
             z(0) = min[0]+0.1;
             z(1) = min[1];
             z(2) = bestCorrelation;

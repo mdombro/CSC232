@@ -37,6 +37,9 @@ float maxRange = 10.0f;
 //float dWall = 2.0;
 float rCone = 0.1;
 
+int freq = 100;
+float dt = 1.0/(float)freq;
+
 
 void cmmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
     command[0] = msg->linear.x;
@@ -86,9 +89,9 @@ int main(int argc, char* argv[]) {
     Subscriber sub = n.subscribe("navi", 1000, cmmdUpdate);  // update the command velocities
     Subscriber rst = n.subscribe("/mobile_base/commands/reset_odometry", 1000, reset);
     ros::Duration(1.3).sleep();
-    ros::Rate loop_rate(10);
+    ros::Rate loop_rate(freq);
     while (ros::ok()) {
-        sampleMotionModel(command, commandReal, pose, coeffs, 0.1);
+        sampleMotionModel(command, commandReal, pose, coeffs, dt);
         yawToQuaternion(pose[2], quaternion);
         msg.pose.pose.position.x = pose[0];
         msg.pose.pose.position.y = pose[1];

@@ -26,17 +26,19 @@ void handle_local(const geometry_msgs::PoseWithCovariance::ConstPtr& msg);
 float distanceP(Point & A, Point & B);
 
 Point mu(0,0);
+int prevCmd = 3;
 
 
 int pathFlag = 0;
 int halt = 0;
 vector<Point> pathAstar;
-float coneExpansion = 0.3;
+float coneExpansion = 0.4;
 int goalNum = 0;
 Point goal(0,0);  // set by exec
 Point start(0,0);  // set by exec
 float goalThresh = 0.001;
 float GoalThresh = 0.4;
+float gridDisc = 0.25;
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "planner");
@@ -86,7 +88,7 @@ int main(int argc, char** argv) {
             goalNum++;
             pathFlag = 0;
             pathAstar = Astar(start, goals[goalNum], goalNum);
-            for (int i = 0; i < pathAstar.size(); i++) {
+            for (int i = 1; i < pathAstar.size(); i++) {
                 p.x = pathAstar[i].x;
                 p.y = pathAstar[i].y;
                 cout << "Path: " << p.x << " " << p.y << endl;
@@ -188,10 +190,10 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
 
 int heuristic(Node neighbor, Point goal) {
     float h;
-    int dx = (int)(abs(neighbor.location.x - goal.x)/0.25);
-    int dy = (int)(abs(neighbor.location.y - goal.y)/0.25);
+    int dx = (int)(abs(neighbor.location.x - goal.x)/gridDisc);
+    int dy = (int)(abs(neighbor.location.y - goal.y)/gridDisc);
     h = (dx +dy)+(sqrt(2)-2)*min(dx, dy);
-    h *= (1.0 + 1.0/100.0);
+    //h *= (1.0 + 1.0/100.0);
     return h;
 }
 
@@ -242,7 +244,9 @@ int computeCost(Point from, Point to, int goalNum, int cmd) {
             cost = sqrt(2);
             break;
     }
-
+    // if (abs(cmd-prevCmd) > 1) {
+    //     cost += 5;
+    // }
     switch (goalNum) {
         case 1:
         case 3:
@@ -256,6 +260,7 @@ int computeCost(Point from, Point to, int goalNum, int cmd) {
         case 4:
         case 6:
         case 8:
+        case 10:
         case 12:
             if (to.y > 0) cost += 50;
             break;
@@ -298,20 +303,20 @@ int computeCost(Point from, Point to, int goalNum, int cmd) {
 Point getLoc(Point from, int i) {
     switch (i) {  // going in a ccw fashion from r to l
         case 0:
-            return Point(from.x, from.y-0.25);
+            return Point(from.x, from.y-gridDisc);
         case 1:
-            return Point(from.x+0.25, from.y-0.25);
+            return Point(from.x+gridDisc, from.y-gridDisc);
         case 2:
-            return Point(from.x+0.25, from.y);
+            return Point(from.x+gridDisc, from.y);
         case 3:
-            return Point(from.x+0.25, from.y+0.25);
+            return Point(from.x+gridDisc, from.y+gridDisc);
         case 4:
-            return Point(from.x, from.y+0.25);
+            return Point(from.x, from.y+gridDisc);
         case 5:
-            return Point(from.x-0.25, from.y+0.25);
+            return Point(from.x-gridDisc, from.y+gridDisc);
         case 6:
-            return Point(from.x-0.25, from.y);
+            return Point(from.x-gridDisc, from.y);
         case 7:
-            return Point(from.x-0.25, from.y-0.25);
+            return Point(from.x-gridDisc, from.y-gridDisc);
     }
 }
