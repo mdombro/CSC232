@@ -5,8 +5,6 @@ CMakeFiles/pfc.dir/pfc.cpp.o: ../pfc.cpp
 CMakeFiles/pfc.dir/pfc.cpp.o: ../point.h
 CMakeFiles/pfc.dir/pfc.cpp.o: /opt/ros/indigo/include/XmlRpcDecl.h
 CMakeFiles/pfc.dir/pfc.cpp.o: /opt/ros/indigo/include/XmlRpcValue.h
-CMakeFiles/pfc.dir/pfc.cpp.o: /opt/ros/indigo/include/actionlib_msgs/GoalID.h
-CMakeFiles/pfc.dir/pfc.cpp.o: /opt/ros/indigo/include/actionlib_msgs/GoalStatus.h
 CMakeFiles/pfc.dir/pfc.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point.h
 CMakeFiles/pfc.dir/pfc.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point32.h
 CMakeFiles/pfc.dir/pfc.cpp.o: /opt/ros/indigo/include/geometry_msgs/Polygon.h

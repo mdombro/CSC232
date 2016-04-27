@@ -34,7 +34,6 @@ float angleIncrement;
 int numBeams;
 float dCone;
 float maxRange = 10.0f;
-//float dWall = 2.0;
 float rCone = 0.1;
 
 int freq = 100;
@@ -44,7 +43,6 @@ float dt = 1.0/(float)freq;
 void cmmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
     command[0] = msg->linear.x;
     command[1] = msg->angular.z;
-    //cout << "Commands: " << command[0] << " " << command[1] << endl;
 }
 
 void reset(const std_msgs::Empty::ConstPtr& msg) {
@@ -163,8 +161,6 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
     My[4] = 0;
     My[5] = 0;
     float angle = angleMin + pose[2];  // find the starting angle beam
-    //dCone = sqrt( pow(pose[0]-1.0,2) + pow(pose[1],2 ) );
-    //float phi = atan2(pose[1],(1-pose[0]));  // bearing of feature from robot
     for (int i = 0; i < numBeams; i++) {
         float maxX = pose[0] + maxRange*cos(angle);
         float maxY = pose[1] + maxRange*sin(angle);
@@ -172,7 +168,6 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
         float c = pose[1] - m*pose[0];
 
         vector<float> range;
-        //vector<float> range2(6);
         for (int g = 0; g < 6; g++) {
             float phi = atan2(My[g] - pose[1],(Mx[g] - pose[0]));  // bearing of feature from robot
             float A = pow(m,2)+1;
@@ -187,7 +182,6 @@ void calcTrueDistance(float trueDistances[], int numBeams, float inc) {
                 float range1 = sqrt( pow(pose[0] - x1, 2) + pow(pose[1] - y1, 2) );
                 float range2 = sqrt( pow(pose[0] - x2, 2) + pow(pose[1] - y2, 2) );
                 (range1 < range2) ? range.push_back(range1) : range.push_back(range2);
-                cout << "range1: " << range1 << " range2: " << range2 << " g: " << g << endl;
             } else {
                 range.push_back(maxRange);
             }

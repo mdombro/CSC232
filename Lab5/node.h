@@ -11,11 +11,6 @@ public:
     Node();
 };
 
-// Node::Node(int cost1 = 1, Node* from1 = NULL) {
-//     cost = cost1;
-//     from = from1;
-//     visited = false;
-// }
 Node::Node() {
     cost = 10000;
     priority = 10000;
@@ -29,5 +24,4 @@ Node::Node(Point loc) {
     from = NULL;
     location = loc;
     visited = false;
-    //location = loc;
 }

@@ -31,9 +31,7 @@ Localizer::Localizer() {
     u << 0.00000000001, 0.00000000001;        // linear velocity, angular velocity
     mu << 0.0, 0.0, 0.0;  // x, y, theta of robot
 
-    // z.resize(6);
-    // for (int k = 0; k < 6; k++)
-    //     z[k] << 0.0, 0.0, k;   // distance, bearing, signature
+    // distance, bearing, signature
     z << 0.0, 0.0, 0.0;
     St.resize(6);
     for (int k = 0; k < 6; k++) {
@@ -99,10 +97,8 @@ void Localizer::EKF() {
 
     float spr = u(0)/u(1);
 
-    // Gt
     Gt(0,2) = (-spr*cos(theta))+(spr*cos(theta+u(1)*dt));
     Gt(1,2) = (-spr*sin(theta))+(spr*sin(theta+u(1)*dt));
-    // Vt
     Vt(0,0) = (-sin(theta)+sin(theta+u(1)*dt))/u(1);
     Vt(1,0) = (cos(theta)-cos(theta+u(1)*dt))/u(1);
     Vt(0,1) = ( (u(0)*(sin(theta)-sin(theta+u(1)*dt)))/pow(u(1),2) ) + (u(0)*cos(theta+u(1)*dt)*dt)/u(1);
@@ -119,7 +115,6 @@ void Localizer::EKF() {
         zest[i](0) = sqrt(q);
         zest[i](1) = atan2(My[i] - projMu(1), Mx[i] - projMu(0)) - projMu(2);
         zest[i](2) = i;
-        //cout << "Estimates: " << zest[i](0) <<  " " << zest[i](1) << endl;
         Ht[i](0,0) = -(Mx[i]-projMu(0))/sqrt(q);
         Ht[i](0,1) = -(My[i]-projMu(1))/sqrt(q);
         Ht[i](1,0) = (My[i]-projMu(1))/q;
@@ -129,7 +124,6 @@ void Localizer::EKF() {
     }
     if(z(0) != -1000) projMu = projMu + Kt[z(2)]*((z-zest[z(2)]).transpose());
     else projMu = projMu;
-    //projMu = projMu + Kt[z(2)]*((z-zest[z(2)]).transpose());
 
     Eigen::Matrix3f I;
     I << 1.0, 0.0, 0.0,
@@ -165,6 +159,9 @@ void Localizer::findFeature() {
 
     float min[2] = {scans[0], beamAngle};
     for (int i = 0; i < scans.size(); i++) {
+        if (scans[i] != scans[i]) {
+            continue;
+        }
         if (scans[i] < min[0]) {
             min[0] = scans[i];
             min[1] = beamAngle;
@@ -180,14 +177,12 @@ void Localizer::findFeature() {
         int changed = 0;
         for (int o = 1; o < 6; o++) {
             // find closest in range and sanity check bearing
-            //cout << "Comp: " << abs(min[0]-zest[bestCorrelation](0)) << " " << abs(min[0]-zest[o](0)) << endl;
             if (abs(min[0]-zest[o](0)) <= abs(min[0]-zest[bestCorrelation](0)) ) {
                 bestCorrelation = o; // hopefully the index of the closest cone
-                //cout << "Correl: " << bestCorrelation << endl;
                 changed = 1;
             }
         }
-        if (abs(min[1]-zest[bestCorrelation](1)) < 4.0*sqrt(St[bestCorrelation](1,1))) {  // is the bearing as expected - filter out random objects
+        if (abs(min[1]-zest[bestCorrelation](1)) < 4.2*sqrt(St[bestCorrelation](1,1))) {  // is the bearing as expected - filter out random objects
             z(0) = min[0]+0.1;
             z(1) = min[1];
             z(2) = bestCorrelation;
@@ -198,7 +193,6 @@ void Localizer::findFeature() {
             z(2) = -1000;
         }
     }
-    //cout << "Min: " << min[0] << endl;
     cout << "Signature of detected cone: " << z(2) << endl;
 }
 

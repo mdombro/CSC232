@@ -6,8 +6,6 @@ CMakeFiles/planner.dir/planner.cpp.o: ../planner.cpp
 CMakeFiles/planner.dir/planner.cpp.o: ../point.h
 CMakeFiles/planner.dir/planner.cpp.o: /opt/ros/indigo/include/XmlRpcDecl.h
 CMakeFiles/planner.dir/planner.cpp.o: /opt/ros/indigo/include/XmlRpcValue.h
-CMakeFiles/planner.dir/planner.cpp.o: /opt/ros/indigo/include/actionlib_msgs/GoalID.h
-CMakeFiles/planner.dir/planner.cpp.o: /opt/ros/indigo/include/actionlib_msgs/GoalStatus.h
 CMakeFiles/planner.dir/planner.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point.h
 CMakeFiles/planner.dir/planner.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point32.h
 CMakeFiles/planner.dir/planner.cpp.o: /opt/ros/indigo/include/geometry_msgs/Polygon.h

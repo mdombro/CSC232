@@ -6,8 +6,6 @@ CMakeFiles/pfc.dir/pfc.cpp.o
  /home/matthew/CSC232/Lab5/point.h
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h
- /opt/ros/indigo/include/actionlib_msgs/GoalID.h
- /opt/ros/indigo/include/actionlib_msgs/GoalStatus.h
  /opt/ros/indigo/include/geometry_msgs/Point.h
  /opt/ros/indigo/include/geometry_msgs/Point32.h
  /opt/ros/indigo/include/geometry_msgs/Polygon.h
