@@ -1,0 +1,91 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{tabularx,amsmath,boxedminipage,graphicx}
+\usepackage[margin=1in,letterpaper]{geometry} % this shaves off default margins which are too big
+\usepackage{cite}
+\usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+\usepackage{graphicx}
+\usepackage{subfig}
+\hypersetup{
+	colorlinks=true,       % false: boxed links; true: colored links
+	linkcolor=blue,          % color of internal links
+	citecolor=blue,        % color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=blue         
+}
+
+\begin{document}
+
+\title{ECE 232 Lab 5/6}
+\author{Matthew Dombroski}
+\date{April 27, 2016}
+\maketitle
+
+%  Abstract: A summary of the laboratory exercise, software that was implemented, data that was gathered, and
+%  analysis that was completed.
+%  • Code Implementation: A description of the code that was implemented to complete the lab. This is to be
+%   written at the level of detail that qualitatively describes the files that were written and the purpose of the c++ functions that were implemented.
+%  • Data and Data Analysis: The tables/plots of the data collected (as per the instructions of the  laboratory) and written descriptions of the observations.
+%  • Laboratory Questions: Answers to the questions posted at the end of the laboratory.
+
+ I affirm that I have not given or received any unauthorized help on this assignment,
+and that all work is my own.
+\begin{abstract}
+The purpose of this lab was to implement an autnomous navigation system for navigating the robot through an obstacle course. The core concepts of the class such as localization, optimal path planning, and path following were implemented in one integrated system that successfully navigated the robot through the course in the simulator. 
+\end{abstract}
+
+
+\section{Code Implementation}
+There were several overarching tasks needed in order to implement this lab. First the localizer needed to be updated so that it could handle multiple features within the map. Second a path planning algorithm needed to be implemented such that a path correctly navigating the course would be computed for each waypoint. Finally a path following algorithm needed to be implemented to command the robot to follow the path created by the planner within acceptable margins
+
+\subsection*{Localiazation} 
+The final implementation for the localization algorithm is extremely simple and basic, but shown in the simulator to be reliable.
+\\\\
+A matrix of $z_{est}$ stores all of the predicted cone loactions in relation to the robot. These values are updated for every cycle of localization whether or not a measurement for that cone was received. For every laser scan read all the returns are filtered and the shortest overall return is selected. This return is then compared with all of the expected cone positions in the matrix $z_{est}$ and the cone with the highest correlation to the beam return is then selected as the beam feature correspondance. The beam return is then extended by the cone radius and the bearing, location, and correspindance are stored in the measurement vector z. The EKF algorithm will then update the robot pos and the expected cone positions based on this meanruement. 
+\\\
+Some additional details for the localization are that the shortest beam return is correlated based upon the lest difference in distance between the beam return and cones - whichever cone is closest to the beam return is tentaviley set as the corerspondance for that beam. If the closest beam return is further than 2.5m away the beam return is rejected. If this test passes the bearing of the beam is then checked against that expected cone bearing and if it is whithin a certain tolerance based on the variance for that cone bearing, the correspondance is firmly set for that beam measurement. If at any time any of these tests fails, the measurements are ignored and the EKF updates without a measurement. 
+\\\\ 
+In addition it was found that updating the EKF algorithm faster caused it to be more accurate. With more updates per time interval more data is processed bu the algorithm and more potential beam returns are integrated into the pos estimation. The overall result was that even given certain frawbacks in the implementation of the EKF the reults of the localization were still reliable and accurate. 
+
+\section{Data and Analysis}
+
+\section{Laboratory Questions}
+
+
+
+
+%++++++++++++++++++++++++++++++++++++++++
+
+% References section will be created automatically 
+% with inclusion of "thebibliography" environment
+% as it shown below. See text starting with line
+% \begin{thebibliography}{99}
+
+
+
+
+% There is a fancier and in long run more convinient way to do bibliography 
+% with automatic inclusion of references from the bibliography database
+% file. See usage of "bibtex" if you are interested in it.
+% http://www.bibtex.org/
+% but for know we will go with hand formated list.
+% Note: with this approach it is YOUR responsibility to put them in order
+% of appearance.
+%\begin{thebibliography}{99}
+
+
+%\bibitem{melissinos}
+%A.~C. Melissinos and J. Napolitano, \textit{Experiments in Modern Physics},
+%(Academic Press, New York, 2003).
+
+%\bibitem{Cyr}
+%N.\ Cyr, M.\ T$\hat{e}$tu, and M.\ Breton,
+% "All-optical microwave frequency standard: a proposal,"
+%IEEE Trans.\ Instrum.\ Meas.\ \textbf{42}, 640 (1993).
+
+%\bibitem{Wiki} \emph{Expected value},  available at
+%\texttt{http://en.wikipedia.org/wiki/Expected\_value}.
+
+%\end{thebibliography}
+
+
+\end{document}
