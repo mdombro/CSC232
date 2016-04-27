@@ -21,13 +21,14 @@ Point mu(0,0);
 //int prevCmd = 4;
 
 vector<Point> pathAstar;
-float coneExpansion = 0.4;
+float coneExpansion = 0.45;
 int goalNum = 0;
 Point goal(0,0);  // set by exec
 Point start(0,0);  // set by exec
 float goalThresh = 0.001;
 float GoalThresh = 0.4;
 float gridDisc = 0.25;
+float closedNodeThresh = 0.001;
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "planner");
@@ -93,19 +94,27 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
     vector<Node*> openList;
     openList.push_back(&startN);
     vector<Node*> closedList;
-    bool updateNeighbor = false;
     int cost;
     while (openList.size() != 0) {
         Node *current = openList[0];
+        //cout << "Current: " << (*current).location.x << " " << (*current).location.y << endl;
         openList.erase(openList.begin());
         (*current).visited = true;
         closedList.push_back(current);
+        //cout << abs((*current).location.x - goal.x) << " " << abs((*current).location.y - goal.y) << endl;
         if ( abs((*current).location.x - goal.x) < goalThresh && abs((*current).location.y - goal.y) < goalThresh) break;
         for (int i = 0; i < 8; i++) {
             Node* neighbor = new Node(getLoc((*current).location, i));
             cost = (*current).cost + computeCost((*current).location, (*neighbor).location, goalNum, i);  // goal needed to extract orientation
+            for (int o = 0; o < closedList.size(); o++) {  // search the closedList for the node
+                Node *tmp = closedList[o];
+                if (distanceP((*neighbor).location, (*tmp).location) < closedNodeThresh) {
+                    (*neighbor).visited = true;
+                }
+            }
             if (!(*neighbor).visited) {
                 if (cost < (*neighbor).cost) {
+                    cout << "Heuristic: " << heuristic(*neighbor, goal) << endl;
                     (*neighbor).priority = cost + heuristic(*neighbor, goal);
                     (*neighbor).cost = cost;
                     (*neighbor).from = current;
@@ -132,8 +141,9 @@ int heuristic(Node neighbor, Point goal) {
     float h;
     int dx = (int)(abs(neighbor.location.x - goal.x)/gridDisc);
     int dy = (int)(abs(neighbor.location.y - goal.y)/gridDisc);
+    cout << "dx: " << dx << " dy: " << dy << endl;
     h = (dx +dy)+(sqrt(2)-2)*min(dx, dy);
-    h *= (1.0 + 1.0/50.0);
+    //h *= (1.0 + 1.0/30.0);
     return h;
 }
 
