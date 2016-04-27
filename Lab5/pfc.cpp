@@ -23,7 +23,7 @@ float runPurePursuit();
 
 float Wthresh = 0.1;
 float maxAngularVelocity = M_PI;
-float lookAheadDistance = 0.15;
+float lookAheadDistance = 0.17;
 float linearVelocity = 0.1;
 float linVel;
 float angularVelocity;
@@ -83,6 +83,7 @@ int main(int argc, char** argv) {
                 angularVelocity = 0;
             }
         }
+        if (linVel > linearVelocity) {linVel = linearVelocity;}
         cmd.linear.x = linVel;
         cmd.angular.z = angularVelocity;
         ros::spinOnce();

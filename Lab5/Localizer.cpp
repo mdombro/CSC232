@@ -109,6 +109,12 @@ void Localizer::EKF() {
     projMu(0) = mu(0) + (-spr*sin(theta))+(spr*sin(theta+u(1)*dt));
     projMu(1) = mu(1) + (spr*cos(theta))-(spr*cos(theta+u(1)*dt));
     projMu(2) = mu(2) + u(1)*dt;
+    if (projMu(2) > M_PI) {
+        projMu(2) -= 2.0*M_PI;
+    }
+    else if (projMu(2) < -M_PI) {
+        projMu(2) += 2.0*M_PI;
+    }
     projSigma = Gt*sigma*Gt.transpose() + Vt*Mt*Vt.transpose();
     for (int i = 0; i < 6; i++) {
         float q = pow(Mx[i] - projMu(0), 2) + pow(My[i] - projMu(1), 2);

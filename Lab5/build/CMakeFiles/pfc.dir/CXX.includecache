@@ -32,10 +32,6 @@ tf/LinearMath/Matrix3x3.h
 geometry_msgs/PoseWithCovariance.h
 /home/matthew/CSC232/Lab5/geometry_msgs/PoseWithCovariance.h
 
-/home/matthew/CSC232/Lab5/point.cpp
-point.h
-/home/matthew/CSC232/Lab5/point.h
-
 /home/matthew/CSC232/Lab5/point.h
 
 /opt/ros/indigo/include/XmlRpcDecl.h

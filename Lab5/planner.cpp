@@ -133,7 +133,7 @@ int heuristic(Node neighbor, Point goal) {
     int dx = (int)(abs(neighbor.location.x - goal.x)/gridDisc);
     int dy = (int)(abs(neighbor.location.y - goal.y)/gridDisc);
     h = (dx +dy)+(sqrt(2)-2)*min(dx, dy);
-    //h *= (1.0 + 1.0/100.0);
+    h *= (1.0 + 1.0/50.0);
     return h;
 }
 

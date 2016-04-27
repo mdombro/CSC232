@@ -46,12 +46,6 @@ vector
 Eigen/Dense
 -
 
-/home/matthew/CSC232/Lab5/point.cpp
-point.h
-/home/matthew/CSC232/Lab5/point.h
-
-/home/matthew/CSC232/Lab5/point.h
-
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
 -
