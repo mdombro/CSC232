@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
         if (linVel > linearVelocity) {linVel = linearVelocity;}
 	cout << "Cmds: " << linVel << "  " << angularVelocity << endl;
         cmd.linear.x = linVel;
-        cmd.angular.z = -angularVelocity;
+        cmd.angular.z = angularVelocity;
         ros::spinOnce();
 		pub.publish(cmd);
         path.publish(path_and_lookahead);

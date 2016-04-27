@@ -7,8 +7,13 @@
 #include "geometry_msgs/Twist.h"
 #include "Localizer.h"
 #include <Eigen/Dense>
+#include "point.h"
 
 using namespace std;
+
+Point toGlobal(float range, float bearing, Eigen::RowVector3f mu);
+// Point toLocal(Point beamend, Eigen::RowVector3f mu);
+float distanceP(Point & A, Point & B);
 
 Localizer::Localizer() {
     Mx.resize(6);
@@ -32,7 +37,9 @@ Localizer::Localizer() {
     mu << 0.0, 0.0, 0.0;  // x, y, theta of robot
 
     // distance, bearing, signature
-    z << 0.0, 0.0, 0.0;
+    z.resize(6);
+    for (int e = 0; e < 6; e++)
+        z[e] << Mx[e], 0.0, e;
     St.resize(6);
     for (int k = 0; k < 6; k++) {
         St[k] << 0.1, 0.0, 0.0,    // covariance of beam returns - play with values
@@ -76,9 +83,9 @@ Localizer::Localizer() {
     projSigma << 0.0, 0.0, 0.0,
 	     0.0, 0.0, 0.0,
 	     0.0, 0.0, 0.0;
-    Qt << 0.001, 0.0, 0.0,
-          0.0, 0.001, 0.0,
-          0.0, 0.0, 0.001;
+    Qt << 0.0001, 0.0, 0.0,
+          0.0, 0.0001, 0.0,
+          0.0, 0.0, 0.0001;
 }
 
 void Localizer::setAlpha(float alphas) {
@@ -127,15 +134,26 @@ void Localizer::EKF() {
         Ht[i](1,1) = -(Mx[i]-projMu(0))/q;
         St[i] = Ht[i]*projSigma*Ht[i].transpose() + Qt;
         Kt[i] = projSigma*Ht[i].transpose()*St[i].inverse();
+        if(z[i](0) != -1000) projMu = projMu + Kt[i]*((z[i]-zest[i]).transpose());
+        else projMu = projMu;
+        Eigen::Matrix3f I;
+        I << 1.0, 0.0, 0.0,
+             0.0, 1.0, 0.0,
+             0.0, 0.0, 1.0;
+        projSigma = (I-Kt[i]*Ht[i])*projSigma;
     }
-    if(z(0) != -1000) projMu = projMu + Kt[z(2)]*((z-zest[z(2)]).transpose());
-    else projMu = projMu;
+    // if(z(0) != -1000) projMu = projMu + Kt[z(2)]*((z-zest[z(2)]).transpose());
+    // else projMu = projMu;
 
     Eigen::Matrix3f I;
     I << 1.0, 0.0, 0.0,
          0.0, 1.0, 0.0,
          0.0, 0.0, 1.0;
-    if (z(0) != -1000) projSigma = (I-Kt[z(2)]*Ht[z(2)])*projSigma;
+    // for (int r = 0; r < 6; r++) {
+    //     projSigma = (I-Kt[r]*Ht[r])*projSigma;
+    //     //if (z[r](0) != -1000)
+    //     //else projSigma = projSigma;
+    // }
     mu = projMu;
     sigma = projSigma;
     quaternion[0] = cos(mu(2)/2);
@@ -162,61 +180,143 @@ void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 // locate the feature from given LaserScan and update the feature vector z
 void Localizer::findFeature() {
     float beamAngle = minAngle;
-    vector<vector<float>> rangeS;
-    vector<vector<float>> bearingS;
-    float min[2] = {scans[0], beamAngle};
+    vector<Point> endbeams;
+    float bx, by;
+    //Point bend;
     for (int i = 0; i < scans.size(); i++) {
-	for (int t = 0; t < 6; t++) {
-		if (abs(scans[i] - zest[o](0)) < 4*St[o](0,0)) {
-			rangeS[t].push_back(scans[i]);
-			bearingS[t].push_back(beamAngle);
-		}
-	}
-        //if (scans[i] != scans[i]) {
-        //    continue;
-        //}
-        //if (scans[i] < min[0]) {
-        //    min[0] = scans[i];
-        //    min[1] = beamAngle;
-        //}
+        if (scans[i] < 0.2 || scans[i] > 2.5) {beamAngle++; continue;}
+        Point bend = toGlobal(scans[i], beamAngle, Localizer::mu);
+        //if (i == 0) cout << bend.x << " " << bend.y << endl;
+        endbeams.push_back(bend);
         beamAngle += angleIncrement;
     }
-	vector<float> minR = ramgeS[0][0];
-	vector<float> minA = bearing
-	for (int u = 0; u < 6; u++) {
-		for (int g = 0; g < rangeS[u].size(); g++) {
-			if (rangeS[u][g] < min) {
-				minR = rangeS[u][g];
-				minA = bearingS[u][g];
-			}
-		}
-	}
-    if (min[0] > 2.5) {  // skip if past 2.5 meter threshold
-        z(0) = -1000;
-        z(1) = -1000;
-        z(2) = -1000;
-    } else {
-        int bestCorrelation = 0;
-        int changed = 0;
-        for (int o = 1; o < 6; o++) {
-            // find closest in range and sanity check bearing
-            if (abs(min[0]-zest[o](0)) <= abs(min[0]-zest[bestCorrelation](0)) ) {
-                bestCorrelation = o; // hopefully the index of the closest cone
-                changed = 1;
+    vector<vector<Point> > potentialBeams;
+    potentialBeams.resize(6);
+    //corr.resize(6);
+    for (int o = 0; o < endbeams.size(); o++) {
+        for (int g = 0; g < 6; g++) {
+            Point cone(Mx[g],My[g]);
+            if (distanceP(endbeams[o], cone) < 0.4) {
+                cout << "Correspondance: " << g << endl;
+                potentialBeams[g].push_back(endbeams[o]);
             }
         }
-        if (abs(min[1]-zest[bestCorrelation](1)) < 4.2*sqrt(St[bestCorrelation](1,1))) {  // is the bearing as expected - filter out random objects
-            z(0) = min[0]+0.1;
-            z(1) = min[1];
-            z(2) = bestCorrelation;
-        }
-        else {
-            z(0) = -1000;
-            z(1) = -1000;
-            z(2) = -1000;
+    }
+    vector<float> mins;
+    vector<Point> minsP;
+    mins.resize(6,0);
+    minsP.resize(6);
+    for (int h = 0; h < 6; h++) {
+        if (potentialBeams[h].size() > 30) {
+            Point Mu(Localizer::mu(0), Localizer::mu(1));
+            mins[h] = distanceP(Mu, potentialBeams[h][0]);
+            minsP[h] = potentialBeams[h][0];
+            for (int r = 1; r < potentialBeams[h].size(); r++) {
+                if (distanceP(Mu, potentialBeams[h][r]) < mins[h]) {
+                    mins[h] = distanceP(Mu, potentialBeams[h][r]);
+                    minsP[h] = potentialBeams[h][r];
+                }
+            }
         }
     }
-    cout << "Signature of detected cone: " << z(2) << endl;
+    cout << "Seen Cones: ";
+    for (int f = 0; f < 6; f++) {
+        if (mins[f] != 0) {
+            Point Mu(Localizer::mu(0), Localizer::mu(1));
+            float range = distanceP(minsP[f], Mu) + coneRadii;
+            float bearing = atan2(minsP[f].y - Localizer::mu(1), minsP[f].x - Localizer::mu(0)) - Localizer::mu(2);
+            //(minsP[f].x-Localizer::mu(0))*sin(Localizer::mu(2))+(minsP[f].y-Localizer::mu(1))*cos(Localizer::mu(2));
+            z[f](0) = range;
+            z[f](1) = bearing;
+            z[f](2) = f;
+            cout << " " << z[f](2) << " " << range;
+        }
+        else {
+            z[f](0) = -1000;
+            z[f](1) = -1000;
+            z[f](2) = f;
+        }
+        //if (minsP.size() != 0) cout << " " << minsP[f].x << " " << minsP[f].y;
+    }
+    cout << endl;
+
+    // float beamAngle = minAngle;
+    // vector<vector<float>> rangeS;
+    // vector<vector<float>> bearingS;
+    // float min[2] = {scans[0], beamAngle};
+    // for (int i = 0; i < scans.size(); i++) {
+	// for (int t = 0; t < 6; t++) {
+	// 	if (abs(scans[i] - zest[o](0)) < 4*St[o](0,0)) {
+	// 		rangeS[t].push_back(scans[i]);
+	// 		bearingS[t].push_back(beamAngle);
+	// 	}
+	// }
+    //     //if (scans[i] != scans[i]) {
+    //     //    continue;
+    //     //}
+    //     //if (scans[i] < min[0]) {
+    //     //    min[0] = scans[i];
+    //     //    min[1] = beamAngle;
+    //     //}
+    //     beamAngle += angleIncrement;
+    // }
+	// vector<float> minR = ramgeS[0][0];
+	// vector<float> minA = bearing
+	// for (int u = 0; u < 6; u++) {
+	// 	for (int g = 0; g < rangeS[u].size(); g++) {
+	// 		if (rangeS[u][g] < min) {
+	// 			minR = rangeS[u][g];
+	// 			minA = bearingS[u][g];
+	// 		}
+	// 	}
+	// }
+    // if (min[0] > 2.5) {  // skip if past 2.5 meter threshold
+    //     z(0) = -1000;
+    //     z(1) = -1000;
+    //     z(2) = -1000;
+    // } else {
+    //     int bestCorrelation = 0;
+    //     int changed = 0;
+    //     for (int o = 1; o < 6; o++) {
+    //         // find closest in range and sanity check bearing
+    //         if (abs(min[0]-zest[o](0)) <= abs(min[0]-zest[bestCorrelation](0)) ) {
+    //             bestCorrelation = o; // hopefully the index of the closest cone
+    //             changed = 1;
+    //         }
+    //     }
+    //     if (abs(min[1]-zest[bestCorrelation](1)) < 4.2*sqrt(St[besfloat distanceP(Point & A, Point & B) tCorrelation](1,1))) {  // is the bearing as expected - filter out random objects
+    //         z(0) = min[0]+0.1;
+    //         z(1) = min[1];
+    //         z(2) = bestCorrelation;
+    //     }
+    //     else {
+    //         z(0) = -1000;
+    //         z(1) = -1000;
+    //         z(2) = -1000;
+    //     }
+    // }
+    // cout << "Signature of detected cone: " << z(2) << endl;
+}
+
+Point toGlobal(float range, float bearing, Eigen::RowVector3f mu) {
+    float Lx = range*cos(bearing);
+    float Ly = range*sin(bearing);
+    float Gx = Lx*cos(mu(2))-Ly*sin(mu(2))+mu(0);
+    float Gy = Lx*sin(mu(2))+Ly*cos(mu(2))+mu(1);
+    //cout << Gx << " " << Gy << endl;
+    Point G(Gx, Gy);
+    return G;
+}
+
+// Point toLocal(Point beamend, Eigen::RowVector3f mu) {
+//     Point Mu(mu(0), mu(1));
+//     float range = distanceP(beamend, Mu);
+//     float bearing = atan2(beamend.x - mu(1), beamend.y - mu(0)) - mu(2);
+//     return Point(Gx, Gy);
+// }
+
+float distanceP(Point & A, Point & B) {
+    return sqrt(pow(A.x-B.x,2) + pow(A.y-B.y,2));
 }
 
 void Localizer::setConeRadii(double r) {
