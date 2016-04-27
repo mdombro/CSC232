@@ -3,6 +3,7 @@
 #include <ros/ros.h>
 #include "geometry_msgs/PoseWithCovariance.h"
 #include <Eigen/Dense>
+#include "nav_msgs/Odometry.h"
 
 using namespace std;
 float updateFreq = 60;
@@ -19,8 +20,9 @@ int main(int argc, char* argv[]) {
     localizer.setUpdateRate(updateFreq);
     ros::NodeHandle n;
     ros::Publisher posWCov = n.advertise<geometry_msgs::PoseWithCovariance>("/pos", 1);
-    ros::Subscriber cntrl = n.subscribe("/cmd_vel_mux/input/navi", 1000, &Localizer::cmdUpdate, &localizer);  // update the command velocities
-    ros::Subscriber beams = n.subscribe("/scan", 1000, &Localizer::handleScans, &localizer);
+   // ros::Subscriber cntrl = n.subscribe("/cmd_vel_mux/input/navi", 1000, &Localizer::cmdUpdate, &localizer);  // update the command velocities
+     ros::Subscriber cntrl = n.subscribe("/odom", 1000, &Localizer::cmdUpdate, &localizer);
+	ros::Subscriber beams = n.subscribe("/scan", 1000, &Localizer::handleScans, &localizer);
     ros::Rate loop_rate(updateFreq);
     while (ros::ok()) {
         if (localizer.scans.size() != 0) {

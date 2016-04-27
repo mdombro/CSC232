@@ -8,6 +8,7 @@
 #include "Localizer.h"
 #include <Eigen/Dense>
 #include "point.h"
+#include "nav_msgs/Odometry.h"
 
 using namespace std;
 
@@ -83,9 +84,9 @@ Localizer::Localizer() {
     projSigma << 0.0, 0.0, 0.0,
 	     0.0, 0.0, 0.0,
 	     0.0, 0.0, 0.0;
-    Qt << 0.0001, 0.0, 0.0,
-          0.0, 0.0001, 0.0,
-          0.0, 0.0, 0.0001;
+    Qt << 0.001, 0.0, 0.0,
+          0.0, 0.001, 0.0,
+          0.0, 0.0, 0.001;
 }
 
 void Localizer::setAlpha(float alphas) {
@@ -172,9 +173,14 @@ void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
     }
 }
 
-void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
-	u(0) = msg->linear.x;
-	u(1) = msg->angular.z + 0.00001;
+//void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
+	//u(0) = msg->linear.x;
+	//u(1) = msg->angular.z + 0.00001;
+//}
+
+void Localizer::cmdUpdate(const nav_msgs::Odometry::ConstPtr& msg) {
+	u(0) = msg->twist.twist.linear.x;
+	u(1) = msg->twist.twist.angular.z + 0.00001;
 }
 
 // locate the feature from given LaserScan and update the feature vector z
@@ -184,7 +190,7 @@ void Localizer::findFeature() {
     float bx, by;
     //Point bend;
     for (int i = 0; i < scans.size(); i++) {
-        if (scans[i] < 0.2 || scans[i] > 2.5) {beamAngle++; continue;}
+        if (scans[i] < 0.4 || scans[i] > 5.0) {beamAngle++; continue;}
         Point bend = toGlobal(scans[i], beamAngle, Localizer::mu);
         //if (i == 0) cout << bend.x << " " << bend.y << endl;
         endbeams.push_back(bend);
@@ -196,7 +202,7 @@ void Localizer::findFeature() {
     for (int o = 0; o < endbeams.size(); o++) {
         for (int g = 0; g < 6; g++) {
             Point cone(Mx[g],My[g]);
-            if (distanceP(endbeams[o], cone) < 0.4) {
+            if (distanceP(endbeams[o], cone) < 0.15) {
                 cout << "Correspondance: " << g << endl;
                 potentialBeams[g].push_back(endbeams[o]);
             }
@@ -207,7 +213,7 @@ void Localizer::findFeature() {
     mins.resize(6,0);
     minsP.resize(6);
     for (int h = 0; h < 6; h++) {
-        if (potentialBeams[h].size() > 30) {
+        if (potentialBeams[h].size() > 5) {
             Point Mu(Localizer::mu(0), Localizer::mu(1));
             mins[h] = distanceP(Mu, potentialBeams[h][0]);
             minsP[h] = potentialBeams[h][0];

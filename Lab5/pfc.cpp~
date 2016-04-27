@@ -24,7 +24,7 @@ float runPurePursuit();
 float Wthresh = 0.1;
 float maxAngularVelocity = M_PI;
 float lookAheadDistance = 0.17;
-float linearVelocity = 0.1;
+float linearVelocity = 0.2;
 float linVel;
 float angularVelocity;
 Point lookahead(0,0);

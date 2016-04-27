@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab5/build/gui_process_cmdline.c
+/tmp/guest-Ni8rM1/CSC232/Lab5/build/gui_process_cmdline.c
 config.h
-/home/matthew/CSC232/Lab5/build/config.h
+/tmp/guest-Ni8rM1/CSC232/Lab5/build/config.h
 stdio.h
 -
 stdlib.h
@@ -18,11 +18,11 @@ string.h
 getopt.h
 -
 gui_process_cmdline.h
-/home/matthew/CSC232/Lab5/build/gui_process_cmdline.h
+/tmp/guest-Ni8rM1/CSC232/Lab5/build/gui_process_cmdline.h
 
-/home/matthew/CSC232/Lab5/build/gui_process_cmdline.h
+/tmp/guest-Ni8rM1/CSC232/Lab5/build/gui_process_cmdline.h
 config.h
-/home/matthew/CSC232/Lab5/build/config.h
+/tmp/guest-Ni8rM1/CSC232/Lab5/build/config.h
 stdio.h
 -
 

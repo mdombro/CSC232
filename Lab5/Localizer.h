@@ -63,7 +63,8 @@ public:
     Localizer();
     void findFeature();
     void handleScans(const sensor_msgs::LaserScan::ConstPtr& msg);
-    void cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg);
+    //void cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg);
+    void cmdUpdate(const nav_msgs::Odometry::ConstPtr& msg);
     void setConeRadii(double radii);
     void setAlpha(float alphas);
     void setUpdateRate(float freq);

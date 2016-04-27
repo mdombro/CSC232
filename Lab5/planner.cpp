@@ -21,7 +21,7 @@ Point mu(0,0);
 //int prevCmd = 4;
 
 vector<Point> pathAstar;
-float coneExpansion = 0.45;
+float coneExpansion = 0.40;
 int goalNum = 0;
 Point goal(0,0);  // set by exec
 Point start(0,0);  // set by exec
