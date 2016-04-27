@@ -4,7 +4,6 @@
 CMakeFiles/naviSub.dir/naviSub_cmdline.c.o: naviSub_cmdline.c
 CMakeFiles/naviSub.dir/naviSub_cmdline.c.o: naviSub_cmdline.h
 
-CMakeFiles/naviSub.dir/naviSub.cpp.o: ../naviSub.cpp
 CMakeFiles/naviSub.dir/naviSub.cpp.o: /opt/ros/indigo/include/XmlRpcDecl.h
 CMakeFiles/naviSub.dir/naviSub.cpp.o: /opt/ros/indigo/include/XmlRpcValue.h
 CMakeFiles/naviSub.dir/naviSub.cpp.o: /opt/ros/indigo/include/geometry_msgs/Twist.h
@@ -63,5 +62,6 @@ CMakeFiles/naviSub.dir/naviSub.cpp.o: /opt/ros/indigo/include/ros/types.h
 CMakeFiles/naviSub.dir/naviSub.cpp.o: /opt/ros/indigo/include/ros/wall_timer.h
 CMakeFiles/naviSub.dir/naviSub.cpp.o: /opt/ros/indigo/include/ros/wall_timer_options.h
 CMakeFiles/naviSub.dir/naviSub.cpp.o: /opt/ros/indigo/include/rosconsole/macros_generated.h
+CMakeFiles/naviSub.dir/naviSub.cpp.o: ../naviSub.cpp
 CMakeFiles/naviSub.dir/naviSub.cpp.o: naviSub_cmdline.h
 

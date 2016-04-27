@@ -84,8 +84,9 @@ int main(int argc, char** argv) {
             }
         }
         if (linVel > linearVelocity) {linVel = linearVelocity;}
+	cout << "Cmds: " << linVel << "  " << angularVelocity << endl;
         cmd.linear.x = linVel;
-        cmd.angular.z = angularVelocity;
+        cmd.angular.z = -angularVelocity;
         ros::spinOnce();
 		pub.publish(cmd);
         path.publish(path_and_lookahead);
@@ -135,7 +136,7 @@ Point lookAheadPoint(Point mu, vector<float> path_x, vector<float> path_y) {
     Point goal(path_x[path_x.size()-1], path_y[path_y.size()-1]);
     Point p(path_x[segment-1], path_y[segment-1]);
     Point n(path_x[segment], path_y[segment]);
-    cout << "P: " << p.x << " " << p.y << " N: " << n.x << " " << n.y << endl;
+    //cout << "P: " << p.x << " " << p.y << " N: " << n.x << " " << n.y << endl;
     Point closest = findClosestPoint(p, n, mu);
     if (distanceP(mu, goal) < lookAheadDistance ){
         return Point(path_x[path_x.size()-1], path_y[path_y.size()-1]);

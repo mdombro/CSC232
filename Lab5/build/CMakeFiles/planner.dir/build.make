@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matthew/CSC232/Lab5
+CMAKE_SOURCE_DIR = /tmp/guest-HcCDfM/csc232/Lab5
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matthew/CSC232/Lab5/build
+CMAKE_BINARY_DIR = /tmp/guest-HcCDfM/csc232/Lab5/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/planner.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/planner.dir/flags.make
 
 CMakeFiles/planner.dir/planner.cpp.o: CMakeFiles/planner.dir/flags.make
 CMakeFiles/planner.dir/planner.cpp.o: ../planner.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /tmp/guest-HcCDfM/csc232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/planner.dir/planner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/planner.dir/planner.cpp.o -c /home/matthew/CSC232/Lab5/planner.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/planner.dir/planner.cpp.o -c /tmp/guest-HcCDfM/csc232/Lab5/planner.cpp
 
 CMakeFiles/planner.dir/planner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/planner.dir/planner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/planner.cpp > CMakeFiles/planner.dir/planner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /tmp/guest-HcCDfM/csc232/Lab5/planner.cpp > CMakeFiles/planner.dir/planner.cpp.i
 
 CMakeFiles/planner.dir/planner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/planner.dir/planner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/planner.cpp -o CMakeFiles/planner.dir/planner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /tmp/guest-HcCDfM/csc232/Lab5/planner.cpp -o CMakeFiles/planner.dir/planner.cpp.s
 
 CMakeFiles/planner.dir/planner.cpp.o.requires:
 .PHONY : CMakeFiles/planner.dir/planner.cpp.o.requires
@@ -74,17 +74,17 @@ CMakeFiles/planner.dir/planner.cpp.o.provides.build: CMakeFiles/planner.dir/plan
 
 CMakeFiles/planner.dir/point.cpp.o: CMakeFiles/planner.dir/flags.make
 CMakeFiles/planner.dir/point.cpp.o: ../point.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/matthew/CSC232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /tmp/guest-HcCDfM/csc232/Lab5/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/planner.dir/point.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/planner.dir/point.cpp.o -c /home/matthew/CSC232/Lab5/point.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/planner.dir/point.cpp.o -c /tmp/guest-HcCDfM/csc232/Lab5/point.cpp
 
 CMakeFiles/planner.dir/point.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/planner.dir/point.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/matthew/CSC232/Lab5/point.cpp > CMakeFiles/planner.dir/point.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /tmp/guest-HcCDfM/csc232/Lab5/point.cpp > CMakeFiles/planner.dir/point.cpp.i
 
 CMakeFiles/planner.dir/point.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/planner.dir/point.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/matthew/CSC232/Lab5/point.cpp -o CMakeFiles/planner.dir/point.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /tmp/guest-HcCDfM/csc232/Lab5/point.cpp -o CMakeFiles/planner.dir/point.cpp.s
 
 CMakeFiles/planner.dir/point.cpp.o.requires:
 .PHONY : CMakeFiles/planner.dir/point.cpp.o.requires
@@ -106,188 +106,206 @@ planner_EXTERNAL_OBJECTS =
 planner: CMakeFiles/planner.dir/planner.cpp.o
 planner: CMakeFiles/planner.dir/point.cpp.o
 planner: CMakeFiles/planner.dir/build.make
-planner: /opt/ros/indigo/lib/librviz_plugin_tutorials.so
-planner: /opt/ros/indigo/lib/liboctomap.so.1.6
-planner: /opt/ros/indigo/lib/libcompressed_depth_image_transport.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_video.so
-planner: /opt/ros/indigo/lib/librospack.so
-planner: /opt/ros/indigo/lib/libecl_type_traits.so
-planner: /opt/ros/indigo/lib/libnavfn.so
-planner: /opt/ros/indigo/lib/libcollada_parser_plugin.so
-planner: /opt/ros/indigo/lib/libecl_mobile_robot.so
-planner: /opt/ros/indigo/lib/libsensor_base.so
-planner: /opt/ros/indigo/lib/librosconsole_backend_interface.so
-planner: /opt/ros/indigo/lib/libimage_loader.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_joint_state_publisher.so
-planner: /opt/ros/indigo/lib/libmessage_filters.so
-planner: /opt/ros/indigo/lib/librqt_gui_cpp.so
-planner: /opt/ros/indigo/lib/libcollada_urdf.so
-planner: /opt/ros/indigo/lib/libfreenect_nodelet.so
-planner: /opt/ros/indigo/lib/libbase_local_planner.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_camera.so
-planner: /opt/ros/indigo/lib/libfreenect_sync.so.0.5.1
-planner: /opt/ros/indigo/lib/libdepth_image_proc.so
-planner: /opt/ros/indigo/lib/libnodelet_math.so
-planner: /opt/ros/indigo/lib/libclear_costmap_recovery.so
-planner: /opt/ros/indigo/lib/libroscpp.so
-planner: /opt/ros/indigo/lib/libinteractive_markers.so
-planner: /opt/ros/indigo/lib/libpcl_ros_surface.so
-planner: /opt/ros/indigo/lib/libcv_bridge.so
-planner: /opt/ros/indigo/lib/librandom_numbers.so
-planner: /opt/ros/indigo/lib/libtransfer_function.so
-planner: /opt/ros/indigo/lib/libdiagnostic_aggregator.so
-planner: /opt/ros/indigo/lib/libecl_time_lite.so
-planner: /opt/ros/indigo/lib/libpluginlib_tutorials.so
-planner: /opt/ros/indigo/lib/libdwa_local_planner.so
-planner: /opt/ros/indigo/lib/libfreenect_sync.so
-planner: /opt/ros/indigo/lib/libpcl_ros_segmentation.so
-planner: /opt/ros/indigo/lib/libfreenect.so
-planner: /opt/ros/indigo/lib/libtf.so
-planner: /opt/ros/indigo/lib/libDepthImageToLaserScan.so
-planner: /opt/ros/indigo/lib/libparams.so
-planner: /opt/ros/indigo/lib/libxmlrpcpp.so
-planner: /opt/ros/indigo/lib/libecl_linear_algebra.so
-planner: /opt/ros/indigo/lib/libkobuki_auto_docking_nodelet.so
-planner: /opt/ros/indigo/lib/libsensor_range.so
-planner: /opt/ros/indigo/lib/liboctomath.so.1.6.9
-planner: /opt/ros/indigo/lib/libecl_threads.so
-planner: /opt/ros/indigo/lib/libpcl_ros_tf.so
-planner: /opt/ros/indigo/lib/libutils.so
-planner: /opt/ros/indigo/lib/libimage_rotate.so
-planner: /opt/ros/indigo/lib/libstereo_image_proc.so
-planner: /opt/ros/indigo/lib/libvision_reconfigure.so
-planner: /opt/ros/indigo/lib/libkdl_conversions.so
-planner: /opt/ros/indigo/lib/librosconsole_log4cxx.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_utils.so
-planner: /opt/ros/indigo/lib/libgeometric_shapes.so
-planner: /opt/ros/indigo/lib/libkdl_parser.so
-planner: /opt/ros/indigo/lib/libecl_time.so
-planner: /opt/ros/indigo/lib/libstage.so.4.1.1
-planner: /opt/ros/indigo/lib/libDepthImageToLaserScanROS.so
-planner: /opt/ros/indigo/lib/libtf_conversions.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_bumper.so
-planner: /opt/ros/indigo/lib/libMultiCameraPlugin.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_paths_plugin.so
-planner: /opt/ros/indigo/lib/libamcl_map.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_p3d.so
-planner: /opt/ros/indigo/lib/liborocos-kdl.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_hand_of_god.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_diff_drive.so
-planner: /opt/ros/indigo/lib/libkobuki.so
-planner: /opt/ros/indigo/lib/libscanmatcher.so
-planner: /opt/ros/indigo/lib/liboctomap.so
-planner: /opt/ros/indigo/lib/libroslz4.so
-planner: /opt/ros/indigo/lib/liburdf.so
-planner: /opt/ros/indigo/lib/libopenni2_camera_nodelet.so
 planner: /opt/ros/indigo/lib/librosconsole.so
-planner: /opt/ros/indigo/lib/libecl_exceptions.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_template.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_ft_sensor.so
-planner: /opt/ros/indigo/lib/libpolled_camera.so
-planner: /opt/ros/indigo/lib/libcostmap_2d.so
-planner: /opt/ros/indigo/lib/libroslib.so
-planner: /opt/ros/indigo/lib/libkobuki_bumper2pc_nodelet.so
-planner: /opt/ros/indigo/lib/libpcl_ros_filters.so
-planner: /opt/ros/indigo/lib/libdefault_plugin.so
-planner: /opt/ros/indigo/lib/libpointcloud_filters.so
-planner: /opt/ros/indigo/lib/libecl_streams.so
-planner: /opt/ros/indigo/lib/libecl_errors.so
-planner: /opt/ros/indigo/lib/libsensor_odometry.so
-planner: /opt/ros/indigo/lib/libpointcloud_to_laserscan.so
-planner: /opt/ros/indigo/lib/libkobuki_safety_controller_nodelet.so
-planner: /opt/ros/indigo/lib/libmedian.so
-planner: /opt/ros/indigo/lib/libnodeletlib.so
-planner: /opt/ros/indigo/lib/libwarehouse_ros.so
-planner: /opt/ros/indigo/lib/libactionlib.so
-planner: /opt/ros/indigo/lib/libfreenect.so.0.5
-planner: /opt/ros/indigo/lib/libgazebo_ros_multicamera.so
-planner: /opt/ros/indigo/lib/libyocs_velocity_smoother_nodelet.so
-planner: /opt/ros/indigo/lib/libDepthImageToLaserScanNodelet.so
-planner: /opt/ros/indigo/lib/libstage.so
-planner: /opt/ros/indigo/lib/librviz.so
-planner: /opt/ros/indigo/lib/librqt_image_view.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_projector.so
-planner: /opt/ros/indigo/lib/libgridfastslam.so
-planner: /opt/ros/indigo/lib/liboctomath.so
-planner: /opt/ros/indigo/lib/libclass_loader.so
-planner: /opt/ros/indigo/lib/libpano_core.so
-planner: /opt/ros/indigo/lib/liboctomath.so.1.6
-planner: /opt/ros/indigo/lib/libecl_devices.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_force.so
-planner: /opt/ros/indigo/lib/libpcl_ros_features.so
-planner: /opt/ros/indigo/lib/libkobuki_random_walker_nodelet.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_range.so
-planner: /opt/ros/indigo/lib/libimage_geometry.so
-planner: /opt/ros/indigo/lib/libkobuki_auto_docking_ros.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_joint_pose_trajectory.so
-planner: /opt/ros/indigo/lib/libopencv_apps.so
-planner: /opt/ros/indigo/lib/libcamera_info_manager.so
-planner: /opt/ros/indigo/lib/libkobuki_dock_drive.so
-planner: /opt/ros/indigo/lib/librosbag.so
-planner: /opt/ros/indigo/lib/liboctomap.so.1.6.9
-planner: /opt/ros/indigo/lib/liblaser_scan_filters.so
-planner: /opt/ros/indigo/lib/libtrajectory_planner_ros.so
 planner: /opt/ros/indigo/lib/libtopic_tools.so
-planner: /opt/ros/indigo/lib/liblaser_geometry.so
-planner: /opt/ros/indigo/lib/libdynamic_reconfigure_config_init_mutex.so
-planner: /opt/ros/indigo/lib/libtheora_image_transport.so
-planner: /opt/ros/indigo/lib/libpcl_ros_io.so
-planner: /opt/ros/indigo/lib/libfreenect.so.0.5.1
-planner: /opt/ros/indigo/lib/libgazebo_ros_tricycle_drive.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_camera_utils.so
-planner: /opt/ros/indigo/lib/libcollada_parser.so
-planner: /opt/ros/indigo/lib/liblayers.so
-planner: /opt/ros/indigo/lib/libyocs_cmd_vel_mux_nodelet.so
-planner: /opt/ros/indigo/lib/liborocos-kdl.so.1.3.0
-planner: /opt/ros/indigo/lib/librqt_rviz.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_api_plugin.so
-planner: /opt/ros/indigo/lib/libroscpp_serialization.so
-planner: /opt/ros/indigo/lib/libresource_retriever.so
-planner: /opt/ros/indigo/lib/libimage_proc.so
-planner: /opt/ros/indigo/lib/libkobuki_ros.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_skid_steer_drive.so
-planner: /opt/ros/indigo/lib/libamcl_sensors.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_openni_kinect.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_gpu_laser.so
-planner: /opt/ros/indigo/lib/libtf2_ros.so
-planner: /opt/ros/indigo/lib/libbondcpp.so
-planner: /opt/ros/indigo/lib/liborocos-kdl.so.1.3
-planner: /opt/ros/indigo/lib/libgazebo_ros_depth_camera.so
-planner: /opt/ros/indigo/lib/librostime.so
-planner: /opt/ros/indigo/lib/libcamera_calibration_parsers.so
-planner: /opt/ros/indigo/lib/libcompressed_image_transport.so
-planner: /opt/ros/indigo/lib/libeigen_conversions.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_block_laser.so
-planner: /opt/ros/indigo/lib/libamcl_pf.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_imu.so
-planner: /opt/ros/indigo/lib/libturtlebot_follower.so
-planner: /opt/ros/indigo/lib/librosbag_storage.so
-planner: /opt/ros/indigo/lib/libecl_formatters.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_joint_trajectory.so
-planner: /opt/ros/indigo/lib/libmove_base.so
-planner: /opt/ros/indigo/lib/libimage_transport.so
-planner: /opt/ros/indigo/lib/libopenni2_driver_lib.so
-planner: /opt/ros/indigo/lib/libcpp_common.so
-planner: /opt/ros/indigo/lib/libkobuki_nodelet.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_planar_move.so
-planner: /opt/ros/indigo/lib/libqt_gui_cpp.so
-planner: /opt/ros/indigo/lib/libvoxel_grid.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_prosilica.so
-planner: /opt/ros/indigo/lib/libimage_view.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_f3d.so
-planner: /opt/ros/indigo/lib/libgazebo_ros_laser.so
-planner: /opt/ros/indigo/lib/libfreenect_sync.so.0.5
-planner: /opt/ros/indigo/lib/librosconsole_bridge.so
-planner: /opt/ros/indigo/lib/librotate_recovery.so
 planner: /opt/ros/indigo/lib/libecl_geometry.so
+planner: /opt/ros/indigo/lib/librosbag_storage.so
+planner: /opt/ros/indigo/lib/libcamera_calibration_parsers.so
+planner: /opt/ros/indigo/lib/libtheora_image_transport.so
+planner: /opt/ros/indigo/lib/libecl_threads.so
+planner: /opt/ros/indigo/lib/libopenni2_driver_lib.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_paths_plugin.so
+planner: /opt/ros/indigo/lib/libbondcpp.so
+planner: /opt/ros/indigo/lib/libfreenect_sync.so
+planner: /opt/ros/indigo/lib/libmessage_filters.so
+planner: /opt/ros/indigo/lib/libecl_streams.so
+planner: /opt/ros/indigo/lib/libcompressed_depth_image_transport.so
+planner: /opt/ros/indigo/lib/liboctomath.so.1.6.8
+planner: /opt/ros/indigo/lib/libstdr_server.so
+planner: /opt/ros/indigo/lib/libstdr_microphone_sensor.so
+planner: /opt/ros/indigo/lib/libkobuki_dock_drive.so
+planner: /opt/ros/indigo/lib/libkdl_conversions.so
+planner: /opt/ros/indigo/lib/librqt_image_view.so
+planner: /opt/ros/indigo/lib/libfreenect_nodelet.so
+planner: /opt/ros/indigo/lib/libpcl_ros_surface.so
+planner: /opt/ros/indigo/lib/liborocos-bfl.so
+planner: /opt/ros/indigo/lib/libcpp_common.so
+planner: /opt/ros/indigo/lib/libsensor_range.so
+planner: /opt/ros/indigo/lib/libDepthImageToLaserScan.so
+planner: /opt/ros/indigo/lib/libkobuki_bumper2pc_nodelet.so
+planner: /opt/ros/indigo/lib/libtransfer_function.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_diff_drive.so
+planner: /opt/ros/indigo/lib/libstdr_parser.so
+planner: /opt/ros/indigo/lib/libpcl_ros_tf.so
+planner: /opt/ros/indigo/lib/librosbag.so
+planner: /opt/ros/indigo/lib/libqt_gui_cpp.so
+planner: /opt/ros/indigo/lib/libkdl_parser.so
+planner: /opt/ros/indigo/lib/libcamera_info_manager.so
+planner: /opt/ros/indigo/lib/libtf2_ros.so
+planner: /opt/ros/indigo/lib/libpcl_ros_features.so
+planner: /opt/ros/indigo/lib/libmove_slow_and_clear.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_projector.so
+planner: /opt/ros/indigo/lib/libtrajectory_planner_ros.so
+planner: /opt/ros/indigo/lib/libdynamic_reconfigure_config_init_mutex.so
+planner: /opt/ros/indigo/lib/libamcl_pf.so
+planner: /opt/ros/indigo/lib/libxmlrpcpp.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_skid_steer_drive.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_utils.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_hand_of_god.so
+planner: /opt/ros/indigo/lib/libstdr_laser.so
+planner: /opt/ros/indigo/lib/libimage_geometry.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_prosilica.so
+planner: /opt/ros/indigo/lib/libstdr_ideal_motion_controller.so
+planner: /opt/ros/indigo/lib/libyocs_velocity_smoother_nodelet.so
+planner: /opt/ros/indigo/lib/librosconsole_log4cxx.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_kobuki.so
+planner: /opt/ros/indigo/lib/libimage_loader.so
+planner: /opt/ros/indigo/lib/libnavfn.so
+planner: /opt/ros/indigo/lib/libecl_errors.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_joint_trajectory.so
+planner: /opt/ros/indigo/lib/libcv_bridge.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_openni_kinect.so
+planner: /opt/ros/indigo/lib/libpointcloud_filters.so
+planner: /opt/ros/indigo/lib/libmove_base.so
+planner: /opt/ros/indigo/lib/libeigen_conversions.so
+planner: /opt/ros/indigo/lib/libstage.so
+planner: /opt/ros/indigo/lib/libopenni_driver.so
+planner: /opt/ros/indigo/lib/libpluginlib_tutorials.so
+planner: /opt/ros/indigo/lib/libopenni_nodelet.so
+planner: /opt/ros/indigo/lib/libstdr_map_server.so
+planner: /opt/ros/indigo/lib/libcollada_parser.so
+planner: /opt/ros/indigo/lib/libecl_formatters.so
+planner: /opt/ros/indigo/lib/libroscpp_serialization.so
+planner: /opt/ros/indigo/lib/librobot_state_publisher_solver.so
+planner: /opt/ros/indigo/lib/libparams.so
+planner: /opt/ros/indigo/lib/libkobuki_auto_docking_nodelet.so
+planner: /opt/ros/indigo/lib/libbase_local_planner.so
+planner: /opt/ros/indigo/lib/libimage_proc.so
+planner: /opt/ros/indigo/lib/librqt_rviz.so
+planner: /opt/ros/indigo/lib/libecl_type_traits.so
+planner: /opt/ros/indigo/lib/libDepthImageToLaserScanNodelet.so
+planner: /opt/ros/indigo/lib/libcollada_parser_plugin.so
+planner: /opt/ros/indigo/lib/libstdr_map_loader.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_joint_pose_trajectory.so
+planner: /opt/ros/indigo/lib/libstdr_sensor_base.so
+planner: /opt/ros/indigo/lib/libpointcloud_to_laserscan.so
+planner: /opt/ros/indigo/lib/libpolled_camera.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_video.so
+planner: /opt/ros/indigo/lib/libtf_conversions.so
+planner: /opt/ros/indigo/lib/libresource_retriever.so
+planner: /opt/ros/indigo/lib/libsensor_base.so
+planner: /opt/ros/indigo/lib/libglobal_planner.so
+planner: /opt/ros/indigo/lib/libimage_view.so
+planner: /opt/ros/indigo/lib/libfreenect_sync.so.0.5.1
+planner: /opt/ros/indigo/lib/libgazebo_ros_imu.so
+planner: /opt/ros/indigo/lib/libkobuki_safety_controller_nodelet.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_force.so
+planner: /opt/ros/indigo/lib/libecl_linear_algebra.so
+planner: /opt/ros/indigo/lib/libimage_transport.so
+planner: /opt/ros/indigo/lib/libopencv_apps.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_depth_camera.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_f3d.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_ft_sensor.so
+planner: /opt/ros/indigo/lib/libnodeletlib.so
+planner: /opt/ros/indigo/lib/librosconsole_backend_interface.so
+planner: /opt/ros/indigo/lib/liboctomap.so.1.6.8
+planner: /opt/ros/indigo/lib/libstdr_handle_robot.so
+planner: /opt/ros/indigo/lib/libDepthImageToLaserScanROS.so
+planner: /opt/ros/indigo/lib/liboctomath.so
+planner: /opt/ros/indigo/lib/librostime.so
+planner: /opt/ros/indigo/lib/libcarrot_planner.so
+planner: /opt/ros/indigo/lib/liblayers.so
+planner: /opt/ros/indigo/lib/libcollada_urdf.so
+planner: /opt/ros/indigo/lib/libactionlib.so
+planner: /opt/ros/indigo/lib/libpcl_ros_io.so
+planner: /opt/ros/indigo/lib/libzeroconf_avahi.so
+planner: /opt/ros/indigo/lib/libtf2.so
+planner: /opt/ros/indigo/lib/libkobuki_random_walker_nodelet.so
+planner: /opt/ros/indigo/lib/libnodelet_math.so
+planner: /opt/ros/indigo/lib/libstereo_image_proc.so
+planner: /opt/ros/indigo/lib/liboctomap.so
+planner: /opt/ros/indigo/lib/libstage.so.4.1.1
+planner: /opt/ros/indigo/lib/libcompressed_image_transport.so
+planner: /opt/ros/indigo/lib/libMultiCameraPlugin.so
+planner: /opt/ros/indigo/lib/liblaser_geometry.so
+planner: /opt/ros/indigo/lib/liborocos-kdl.so.1.3.0
+planner: /opt/ros/indigo/lib/libclear_costmap_recovery.so
 planner: /opt/ros/indigo/lib/libincrement.so
+planner: /opt/ros/indigo/lib/libecl_devices.so
+planner: /opt/ros/indigo/lib/libkobuki.so
+planner: /opt/ros/indigo/lib/libdepth_image_proc.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_template.so
+planner: /opt/ros/indigo/lib/libecl_time.so
+planner: /opt/ros/indigo/lib/libecl_time_lite.so
+planner: /opt/ros/indigo/lib/libkobuki_auto_docking_ros.so
+planner: /opt/ros/indigo/lib/libclass_loader.so
+planner: /opt/ros/indigo/lib/librviz_plugin_tutorials.so
+planner: /opt/ros/indigo/lib/libgridfastslam.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_joint_state_publisher.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_camera.so
+planner: /opt/ros/indigo/lib/liborocos-kdl.so.1.3
+planner: /opt/ros/indigo/lib/libscanmatcher.so
+planner: /opt/ros/indigo/lib/librotate_recovery.so
+planner: /opt/ros/indigo/lib/libpcl_ros_filters.so
+planner: /opt/ros/indigo/lib/libdiagnostic_aggregator.so
+planner: /opt/ros/indigo/lib/libkobuki_nodelet.so
+planner: /opt/ros/indigo/lib/liblaser_scan_filters.so
+planner: /opt/ros/indigo/lib/libsensor_odometry.so
+planner: /opt/ros/indigo/lib/libamcl_sensors.so
+planner: /opt/ros/indigo/lib/librosconsole_bridge.so
+planner: /opt/ros/indigo/lib/libfreenect.so.0.5
+planner: /opt/ros/indigo/lib/liborocos-kdl.so
 planner: /opt/ros/indigo/lib/libopenni2_wrapper.so
 planner: /opt/ros/indigo/lib/libimage_transport_plugins.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_block_laser.so
+planner: /opt/ros/indigo/lib/libroslib.so
+planner: /opt/ros/indigo/lib/libstdr_sonar.so
+planner: /opt/ros/indigo/lib/libimage_rotate.so
+planner: /opt/ros/indigo/lib/libvoxel_grid.so
+planner: /opt/ros/indigo/lib/liboctomath.so.1.6
 planner: /opt/ros/indigo/lib/libmean.so
-planner: /opt/ros/indigo/lib/libtf2.so
-planner: /opt/ros/indigo/lib/libzeroconf_avahi.so
-planner: /opt/ros/indigo/lib/liborocos-bfl.so
-planner: /opt/ros/indigo/lib/librobot_state_publisher_solver.so
+planner: /opt/ros/indigo/lib/liboctomap.so.1.6
+planner: /opt/ros/indigo/lib/libpcl_ros_segmentation.so
+planner: /opt/ros/indigo/lib/libroscpp.so
+planner: /opt/ros/indigo/lib/libfreenect_sync.so.0.5
+planner: /opt/ros/indigo/lib/libecl_mobile_robot.so
+planner: /opt/ros/indigo/lib/libamcl_map.so
+planner: /opt/ros/indigo/lib/libcostmap_2d.so
+planner: /opt/ros/indigo/lib/libmedian.so
+planner: /opt/ros/indigo/lib/librqt_gui_cpp.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_gpu_laser.so
+planner: /opt/ros/indigo/lib/librandom_numbers.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_tricycle_drive.so
+planner: /opt/ros/indigo/lib/libstdr_robot_nodelet.so
+planner: /opt/ros/indigo/lib/librospack.so
+planner: /opt/ros/indigo/lib/libstdr_rfid_reader.so
+planner: /opt/ros/indigo/lib/libecl_exceptions.so
+planner: /opt/ros/indigo/lib/libvision_reconfigure.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_laser.so
+planner: /opt/ros/indigo/lib/librviz.so
+planner: /opt/ros/indigo/lib/libroslz4.so
+planner: /opt/ros/indigo/lib/libyocs_math_toolkit.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_range.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_bumper.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_api_plugin.so
+planner: /opt/ros/indigo/lib/liburdf.so
+planner: /opt/ros/indigo/lib/libdefault_plugin.so
+planner: /opt/ros/indigo/lib/libtf.so
+planner: /opt/ros/indigo/lib/libutils.so
+planner: /opt/ros/indigo/lib/libyocs_cmd_vel_mux_nodelet.so
+planner: /opt/ros/indigo/lib/libdwa_local_planner.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_p3d.so
+planner: /opt/ros/indigo/lib/libkobuki_ros.so
+planner: /opt/ros/indigo/lib/libstdr_co2_sensor.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_planar_move.so
+planner: /opt/ros/indigo/lib/libgazebo_ros_multicamera.so
+planner: /opt/ros/indigo/lib/libopenni2_camera_nodelet.so
+planner: /opt/ros/indigo/lib/libgeometric_shapes.so
+planner: /opt/ros/indigo/lib/libstdr_thermal_sensor.so
+planner: /opt/ros/indigo/lib/libfreenect.so
+planner: /opt/ros/indigo/lib/libinteractive_markers.so
+planner: /opt/ros/indigo/lib/libfreenect.so.0.5.1
+planner: /opt/ros/indigo/lib/libgazebo_ros_camera_utils.so
 planner: CMakeFiles/planner.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable planner"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/planner.dir/link.txt --verbose=$(VERBOSE)
@@ -305,6 +323,6 @@ CMakeFiles/planner.dir/clean:
 .PHONY : CMakeFiles/planner.dir/clean
 
 CMakeFiles/planner.dir/depend:
-	cd /home/matthew/CSC232/Lab5/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5 /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build /home/matthew/CSC232/Lab5/build/CMakeFiles/planner.dir/DependInfo.cmake --color=$(COLOR)
+	cd /tmp/guest-HcCDfM/csc232/Lab5/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /tmp/guest-HcCDfM/csc232/Lab5 /tmp/guest-HcCDfM/csc232/Lab5 /tmp/guest-HcCDfM/csc232/Lab5/build /tmp/guest-HcCDfM/csc232/Lab5/build /tmp/guest-HcCDfM/csc232/Lab5/build/CMakeFiles/planner.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/planner.dir/depend
 

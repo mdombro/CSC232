@@ -162,18 +162,35 @@ void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
 // locate the feature from given LaserScan and update the feature vector z
 void Localizer::findFeature() {
     float beamAngle = minAngle;
-
+    vector<vector<float>> rangeS;
+    vector<vector<float>> bearingS;
     float min[2] = {scans[0], beamAngle};
     for (int i = 0; i < scans.size(); i++) {
-        if (scans[i] != scans[i]) {
-            continue;
-        }
-        if (scans[i] < min[0]) {
-            min[0] = scans[i];
-            min[1] = beamAngle;
-        }
+	for (int t = 0; t < 6; t++) {
+		if (abs(scans[i] - zest[o](0)) < 4*St[o](0,0)) {
+			rangeS[t].push_back(scans[i]);
+			bearingS[t].push_back(beamAngle);
+		}
+	}
+        //if (scans[i] != scans[i]) {
+        //    continue;
+        //}
+        //if (scans[i] < min[0]) {
+        //    min[0] = scans[i];
+        //    min[1] = beamAngle;
+        //}
         beamAngle += angleIncrement;
     }
+	vector<float> minR = ramgeS[0][0];
+	vector<float> minA = bearing
+	for (int u = 0; u < 6; u++) {
+		for (int g = 0; g < rangeS[u].size(); g++) {
+			if (rangeS[u][g] < min) {
+				minR = rangeS[u][g];
+				minA = bearingS[u][g];
+			}
+		}
+	}
     if (min[0] > 2.5) {  // skip if past 2.5 meter threshold
         z(0) = -1000;
         z(1) = -1000;

@@ -6,26 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/matthew/CSC232/Lab5/node.h
-
-/home/matthew/CSC232/Lab5/planner.cpp
-geometry_msgs/Polygon.h
-/home/matthew/CSC232/Lab5/geometry_msgs/Polygon.h
-geometry_msgs/Point.h
-/home/matthew/CSC232/Lab5/geometry_msgs/Point.h
-point.h
-/home/matthew/CSC232/Lab5/point.h
-node.h
-/home/matthew/CSC232/Lab5/node.h
-iostream
--
-ros/ros.h
--
-geometry_msgs/PoseWithCovariance.h
-/home/matthew/CSC232/Lab5/geometry_msgs/PoseWithCovariance.h
-
-/home/matthew/CSC232/Lab5/point.h
-
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
 -
@@ -771,4 +751,28 @@ ros/forwards.h
 /opt/ros/indigo/include/ros/ros/forwards.h
 
 /opt/ros/indigo/include/rosconsole/macros_generated.h
+
+/tmp/guest-HcCDfM/csc232/Lab5/node.h
+
+/tmp/guest-HcCDfM/csc232/Lab5/planner.cpp
+geometry_msgs/Polygon.h
+/tmp/guest-HcCDfM/csc232/Lab5/geometry_msgs/Polygon.h
+geometry_msgs/Point.h
+/tmp/guest-HcCDfM/csc232/Lab5/geometry_msgs/Point.h
+point.h
+/tmp/guest-HcCDfM/csc232/Lab5/point.h
+node.h
+/tmp/guest-HcCDfM/csc232/Lab5/node.h
+iostream
+-
+ros/ros.h
+-
+geometry_msgs/PoseWithCovariance.h
+/tmp/guest-HcCDfM/csc232/Lab5/geometry_msgs/PoseWithCovariance.h
+
+/tmp/guest-HcCDfM/csc232/Lab5/point.cpp
+point.h
+/tmp/guest-HcCDfM/csc232/Lab5/point.h
+
+/tmp/guest-HcCDfM/csc232/Lab5/point.h
 
