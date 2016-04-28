@@ -18,17 +18,16 @@ float distanceP(Point & A, Point & B);
 void handle_local(const geometry_msgs::PoseWithCovariance::ConstPtr& msg);
 float distanceP(Point & A, Point & B);
 Point mu(0,0);
-//int prevCmd = 4;
 
 vector<Point> pathAstar;
 float coneExpansion = 0.40;
-int goalNum = 0;
-Point goal(0,0);  // set by exec
-Point start(0,0);  // set by exec
-float goalThresh = 0.001;
-float GoalThresh = 0.4;
+int goalNum = 0;    // keep track of goal number
+Point goal(0,0);
+Point start(0,0);
+float goalThresh = 0.001;  // to allow for float inaccuracies
+float GoalThresh = 0.4;    // Radial distance for when to compute the next path
 float gridDisc = 0.25;
-float closedNodeThresh = 0.001;
+float closedNodeThresh = 0.001;   // essentially same as goalThresh, just used in a different part of code
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "planner");
@@ -97,11 +96,9 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
     int cost;
     while (openList.size() != 0) {
         Node *current = openList[0];
-        //cout << "Current: " << (*current).location.x << " " << (*current).location.y << endl;
         openList.erase(openList.begin());
         (*current).visited = true;
         closedList.push_back(current);
-        //cout << abs((*current).location.x - goal.x) << " " << abs((*current).location.y - goal.y) << endl;
         if ( abs((*current).location.x - goal.x) < goalThresh && abs((*current).location.y - goal.y) < goalThresh) break;
         for (int i = 0; i < 8; i++) {
             Node* neighbor = new Node(getLoc((*current).location, i));
@@ -111,24 +108,22 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
                 if (distanceP((*neighbor).location, (*tmp).location) < closedNodeThresh) {
                     (*neighbor).visited = true;
                 }
-            }
+            }  // inefficient but restricts nodes being double expanded - A* will not converge otherwise
             if (!(*neighbor).visited) {
                 if (cost < (*neighbor).cost) {
-                    cout << "Heuristic: " << heuristic(*neighbor, goal) << endl;
                     (*neighbor).priority = cost + heuristic(*neighbor, goal);
                     (*neighbor).cost = cost;
                     (*neighbor).from = current;
                     openList.push_back(neighbor);
-                    std::sort(openList.begin(), openList.end(), Sort);
                 }
             }
+            std::sort(openList.begin(), openList.end(), Sort);
         }
     }
-    cout << "Does A* exit" << endl;
     vector<Point> path;
     Node* travel = closedList[closedList.size()-1];
     while ((*travel).from != NULL) {
-        cout << "Path reconstruct: " << (*travel).location.x << " " << (*travel).location.y << endl;
+        //cout << "Path reconstruct: " << (*travel).location.x << " " << (*travel).location.y << endl;
         path.push_back((*travel).location);
         travel = (*travel).from;
     }
@@ -139,24 +134,20 @@ vector<Point> Astar(Point start, Point goal, int goalNum) {
 
 int heuristic(Node neighbor, Point goal) {
     float h;
+    // equation for diaganol distance found at:
+    // http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+    // where D1 = 1
+    // D2 = sqrt(2)
     int dx = (int)(abs(neighbor.location.x - goal.x)/gridDisc);
     int dy = (int)(abs(neighbor.location.y - goal.y)/gridDisc);
-    cout << "dx: " << dx << " dy: " << dy << endl;
     h = (dx +dy)+(sqrt(2)-2)*min(dx, dy);
-    //h *= (1.0 + 1.0/30.0);
+    //h *= (1.0 + 1.0/30.0);  // makes the heuristic inadmissable
+                              //  but can potentially make the path straighter
     return h;
 }
 
 int min(int a, int b) {
     return (a < b) ? a : b;
-}
-
-Node* inSet(Node neighbor, vector<Node> set) {
-    for (int i = 0; i < set.size(); i++) {
-        if (abs(neighbor.location.x - set[i].location.x) < goalThresh && abs(neighbor.location.y - set[i].location.y) < goalThresh)
-            return &set[i];
-    }
-    return NULL;
 }
 
 bool Sort(Node* a, Node* b) {

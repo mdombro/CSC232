@@ -4,6 +4,7 @@
 CMakeFiles/ros_subscriber.dir/ros_subscriber_cmdline.c.o: ros_subscriber_cmdline.c
 CMakeFiles/ros_subscriber.dir/ros_subscriber_cmdline.c.o: ros_subscriber_cmdline.h
 
+CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: ../ros_subscriber.cpp
 CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: /opt/ros/indigo/include/XmlRpcDecl.h
 CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: /opt/ros/indigo/include/XmlRpcValue.h
 CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: /opt/ros/indigo/include/geometry_msgs/Point.h
@@ -70,5 +71,4 @@ CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: /opt/ros/indigo/include/ros/
 CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: /opt/ros/indigo/include/rosconsole/macros_generated.h
 CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: /opt/ros/indigo/include/sensor_msgs/LaserScan.h
 CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
-CMakeFiles/ros_subscriber.dir/ros_subscriber.cpp.o: ../ros_subscriber.cpp
 

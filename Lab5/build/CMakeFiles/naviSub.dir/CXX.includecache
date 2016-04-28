@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/home/matthew/CSC232/Lab5/naviSub.cpp
+iostream
+-
+ros/ros.h
+-
+geometry_msgs/Twist.h
+/home/matthew/CSC232/Lab5/geometry_msgs/Twist.h
+naviSub_cmdline.h
+/home/matthew/CSC232/Lab5/naviSub_cmdline.h
+
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
 -
@@ -683,16 +693,6 @@ ros/forwards.h
 /opt/ros/indigo/include/ros/ros/forwards.h
 
 /opt/ros/indigo/include/rosconsole/macros_generated.h
-
-/tmp/guest-Ni8rM1/CSC232/Lab5/naviSub.cpp
-iostream
--
-ros/ros.h
--
-geometry_msgs/Twist.h
-/tmp/guest-Ni8rM1/CSC232/Lab5/geometry_msgs/Twist.h
-naviSub_cmdline.h
-/tmp/guest-Ni8rM1/CSC232/Lab5/naviSub_cmdline.h
 
 naviSub_cmdline.h
 config.h

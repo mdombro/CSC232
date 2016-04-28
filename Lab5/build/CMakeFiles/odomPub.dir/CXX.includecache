@@ -6,6 +6,26 @@
 
 #IncludeRegexTransform: 
 
+/home/matthew/CSC232/Lab5/odomPub.cpp
+iostream
+-
+ros/ros.h
+-
+math.h
+-
+nav_msgs/Odometry.h
+/home/matthew/CSC232/Lab5/nav_msgs/Odometry.h
+sensor_msgs/LaserScan.h
+/home/matthew/CSC232/Lab5/sensor_msgs/LaserScan.h
+std_msgs/Empty.h
+/home/matthew/CSC232/Lab5/std_msgs/Empty.h
+geometry_msgs/Twist.h
+/home/matthew/CSC232/Lab5/geometry_msgs/Twist.h
+odomPub_cmdline.h
+/home/matthew/CSC232/Lab5/odomPub_cmdline.h
+vector
+-
+
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
 -
@@ -842,26 +862,6 @@ ros/serialization.h
 ros/builtin_message_traits.h
 -
 ros/message_operations.h
--
-
-/tmp/guest-Ni8rM1/CSC232/Lab5/odomPub.cpp
-iostream
--
-ros/ros.h
--
-math.h
--
-nav_msgs/Odometry.h
-/tmp/guest-Ni8rM1/CSC232/Lab5/nav_msgs/Odometry.h
-sensor_msgs/LaserScan.h
-/tmp/guest-Ni8rM1/CSC232/Lab5/sensor_msgs/LaserScan.h
-std_msgs/Empty.h
-/tmp/guest-Ni8rM1/CSC232/Lab5/std_msgs/Empty.h
-geometry_msgs/Twist.h
-/tmp/guest-Ni8rM1/CSC232/Lab5/geometry_msgs/Twist.h
-odomPub_cmdline.h
-/tmp/guest-Ni8rM1/CSC232/Lab5/odomPub_cmdline.h
-vector
 -
 
 odomPub_cmdline.h

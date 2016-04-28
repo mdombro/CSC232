@@ -39,7 +39,7 @@ struct gengetopt_args_info
 {
   const char *help_help; /**< @brief Print help and exit help description.  */
   const char *version_help; /**< @brief Print version and exit help description.  */
-  double coneRadii_arg;	/**< @brief v (default='0.1').  */
+  double coneRadii_arg;	/**< @brief v (default='0.03').  */
   char * coneRadii_orig;	/**< @brief v original value given at command line.  */
   const char *coneRadii_help; /**< @brief v help description.  */
   

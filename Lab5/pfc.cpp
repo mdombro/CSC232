@@ -21,23 +21,21 @@ Point findClosestPoint(Point A, Point B, Point mu);
 void handle_path(const geometry_msgs::Polygon::ConstPtr& msg);
 float runPurePursuit();
 
-float Wthresh = 0.1;
-float maxAngularVelocity = M_PI;
+float Wthresh = 0.1;   // radial expansion around waypoints
+float maxAngularVelocity = M_PI;   // maximum angular velocity of the turtlebot
 float lookAheadDistance = 0.17;
 float linearVelocity = 0.1;
-float linVel;
+float linVel;  // separate variable - used for when the robot is commanded to stop
 float angularVelocity;
 Point lookahead(0,0);
 Point Mu(0,0);
 float quaternion[4] = {0,0,0,1};
-float discResolution = 40.0;
-float lookAheadThresh = 0.05;
-int segment = 1;
+float discResolution = 40.0;   // how many sub segments each path segment is divided into
+float lookAheadThresh = 0.05;   // margin for the lookahead distance
+int segment = 1;   // to keep track of what segment of the path robot is on
 
-vector<float> oldPath_x;
 vector<float> path_x;
 vector<float> path_y;
-vector<int> passed;
 
 int main(int argc, char** argv) {
     init(argc, argv, "pfc");

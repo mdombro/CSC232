@@ -4,6 +4,7 @@
 CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o: ros_publisher_cmdline.c
 CMakeFiles/ros_publisher.dir/ros_publisher_cmdline.c.o: ros_publisher_cmdline.h
 
+CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: ../ros_publisher.cpp
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: /opt/ros/indigo/include/XmlRpcDecl.h
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: /opt/ros/indigo/include/XmlRpcValue.h
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: /opt/ros/indigo/include/geometry_msgs/Twist.h
@@ -62,6 +63,5 @@ CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: /opt/ros/indigo/include/ros/ty
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: /opt/ros/indigo/include/ros/wall_timer.h
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: /opt/ros/indigo/include/ros/wall_timer_options.h
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: /opt/ros/indigo/include/rosconsole/macros_generated.h
-CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: ../ros_publisher.cpp
 CMakeFiles/ros_publisher.dir/ros_publisher.cpp.o: ros_publisher_cmdline.h
 

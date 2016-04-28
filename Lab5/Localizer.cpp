@@ -13,7 +13,6 @@
 using namespace std;
 
 Point toGlobal(float range, float bearing, Eigen::RowVector3f mu);
-// Point toLocal(Point beamend, Eigen::RowVector3f mu);
 float distanceP(Point & A, Point & B);
 
 Localizer::Localizer() {
@@ -163,6 +162,7 @@ void Localizer::EKF() {
     quaternion[3] = sin(mu(2)/2);
 }
 
+
 void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
     minAngle = msg->angle_min;
     maxRange = msg->range_max;
@@ -173,32 +173,31 @@ void Localizer::handleScans(const sensor_msgs::LaserScan::ConstPtr& msg) {
     }
 }
 
-//void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
-	//u(0) = msg->linear.x;
-	//u(1) = msg->angular.z + 0.00001;
-//}
-
-void Localizer::cmdUpdate(const nav_msgs::Odometry::ConstPtr& msg) {
-	u(0) = msg->twist.twist.linear.x;
-	u(1) = msg->twist.twist.angular.z + 0.00001;
+// when listening to the commands from the PFC
+void Localizer::cmdUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
+	u(0) = msg->linear.x;
+	u(1) = msg->angular.z + 0.00001;
 }
+
+// listening to commands from the robot
+// void Localizer::cmdUpdate(const nav_msgs::Odometry::ConstPtr& msg) {
+// 	u(0) = msg->twist.twist.linear.x;
+// 	u(1) = msg->twist.twist.angular.z + 0.00001;
+// }
 
 // locate the feature from given LaserScan and update the feature vector z
 void Localizer::findFeature() {
     float beamAngle = minAngle;
     vector<Point> endbeams;
     float bx, by;
-    //Point bend;
     for (int i = 0; i < scans.size(); i++) {
         if (scans[i] < 0.4 || scans[i] > 5.0) {beamAngle++; continue;}
         Point bend = toGlobal(scans[i], beamAngle, Localizer::mu);
-        //if (i == 0) cout << bend.x << " " << bend.y << endl;
         endbeams.push_back(bend);
         beamAngle += angleIncrement;
     }
     vector<vector<Point> > potentialBeams;
     potentialBeams.resize(6);
-    //corr.resize(6);
     for (int o = 0; o < endbeams.size(); o++) {
         for (int g = 0; g < 6; g++) {
             Point cone(Mx[g],My[g]);
@@ -231,7 +230,6 @@ void Localizer::findFeature() {
             Point Mu(Localizer::mu(0), Localizer::mu(1));
             float range = distanceP(minsP[f], Mu) + coneRadii;
             float bearing = atan2(minsP[f].y - Localizer::mu(1), minsP[f].x - Localizer::mu(0)) - Localizer::mu(2);
-            //(minsP[f].x-Localizer::mu(0))*sin(Localizer::mu(2))+(minsP[f].y-Localizer::mu(1))*cos(Localizer::mu(2));
             z[f](0) = range;
             z[f](1) = bearing;
             z[f](2) = f;
@@ -242,7 +240,6 @@ void Localizer::findFeature() {
             z[f](1) = -1000;
             z[f](2) = f;
         }
-        //if (minsP.size() != 0) cout << " " << minsP[f].x << " " << minsP[f].y;
     }
     cout << endl;
 
@@ -314,12 +311,6 @@ Point toGlobal(float range, float bearing, Eigen::RowVector3f mu) {
     return G;
 }
 
-// Point toLocal(Point beamend, Eigen::RowVector3f mu) {
-//     Point Mu(mu(0), mu(1));
-//     float range = distanceP(beamend, Mu);
-//     float bearing = atan2(beamend.x - mu(1), beamend.y - mu(0)) - mu(2);
-//     return Point(Gx, Gy);
-// }
 
 float distanceP(Point & A, Point & B) {
     return sqrt(pow(A.x-B.x,2) + pow(A.y-B.y,2));
